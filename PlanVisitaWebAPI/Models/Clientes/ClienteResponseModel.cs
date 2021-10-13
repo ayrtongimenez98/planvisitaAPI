@@ -9,7 +9,7 @@ namespace PlanVisitaWebAPI.Models
     public class ClienteResponseModel
     {
         public Cliente Cliente { get; set; }
-        public PaginationModel<Sucursal> Sucursales { get; set; }
+        public PaginationModel<DB.Sucursal> Sucursales { get; set; }
 
     }
 }

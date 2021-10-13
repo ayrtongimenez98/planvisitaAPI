@@ -24,5 +24,7 @@ namespace PlanVisitaWebAPI.DB
         public int ObjetivoVisita_Id { get; set; }
         public System.DateTime PlanVisita_FechaCreacion { get; set; }
         public System.DateTime PlanVisita_FechaLastUpdate { get; set; }
+    
+        public virtual ObjetivoVisita ObjetivoVisita { get; set; }
     }
 }

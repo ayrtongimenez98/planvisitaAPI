@@ -14,10 +14,23 @@ namespace PlanVisitaWebAPI.DB
     
     public partial class Division
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Division()
+        {
+            this.Zona = new HashSet<Zona>();
+            this.JefeVentas = new HashSet<JefeVentas>();
+        }
+    
         public int Division_Id { get; set; }
         public string Division_Nombre { get; set; }
         public int Empresa_Id { get; set; }
         public System.DateTime Division_FechaCreacion { get; set; }
         public System.DateTime Division_FechaLastUpdate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Zona> Zona { get; set; }
+        public virtual Empresa Empresa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JefeVentas> JefeVentas { get; set; }
     }
 }

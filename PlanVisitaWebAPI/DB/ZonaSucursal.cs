@@ -18,5 +18,8 @@ namespace PlanVisitaWebAPI.DB
         public int Sucursal_Id { get; set; }
         public string ZonaSucursalEstado { get; set; }
         public int ZonaSucursalCantidad_Visitas { get; set; }
+    
+        public virtual Sucursal Sucursal { get; set; }
+        public virtual Zona Zona { get; set; }
     }
 }

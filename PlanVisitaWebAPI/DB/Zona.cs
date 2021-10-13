@@ -14,8 +14,21 @@ namespace PlanVisitaWebAPI.DB
     
     public partial class Zona
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Zona()
+        {
+            this.VendedorZona = new HashSet<VendedorZona>();
+            this.ZonaSucursal = new HashSet<ZonaSucursal>();
+        }
+    
         public int Zona_Id { get; set; }
         public string Zona_Descripcion { get; set; }
         public int Division_Id { get; set; }
+    
+        public virtual Division Division { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VendedorZona> VendedorZona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ZonaSucursal> ZonaSucursal { get; set; }
     }
 }

@@ -19,5 +19,7 @@ namespace PlanVisitaWebAPI.DB
         public string Usuario_Pass { get; set; }
         public int JefeVentas_Id { get; set; }
         public string Usuario1 { get; set; }
+    
+        public virtual JefeVentas JefeVentas { get; set; }
     }
 }

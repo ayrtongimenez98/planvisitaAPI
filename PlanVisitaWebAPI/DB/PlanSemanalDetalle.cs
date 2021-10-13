@@ -19,5 +19,8 @@ namespace PlanVisitaWebAPI.DB
         public int Sucursal_Id { get; set; }
         public System.DateTime PlanSemanal_Horario { get; set; }
         public int ObjetivoVisita_Id { get; set; }
+    
+        public virtual ObjetivoVisita ObjetivoVisita { get; set; }
+        public virtual PlanSemanal PlanSemanal { get; set; }
     }
 }

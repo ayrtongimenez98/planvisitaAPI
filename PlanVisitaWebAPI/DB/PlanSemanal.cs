@@ -14,10 +14,19 @@ namespace PlanVisitaWebAPI.DB
     
     public partial class PlanSemanal
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PlanSemanal()
+        {
+            this.PlanSemanalDetalle = new HashSet<PlanSemanalDetalle>();
+        }
+    
         public int PlanSemanal_Id { get; set; }
         public string PlanSemanal_Periodo { get; set; }
         public int PlanSemanal_NroSemana { get; set; }
         public int Vendedor_Id { get; set; }
         public string PlanSemanal_Estado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlanSemanalDetalle> PlanSemanalDetalle { get; set; }
     }
 }

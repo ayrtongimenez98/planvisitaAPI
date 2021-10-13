@@ -23,5 +23,8 @@ namespace PlanVisitaWebAPI.DB
         public string Visita_Observacion { get; set; }
         public string Visita_Ubicacion { get; set; }
         public System.DateTime Visita_Hora { get; set; }
+    
+        public virtual EstadoMotivo EstadoMotivo { get; set; }
+        public virtual VendedorCliente VendedorCliente { get; set; }
     }
 }

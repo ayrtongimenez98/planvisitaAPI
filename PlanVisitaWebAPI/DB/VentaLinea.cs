@@ -20,5 +20,7 @@ namespace PlanVisitaWebAPI.DB
         public string Producto_Comentario { get; set; }
         public int Linea_Cantidad { get; set; }
         public Nullable<decimal> Linea_Total { get; set; }
+    
+        public virtual Producto Producto { get; set; }
     }
 }

@@ -18,5 +18,8 @@ namespace PlanVisitaWebAPI.DB
         public int Zona_Id { get; set; }
         public string VendedorZonaEstado { get; set; }
         public string VendedorZonaPeriodo { get; set; }
+    
+        public virtual Vendedor Vendedor { get; set; }
+        public virtual Zona Zona { get; set; }
     }
 }

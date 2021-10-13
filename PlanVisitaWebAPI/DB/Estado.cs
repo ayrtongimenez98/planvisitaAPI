@@ -14,9 +14,18 @@ namespace PlanVisitaWebAPI.DB
     
     public partial class Estado
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Estado()
+        {
+            this.EstadoMotivo = new HashSet<EstadoMotivo>();
+        }
+    
         public int Estado_Id { get; set; }
         public string Estado_Nombre { get; set; }
         public System.DateTime Estado_FechaCreacion { get; set; }
         public System.DateTime Estado_FechaLastUpdate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EstadoMotivo> EstadoMotivo { get; set; }
     }
 }

@@ -19,5 +19,7 @@ namespace PlanVisitaWebAPI.DB
         public System.DateTime Notificacion_Fecha { get; set; }
         public int JefeVentas_Id { get; set; }
         public string Estado { get; set; }
+    
+        public virtual JefeVentas JefeVentas { get; set; }
     }
 }

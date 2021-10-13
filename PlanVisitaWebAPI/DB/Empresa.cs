@@ -14,9 +14,18 @@ namespace PlanVisitaWebAPI.DB
     
     public partial class Empresa
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Empresa()
+        {
+            this.Division = new HashSet<Division>();
+        }
+    
         public int Empresa_Id { get; set; }
         public string Empresa_Nombre { get; set; }
         public System.DateTime Empresa_FechaCreacion { get; set; }
         public System.DateTime Empresa_FechaLastUpdate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Division> Division { get; set; }
     }
 }

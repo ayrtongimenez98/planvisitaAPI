@@ -14,11 +14,27 @@ namespace PlanVisitaWebAPI.DB
     
     public partial class JefeVentas
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public JefeVentas()
+        {
+            this.Notificacion = new HashSet<Notificacion>();
+            this.Usuario = new HashSet<Usuario>();
+            this.Canal = new HashSet<Canal>();
+        }
+    
         public int JefeVentas_Id { get; set; }
         public string JefeVentas_Nombre { get; set; }
         public int Division_Id { get; set; }
         public string JefeVentas_Mail { get; set; }
         public System.DateTime JefeVentas_FechaCreacion { get; set; }
         public System.DateTime JefeVentas_FechaLastUpdate { get; set; }
+    
+        public virtual Division Division { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Notificacion> Notificacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuario> Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Canal> Canal { get; set; }
     }
 }
