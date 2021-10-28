@@ -56,5 +56,11 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<VisitaDual> VisitaDual { get; set; }
         public virtual DbSet<Zona> Zona { get; set; }
         public virtual DbSet<ZonaSucursal> ZonaSucursal { get; set; }
+        public virtual DbSet<V_Clientes_HBF> V_Clientes_HBF { get; set; }
+        public virtual DbSet<V_PLAN_SEMANAL> V_PLAN_SEMANAL { get; set; }
+        public virtual DbSet<V_RUTA_DIA> V_RUTA_DIA { get; set; }
+        public virtual DbSet<V_RUTA_DIA_NUEVO> V_RUTA_DIA_NUEVO { get; set; }
+        public virtual DbSet<V_Visitas_Detalle> V_Visitas_Detalle { get; set; }
+        public virtual DbSet<V_VDetallePlanSVendedores> V_VDetallePlanSVendedores { get; set; }
     }
 }

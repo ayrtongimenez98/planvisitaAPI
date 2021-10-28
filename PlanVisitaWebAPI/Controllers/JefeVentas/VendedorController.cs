@@ -9,27 +9,61 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace PlanVisitaWebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class VendedorController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
         // GET api/<controller>
         public HttpResponseMessage Get(string filtro = "", int take = 10, int skip = 0)
         {
+            HttpRequestMessage re = Request;
+            var headers = re.Headers;
             if (filtro == null)
                 filtro = "";
-            var listaVendedors = db.Vendedor.Where(x => x.Vendedor_Nombre.Contains(filtro) || x.Vendedor_Id.ToString().Contains(filtro) || x.Vendedor_Mail.Contains(filtro)).ToList();
 
-            var paginationModel = new PaginationModel<Vendedor>()
+            var response = new HttpResponseMessage();
+            if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
             {
-                CantidadTotal = listaVendedors.Count,
-                Listado = listaVendedors.Skip(skip).Take(take)
-            };
-            var json = JsonConvert.SerializeObject(paginationModel);
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                string token = headers.GetValues("jefeToken").First();
+                var jefeVentasId = Convert.ToInt32(token);
+                var canales = db.JefeVentas.First(x => x.JefeVentas_Id == jefeVentasId).Canal;
+                var canalesId = canales.Select(x => x.Canal_Id);
+                var sucursalesId = db.CanalSucursal.Where(x => canalesId.Any(y => y == x.Canal_Id)).ToList().Select(x => x.Sucursal_Id);
+                var vendedoresId = db.VendedorCliente.Where(x => sucursalesId.Any(y => y == x.Sucursal_Id)).ToList().Select(x => x.Vendedor_Id);
+
+
+                var listaVendedors = db.Vendedor.Where(x => vendedoresId.Any(y => y == x.Vendedor_Id) &&  ( x.Vendedor_Nombre.Contains(filtro) || x.Vendedor_Mail.Contains(filtro))).ToList();
+
+                var paginationModel = new PaginationModel<VendedorSucursalResponseModel>()
+                {
+                    CantidadTotal = listaVendedors.Count,
+                    Listado = listaVendedors.Skip(skip).Take(take).Select(x => new VendedorSucursalResponseModel() { JefeVentas_Id = x.JefeVentas_Id,
+                                                                                                                     Vendedor_FechaCreacion = x.Vendedor_FechaCreacion,
+                                                                                                                     Vendedor_FechaLastUpdate = x.Vendedor_FechaLastUpdate,
+                                                                                                                     Vendedor_Id = x.Vendedor_Id,
+                                                                                                                     Vendedor_Mail = x.Vendedor_Mail,
+                                                                                                                     Vendedor_Nombre = x.Vendedor_Nombre,
+                                                                                                                     Vendedor_Rol = x.Vendedor_Rol})
+                };
+                var json = JsonConvert.SerializeObject(paginationModel);
+                response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+            } else
+            {
+                var validation = new SystemValidationModel() { 
+                    Success = false,
+                    Message = "Credenciales incorrectas."
+                };
+                var json = JsonConvert.SerializeObject(validation);
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            }
+            
             return response;
         }
 
@@ -50,7 +84,7 @@ namespace PlanVisitaWebAPI.Controllers
             var response = Request.CreateResponse();
             var validation = new SystemValidationModel();
 
-            if (string.IsNullOrEmpty(model.Nombre) || string.IsNullOrEmpty(model.Id.ToString()))
+            if (string.IsNullOrEmpty(model.Nombre) || model.Id == 0)
             {
                 validation.Success = false;
                 response.StatusCode = HttpStatusCode.BadRequest;
@@ -59,7 +93,7 @@ namespace PlanVisitaWebAPI.Controllers
             else
             {
 
-                var nuevoVendedor = new Vendedor();
+                var nuevoVendedor = new DB.Vendedor();
                 nuevoVendedor.Vendedor_Id = model.Id;
                 nuevoVendedor.Vendedor_Nombre = model.Nombre;
                 nuevoVendedor.Vendedor_FechaCreacion = DateTime.Now;
@@ -96,7 +130,7 @@ namespace PlanVisitaWebAPI.Controllers
             var response = Request.CreateResponse();
             var validation = new SystemValidationModel();
 
-            if (string.IsNullOrEmpty(model.Nombre) || string.IsNullOrEmpty(model.Id.ToString()) || string.IsNullOrEmpty(id.ToString()))
+            if (string.IsNullOrEmpty(model.Nombre) || model.Id == 0 || id == 0)
             {
                 validation.Success = false;
                 response.StatusCode = HttpStatusCode.BadRequest;
@@ -138,7 +172,7 @@ namespace PlanVisitaWebAPI.Controllers
         }
 
         // DELETE api/<controller>/5
-        public HttpResponseMessage Delete(string id)
+        public HttpResponseMessage Delete(int id)
         {
             var response = Request.CreateResponse();
             var validation = new SystemValidationModel();

@@ -8,9 +8,11 @@ using PlanVisitaWebAPI.Models;
 using PlanVisitaWebAPI.Models.Clientes;
 using System;
 using PlanVisitaWebAPI.Models.Shared;
+using System.Web.Http.Cors;
 
 namespace PlanVisitaWebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ClienteController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
@@ -37,17 +39,9 @@ namespace PlanVisitaWebAPI.Controllers
             if (filtroS == null)
                 filtroS = "";
             var cliente = db.Cliente.FirstOrDefault(x => x.Cliente_Cod == id);
-            var sucursales = db.Sucursal.Where(x => x.Cliente_Cod == id && (x.Sucursal_Direccion.Contains(filtroS) || x.Sucursal_Id.ToString().Contains(filtroS) || x.Sucursal_Ciudad.Contains(filtroS))).ToList();
             
-            var clienteModel = new ClienteResponseModel() { 
-                Cliente = cliente,
-                Sucursales = new PaginationModel<Sucursal>() { 
-                    CantidadTotal = sucursales.Count,
-                    Listado = sucursales.Skip(skipS).Take(takeS)
-                }
-            };
 
-            var json = JsonConvert.SerializeObject(clienteModel);
+            var json = JsonConvert.SerializeObject(cliente);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;

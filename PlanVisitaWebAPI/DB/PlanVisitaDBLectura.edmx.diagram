@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8cde9d76cbda4b96b41e07740fe17495" Name="Diagram1">
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.Detalle_Visita" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_CARTERA_ACTUAL" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_Cartera_Clientes" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_CLIENTE_SUCURSAL" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_Clientes_HBF" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_Clientes_Total" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_ClientesVenRep" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_Detalle_Visita" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_Dual_Visita" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_PLAN_SEMANAL" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_RUTA_DIA" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_RUTA_DIA_NUEVO" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_VDetallePlanSVendedores" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_Visitas_Detalle" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.V_Visitas_Dual" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.VCoberturaVendedor" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.VFrecuenciaVendedorCliente" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.VNotifCostoBodegaByH" Width="1.5" PointX="2.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.VPlanSemanalCargado" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModelLectura.VPlanSemanalCargado_Yves" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

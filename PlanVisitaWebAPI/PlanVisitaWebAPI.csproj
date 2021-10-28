@@ -84,11 +84,17 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -235,6 +241,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuthIONController.cs" />
     <Compile Include="Controllers\JefeVentas\CanalController.cs" />
     <Compile Include="Controllers\JefeVentas\ClienteController.cs" />
     <Compile Include="Controllers\JefeVentas\DivisionController.cs" />
@@ -244,8 +251,10 @@
     <Compile Include="Controllers\JefeVentas\MarcacionesController.cs" />
     <Compile Include="Controllers\JefeVentas\SucursalController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorSucursalController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorController.cs" />
+    <Compile Include="Controllers\Vendedor\VPlanSemanalController.cs" />
     <Compile Include="DB\Canal.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
@@ -254,6 +263,9 @@
     </Compile>
     <Compile Include="DB\Cliente.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Detalle_Visita.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Division.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
@@ -312,6 +324,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PlanVisitaDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DB\PlanVisitaDBLectura.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlanVisitaDBLectura.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\PlanVisitaDBLectura.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\PlanVisitaDBLectura.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlanVisitaDBLectura.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DB\Producto.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
@@ -326,6 +353,9 @@
     </Compile>
     <Compile Include="DB\Usuario.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\VCoberturaVendedor.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Vendedor.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
@@ -342,11 +372,65 @@
     <Compile Include="DB\VentaLinea.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\VFrecuenciaVendedorCliente.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Visita.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VisitaDual.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\VNotifCostoBodegaByH.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\VPlanSemanalCargado.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\VPlanSemanalCargado_Yves.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_CARTERA_ACTUAL.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Cartera_Clientes.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_ClientesVenRep.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Clientes_HBF.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Clientes_Total.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_CLIENTE_SUCURSAL.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Detalle_Visita.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Dual_Visita.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_PLAN_SEMANAL.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_RUTA_DIA.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_RUTA_DIA_NUEVO.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_VDetallePlanSVendedores.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Visitas_Detalle.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Visitas_Dual.cs">
+      <DependentUpon>PlanVisitaDBLectura.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Zona.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
@@ -359,6 +443,8 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Authentication\LoginResponseModel.cs" />
+    <Compile Include="Models\Authentication\LoginSearchModel.cs" />
     <Compile Include="Models\Canal\CanalResponseModel.cs" />
     <Compile Include="Models\Canal\CanalUpdateModel.cs" />
     <Compile Include="Models\Clientes\ClienteResponseModel.cs" />
@@ -367,9 +453,19 @@
     <Compile Include="Models\Empresa\EmpresaUpdateModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JefeVentas\JefeVentasUpdateModel.cs" />
+    <Compile Include="Models\Marcaciones\MarcacionesFiltroModel.cs" />
+    <Compile Include="Models\Marcaciones\MarcacionesResponseModel.cs" />
+    <Compile Include="Models\Marcaciones\MarcacionesUpdateModel.cs" />
+    <Compile Include="Models\PlanSemanal\PlanSemanalDetalleUpdateModel.cs" />
+    <Compile Include="Models\PlanSemanal\PlanSemanalFiltroModel.cs" />
+    <Compile Include="Models\PlanSemanal\PlanSemanalUpdateModel.cs" />
     <Compile Include="Models\Shared\PaginationModel.cs" />
     <Compile Include="Models\Shared\SystemValidationModel.cs" />
+    <Compile Include="Models\Sucursal\SucursalResponseListModel.cs" />
+    <Compile Include="Models\Sucursal\SucursalResponseModel.cs" />
     <Compile Include="Models\Sucursal\SucursalUpdateModel.cs" />
+    <Compile Include="Models\Usuario\UsuarioResponseModel.cs" />
+    <Compile Include="Models\Usuario\UsuarioUpdateModel.cs" />
     <Compile Include="Models\VendedorSucursal\VendedorSucursalUpdateModel.cs" />
     <Compile Include="Models\Vendedor\VendedorResponseModel.cs" />
     <Compile Include="Models\Vendedor\VendedorUpdateModel.cs" />
@@ -393,6 +489,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PlanVisitaDB.edmx</DependentUpon>
       <LastGenOutput>PlanVisitaDB.cs</LastGenOutput>
+    </Content>
+    <Content Include="DB\PlanVisitaDBLectura.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PlanVisitaDBLectura.edmx</DependentUpon>
+      <LastGenOutput>PlanVisitaDBLectura.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DB\PlanVisitaDBLectura.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PlanVisitaDBLectura.edmx</DependentUpon>
+      <LastGenOutput>PlanVisitaDBLectura.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -425,6 +531,13 @@
     <Content Include="DB\PlanVisitaDB.edmx.diagram">
       <DependentUpon>PlanVisitaDB.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="DB\PlanVisitaDBLectura.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PlanVisitaDBLectura.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DB\PlanVisitaDBLectura.edmx.diagram">
+      <DependentUpon>PlanVisitaDBLectura.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -453,7 +566,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Vendedor\" />
     <Folder Include="Views\Sucursal\" />
   </ItemGroup>
   <ItemGroup>

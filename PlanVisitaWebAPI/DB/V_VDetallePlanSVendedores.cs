@@ -29,5 +29,6 @@ namespace PlanVisitaWebAPI.DB
         public int ObjetivoVisita { get; set; }
         public string Cliente_Cod { get; set; }
         public string Cliente_RazonSocial { get; set; }
+        public System.DateTime PlanSemanal_Horario { get; set; }
     }
 }

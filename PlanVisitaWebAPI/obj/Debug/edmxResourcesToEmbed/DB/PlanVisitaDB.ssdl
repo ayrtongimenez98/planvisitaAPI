@@ -240,6 +240,7 @@
     <Property Name="Usuario_Pass" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
     <Property Name="Usuario" Type="varchar" MaxLength="50" />
+    <Property Name="Usuario_Vendedor_Id" Type="int" />
   </EntityType>
   <EntityType Name="Vendedor">
     <Key>
@@ -341,6 +342,176 @@
     <Property Name="Sucursal_Id" Type="int" Nullable="false" />
     <Property Name="ZonaSucursalEstado" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="ZonaSucursalCantidad_Visitas" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_HBF' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="V_Clientes_HBF">
+    <Key>
+      <PropertyRef Name="cardcode" />
+      <PropertyRef Name="Address" />
+    </Key>
+    <Property Name="Fila" Type="bigint" />
+    <Property Name="cardcode" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="cardfname" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="city" Type="nvarchar" MaxLength="100" />
+    <Property Name="street" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="V_PLAN_SEMANAL">
+    <Key>
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="SucursalID" />
+      <PropertyRef Name="VendedorId" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Objetivo" />
+    </Key>
+    <Property Name="Periodo" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="Visitador" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
+    <Property Name="SucursalID" Type="int" Nullable="false" />
+    <Property Name="VendedorId" Type="int" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="DiaSemana" Type="varchar" MaxLength="9" />
+    <Property Name="NroSemana" Type="int" Nullable="false" />
+    <Property Name="HoraEntrada" Type="varchar" MaxLength="30" />
+    <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Fecha" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_RUTA_DIA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="V_RUTA_DIA">
+    <Key>
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Objetivo" />
+    </Key>
+    <Property Name="Periodo" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="Visitador" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="DiaSemana" Type="varchar" MaxLength="9" />
+    <Property Name="NroSemana" Type="int" Nullable="false" />
+    <Property Name="HoraEntrada" Type="varchar" MaxLength="30" />
+    <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Fecha" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_RUTA_DIA_NUEVO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="V_RUTA_DIA_NUEVO">
+    <Key>
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Legajo" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Objetivo" />
+    </Key>
+    <Property Name="Periodo" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="Visitador" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Legajo" Type="int" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
+    <Property Name="SucursalId" Type="int" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="DiaSemana" Type="varchar" MaxLength="9" />
+    <Property Name="NroSemana" Type="int" Nullable="false" />
+    <Property Name="HoraEntrada" Type="varchar" MaxLength="30" />
+    <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Fecha" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_VDetallePlanSVendedores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="V_VDetallePlanSVendedores">
+    <Key>
+      <PropertyRef Name="PlanSemanalId" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="DiaSemana" />
+      <PropertyRef Name="VendedorId" />
+      <PropertyRef Name="NombreVendedor" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="SucursalDireccion" />
+      <PropertyRef Name="SucursalCiudad" />
+      <PropertyRef Name="CodigoJefe" />
+      <PropertyRef Name="NombreJefe" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="ObjetivoVisita" />
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+    </Key>
+    <Property Name="PlanSemanalId" Type="int" Nullable="false" />
+    <Property Name="NroSemana" Type="int" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="DiaSemana" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="VendedorId" Type="int" Nullable="false" />
+    <Property Name="NombreVendedor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="SucursalId" Type="int" Nullable="false" />
+    <Property Name="SucursalDireccion" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="SucursalCiudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="CodigoJefe" Type="int" Nullable="false" />
+    <Property Name="NombreJefe" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="ObjetivoVisita" Type="int" Nullable="false" />
+    <Property Name="Cliente_Cod" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="V_Visitas_Detalle">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+      <PropertyRef Name="Visita_fecha" />
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="CodCliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Observacion" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="SucursalID" />
+      <PropertyRef Name="frecuencia" />
+    </Key>
+    <Property Name="Visita_Id" Type="int" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="5" />
+    <Property Name="Visita_fecha" Type="datetime" Nullable="false" />
+    <Property Name="Dia" Type="nvarchar" MaxLength="30" />
+    <Property Name="Mes" Type="nvarchar" MaxLength="30" />
+    <Property Name="Año" Type="int" />
+    <Property Name="Visita_Hora" Type="varchar" MaxLength="30" />
+    <Property Name="Vendedor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="int" Nullable="false" />
+    <Property Name="Division" Type="varchar" MaxLength="20" />
+    <Property Name="CodCliente" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Dirección" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="Resultado de Visita" Type="varchar" MaxLength="20" />
+    <Property Name="Motivo" Type="varchar" MaxLength="40" />
+    <Property Name="Observacion" Type="varchar(max)" Nullable="false" />
+    <Property Name="Análisis" Type="varchar(max)" />
+    <Property Name="Plan de Acción" Type="varchar(max)" />
+    <Property Name="Responsable" Type="varchar" MaxLength="40" />
+    <Property Name="Fecha de Compromiso" Type="datetime" />
+    <Property Name="Plan de Acción Estado" Type="varchar" MaxLength="40" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="SucursalID" Type="int" Nullable="false" />
+    <Property Name="frecuencia" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_CanalSucursal_Canal">
     <End Role="Canal" Type="Self.Canal" Multiplicity="1" />
@@ -447,6 +618,18 @@
       </Principal>
       <Dependent Role="Usuario">
         <PropertyRef Name="JefeVentas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario_vendedor_id">
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendedor">
+        <PropertyRef Name="Vendedor_Id" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="Usuario_Vendedor_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -704,6 +887,110 @@
     <EntitySet Name="VisitaDual" EntityType="Self.VisitaDual" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Zona" EntityType="Self.Zona" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ZonaSucursal" EntityType="Self.ZonaSucursal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="V_Clientes_HBF" EntityType="Self.V_Clientes_HBF" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Clientes_HBF].[Fila] AS [Fila], 
+    [V_Clientes_HBF].[cardcode] AS [cardcode], 
+    [V_Clientes_HBF].[cardfname] AS [cardfname], 
+    [V_Clientes_HBF].[Address] AS [Address], 
+    [V_Clientes_HBF].[city] AS [city], 
+    [V_Clientes_HBF].[street] AS [street]
+    FROM [dbo].[V_Clientes_HBF] AS [V_Clientes_HBF]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_PLAN_SEMANAL" EntityType="Self.V_PLAN_SEMANAL" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_PLAN_SEMANAL].[Periodo] AS [Periodo], 
+    [V_PLAN_SEMANAL].[Visitador] AS [Visitador], 
+    [V_PLAN_SEMANAL].[JefeVentas_Id] AS [JefeVentas_Id], 
+    [V_PLAN_SEMANAL].[SucursalID] AS [SucursalID], 
+    [V_PLAN_SEMANAL].[VendedorId] AS [VendedorId], 
+    [V_PLAN_SEMANAL].[Cliente] AS [Cliente], 
+    [V_PLAN_SEMANAL].[Direccion] AS [Direccion], 
+    [V_PLAN_SEMANAL].[DiaSemana] AS [DiaSemana], 
+    [V_PLAN_SEMANAL].[NroSemana] AS [NroSemana], 
+    [V_PLAN_SEMANAL].[HoraEntrada] AS [HoraEntrada], 
+    [V_PLAN_SEMANAL].[Objetivo] AS [Objetivo], 
+    [V_PLAN_SEMANAL].[Fecha] AS [Fecha]
+    FROM [dbo].[V_PLAN_SEMANAL] AS [V_PLAN_SEMANAL]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_RUTA_DIA" EntityType="Self.V_RUTA_DIA" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_RUTA_DIA].[Periodo] AS [Periodo], 
+    [V_RUTA_DIA].[Visitador] AS [Visitador], 
+    [V_RUTA_DIA].[JefeVentas_Id] AS [JefeVentas_Id], 
+    [V_RUTA_DIA].[Cliente] AS [Cliente], 
+    [V_RUTA_DIA].[Direccion] AS [Direccion], 
+    [V_RUTA_DIA].[DiaSemana] AS [DiaSemana], 
+    [V_RUTA_DIA].[NroSemana] AS [NroSemana], 
+    [V_RUTA_DIA].[HoraEntrada] AS [HoraEntrada], 
+    [V_RUTA_DIA].[Objetivo] AS [Objetivo], 
+    [V_RUTA_DIA].[Fecha] AS [Fecha]
+    FROM [dbo].[V_RUTA_DIA] AS [V_RUTA_DIA]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_RUTA_DIA_NUEVO" EntityType="Self.V_RUTA_DIA_NUEVO" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_RUTA_DIA_NUEVO].[Periodo] AS [Periodo], 
+    [V_RUTA_DIA_NUEVO].[Visitador] AS [Visitador], 
+    [V_RUTA_DIA_NUEVO].[Legajo] AS [Legajo], 
+    [V_RUTA_DIA_NUEVO].[JefeVentas_Id] AS [JefeVentas_Id], 
+    [V_RUTA_DIA_NUEVO].[SucursalId] AS [SucursalId], 
+    [V_RUTA_DIA_NUEVO].[Cliente] AS [Cliente], 
+    [V_RUTA_DIA_NUEVO].[Direccion] AS [Direccion], 
+    [V_RUTA_DIA_NUEVO].[DiaSemana] AS [DiaSemana], 
+    [V_RUTA_DIA_NUEVO].[NroSemana] AS [NroSemana], 
+    [V_RUTA_DIA_NUEVO].[HoraEntrada] AS [HoraEntrada], 
+    [V_RUTA_DIA_NUEVO].[Objetivo] AS [Objetivo], 
+    [V_RUTA_DIA_NUEVO].[Fecha] AS [Fecha]
+    FROM [dbo].[V_RUTA_DIA_NUEVO] AS [V_RUTA_DIA_NUEVO]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_VDetallePlanSVendedores" EntityType="Self.V_VDetallePlanSVendedores" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_VDetallePlanSVendedores].[PlanSemanalId] AS [PlanSemanalId], 
+    [V_VDetallePlanSVendedores].[NroSemana] AS [NroSemana], 
+    [V_VDetallePlanSVendedores].[Periodo] AS [Periodo], 
+    [V_VDetallePlanSVendedores].[DiaSemana] AS [DiaSemana], 
+    [V_VDetallePlanSVendedores].[VendedorId] AS [VendedorId], 
+    [V_VDetallePlanSVendedores].[NombreVendedor] AS [NombreVendedor], 
+    [V_VDetallePlanSVendedores].[SucursalId] AS [SucursalId], 
+    [V_VDetallePlanSVendedores].[SucursalDireccion] AS [SucursalDireccion], 
+    [V_VDetallePlanSVendedores].[SucursalCiudad] AS [SucursalCiudad], 
+    [V_VDetallePlanSVendedores].[CodigoJefe] AS [CodigoJefe], 
+    [V_VDetallePlanSVendedores].[NombreJefe] AS [NombreJefe], 
+    [V_VDetallePlanSVendedores].[Cantidad] AS [Cantidad], 
+    [V_VDetallePlanSVendedores].[ObjetivoVisita] AS [ObjetivoVisita], 
+    [V_VDetallePlanSVendedores].[Cliente_Cod] AS [Cliente_Cod], 
+    [V_VDetallePlanSVendedores].[Cliente_RazonSocial] AS [Cliente_RazonSocial]
+    FROM [dbo].[V_VDetallePlanSVendedores] AS [V_VDetallePlanSVendedores]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Visitas_Detalle" EntityType="Self.V_Visitas_Detalle" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Visitas_Detalle].[Visita_Id] AS [Visita_Id], 
+    [V_Visitas_Detalle].[Periodo] AS [Periodo], 
+    [V_Visitas_Detalle].[Visita_fecha] AS [Visita_fecha], 
+    [V_Visitas_Detalle].[Dia] AS [Dia], 
+    [V_Visitas_Detalle].[Mes] AS [Mes], 
+    [V_Visitas_Detalle].[Año] AS [Año], 
+    [V_Visitas_Detalle].[Visita_Hora] AS [Visita_Hora], 
+    [V_Visitas_Detalle].[Vendedor] AS [Vendedor], 
+    [V_Visitas_Detalle].[Vendedor_Id] AS [Vendedor_Id], 
+    [V_Visitas_Detalle].[Division] AS [Division], 
+    [V_Visitas_Detalle].[CodCliente] AS [CodCliente], 
+    [V_Visitas_Detalle].[Cliente] AS [Cliente], 
+    [V_Visitas_Detalle].[Ciudad] AS [Ciudad], 
+    [V_Visitas_Detalle].[Dirección] AS [Dirección], 
+    [V_Visitas_Detalle].[Resultado de Visita] AS [Resultado de Visita], 
+    [V_Visitas_Detalle].[Motivo] AS [Motivo], 
+    [V_Visitas_Detalle].[Observacion] AS [Observacion], 
+    [V_Visitas_Detalle].[Análisis] AS [Análisis], 
+    [V_Visitas_Detalle].[Plan de Acción] AS [Plan de Acción], 
+    [V_Visitas_Detalle].[Responsable] AS [Responsable], 
+    [V_Visitas_Detalle].[Fecha de Compromiso] AS [Fecha de Compromiso], 
+    [V_Visitas_Detalle].[Plan de Acción Estado] AS [Plan de Acción Estado], 
+    [V_Visitas_Detalle].[Cantidad] AS [Cantidad], 
+    [V_Visitas_Detalle].[SucursalID] AS [SucursalID], 
+    [V_Visitas_Detalle].[frecuencia] AS [frecuencia]
+    FROM [dbo].[V_Visitas_Detalle] AS [V_Visitas_Detalle]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_CanalSucursal_Canal" Association="Self.FK_CanalSucursal_Canal">
       <End Role="Canal" EntitySet="Canal" />
       <End Role="CanalSucursal" EntitySet="CanalSucursal" />
@@ -738,6 +1025,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Usuario_JefeVentas" Association="Self.FK_Usuario_JefeVentas">
       <End Role="JefeVentas" EntitySet="JefeVentas" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario_vendedor_id" Association="Self.fk_usuario_vendedor_id">
+      <End Role="Vendedor" EntitySet="Vendedor" />
       <End Role="Usuario" EntitySet="Usuario" />
     </AssociationSet>
     <AssociationSet Name="FK_VendedorZona_Vendedor" Association="Self.FK_VendedorZona_Vendedor">

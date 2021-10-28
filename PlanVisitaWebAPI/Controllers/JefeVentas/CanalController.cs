@@ -9,9 +9,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace PlanVisitaWebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CanalController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
@@ -22,12 +24,15 @@ namespace PlanVisitaWebAPI.Controllers
                 filtro = "";
             var listaCanals = db.Canal.Where(x => x.Descripcion.Contains(filtro)).ToList();
 
-            var paginationModel = new PaginationModel<Canal>()
+            var paginationModel = new PaginationModel<CanalResponseModel>()
             {
                 CantidadTotal = listaCanals.Count,
-                Listado = listaCanals.Skip(skip).Take(take)
+                Listado = listaCanals.Skip(skip).Take(take).Select(x => new CanalResponseModel() {Canal_Id = x.Canal_Id, Descripcion = x.Descripcion })
             };
-            var json = JsonConvert.SerializeObject(paginationModel);
+            var json = JsonConvert.SerializeObject(paginationModel, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;

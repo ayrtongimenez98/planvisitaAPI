@@ -19,6 +19,7 @@ namespace PlanVisitaWebAPI.DB
         {
             this.VendedorZona = new HashSet<VendedorZona>();
             this.Canal = new HashSet<Canal>();
+            this.Usuario = new HashSet<Usuario>();
         }
     
         public int Vendedor_Id { get; set; }
@@ -33,5 +34,7 @@ namespace PlanVisitaWebAPI.DB
         public virtual ICollection<VendedorZona> VendedorZona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Canal> Canal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                 codCliente = "";
             var listaSucursals = new List<Sucursal>();
 
-            if (codCliente != null)
+            if (string.IsNullOrEmpty(codCliente))
             {
                 listaSucursals = db.Sucursal.Where(x => x.Sucursal_Direccion.Contains(filtro) || x.Sucursal_Ciudad.Contains(filtro) || x.Cliente_Cod.Contains(filtro)).ToList();
             } else
@@ -32,10 +32,10 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                 listaSucursals = db.Sucursal.Where(x => (x.Sucursal_Direccion.Contains(filtro) || x.Sucursal_Ciudad.Contains(filtro)) && x.Cliente_Cod == codCliente).ToList();
             }
 
-            var paginationModel = new PaginationModel<Sucursal>()
+            var paginationModel = new PaginationModel<SucursalResponseListModel>()
             {
                 CantidadTotal = listaSucursals.Count,
-                Listado = listaSucursals.Skip(skip).Take(take)
+                Listado = listaSucursals.Skip(skip).Take(take).Select(x => new SucursalResponseListModel() { Cliente_Cod = x.Cliente_Cod, Sucursal_Ciudad = x.Sucursal_Ciudad, Sucursal_Direccion = x.Sucursal_Direccion, Sucursal_FechaCreacion = x.Sucursal_FechaCreacion, Sucursal_FechaLastUpdate = x.Sucursal_FechaLastUpdate, Sucursal_Id = x.Sucursal_Id })
             };
             var json = JsonConvert.SerializeObject(paginationModel);
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -47,9 +47,17 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
         public HttpResponseMessage Get(int id)
         {
             var Sucursal = db.Sucursal.FirstOrDefault(x => x.Sucursal_Id == id);
+            var sucursalModel = new SucursalResponseListModel() { 
+                Cliente_Cod = Sucursal.Cliente_Cod, 
+                Sucursal_Ciudad = Sucursal.Sucursal_Ciudad, 
+                Sucursal_Direccion = Sucursal.Sucursal_Direccion, 
+                Sucursal_FechaCreacion = Sucursal.Sucursal_FechaCreacion, 
+                Sucursal_FechaLastUpdate = Sucursal.Sucursal_FechaLastUpdate, 
+                Sucursal_Id = Sucursal.Sucursal_Id
+            };
 
 
-            var json = JsonConvert.SerializeObject(Sucursal);
+            var json = JsonConvert.SerializeObject(sucursalModel);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;

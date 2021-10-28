@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PLAN_VISITAModelLecturaStoreContainer" CdmEntityContainer="PLAN_VISITAEntitiesLectura">
+    <EntitySetMapping Name="Detalle_Visita">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.Detalle_Visita">
+        <MappingFragment StoreEntitySet="Detalle_Visita">
+          <ScalarProperty Name="Visita_Id" ColumnName="Visita_Id" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="Visita_fecha" ColumnName="Visita_fecha" />
+          <ScalarProperty Name="Visita_Hora" ColumnName="Visita_Hora" />
+          <ScalarProperty Name="VendedorID" ColumnName="VendedorID" />
+          <ScalarProperty Name="Vendedor" ColumnName="Vendedor" />
+          <ScalarProperty Name="CodCliente" ColumnName="CodCliente" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="SucursalId" ColumnName="SucursalId" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+          <ScalarProperty Name="Resultado_de_Visita" ColumnName="Resultado de Visita" />
+          <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Análisis" ColumnName="Análisis" />
+          <ScalarProperty Name="Plan_de_Acción" ColumnName="Plan de Acción" />
+          <ScalarProperty Name="Responsable" ColumnName="Responsable" />
+          <ScalarProperty Name="Fecha_de_Compromiso" ColumnName="Fecha de Compromiso" />
+          <ScalarProperty Name="Plan_de_Acción_Estado" ColumnName="Plan de Acción Estado" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_CARTERA_ACTUAL">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_CARTERA_ACTUAL">
+        <MappingFragment StoreEntitySet="V_CARTERA_ACTUAL">
+          <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+          <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+          <ScalarProperty Name="Cantidad_Visitas" ColumnName="Cantidad_Visitas" />
+          <ScalarProperty Name="Promedio_Ventas" ColumnName="Promedio_Ventas" />
+          <ScalarProperty Name="Vendedor_Nombre" ColumnName="Vendedor_Nombre" />
+          <ScalarProperty Name="Cliente_RazonSocial" ColumnName="Cliente_RazonSocial" />
+          <ScalarProperty Name="Sucursal_Direccion" ColumnName="Sucursal_Direccion" />
+          <ScalarProperty Name="Sucursal_Ciudad" ColumnName="Sucursal_Ciudad" />
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="JefeVentas_Id" ColumnName="JefeVentas_Id" />
+          <ScalarProperty Name="JefeVentas_Nombre" ColumnName="JefeVentas_Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Cartera_Clientes">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_Cartera_Clientes">
+        <MappingFragment StoreEntitySet="V_Cartera_Clientes">
+          <ScalarProperty Name="Visitador" ColumnName="Visitador" />
+          <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+          <ScalarProperty Name="Cod__de_Cliente" ColumnName="Cod. de Cliente" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+          <ScalarProperty Name="Cod_Sucursal" ColumnName="Cod_Sucursal" />
+          <ScalarProperty Name="Frecuencia_de_Visita" ColumnName="Frecuencia de Visita" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_CLIENTE_SUCURSAL">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_CLIENTE_SUCURSAL">
+        <MappingFragment StoreEntitySet="V_CLIENTE_SUCURSAL">
+          <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
+          <ScalarProperty Name="Cliente_RazonSocial" ColumnName="Cliente_RazonSocial" />
+          <ScalarProperty Name="Sucursal_Ciudad" ColumnName="Sucursal_Ciudad" />
+          <ScalarProperty Name="Sucursal_Direccion" ColumnName="Sucursal_Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Clientes_HBF">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_Clientes_HBF">
+        <MappingFragment StoreEntitySet="V_Clientes_HBF">
+          <ScalarProperty Name="Fila" ColumnName="Fila" />
+          <ScalarProperty Name="cardcode" ColumnName="cardcode" />
+          <ScalarProperty Name="cardfname" ColumnName="cardfname" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="street" ColumnName="street" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Clientes_Total">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_Clientes_Total">
+        <MappingFragment StoreEntitySet="V_Clientes_Total">
+          <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
+          <ScalarProperty Name="Cliente_RazonSocial" ColumnName="Cliente_RazonSocial" />
+          <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+          <ScalarProperty Name="Sucursal_Direccion" ColumnName="Sucursal_Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_ClientesVenRep">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_ClientesVenRep">
+        <MappingFragment StoreEntitySet="V_ClientesVenRep">
+          <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+          <ScalarProperty Name="Vendedor" ColumnName="Vendedor" />
+          <ScalarProperty Name="Vendedor_Rol" ColumnName="Vendedor_Rol" />
+          <ScalarProperty Name="JefeVentas_Id" ColumnName="JefeVentas_Id" />
+          <ScalarProperty Name="JefeDeVentas" ColumnName="JefeDeVentas" />
+          <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+          <ScalarProperty Name="Cantidad_Visitas" ColumnName="Cantidad_Visitas" />
+          <ScalarProperty Name="ClienteSAP" ColumnName="ClienteSAP" />
+          <ScalarProperty Name="Sucursal_Ciudad" ColumnName="Sucursal_Ciudad" />
+          <ScalarProperty Name="Sucursal_Direccion" ColumnName="Sucursal_Direccion" />
+          <ScalarProperty Name="Cliente_RazonSocial" ColumnName="Cliente_RazonSocial" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Detalle_Visita">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_Detalle_Visita">
+        <MappingFragment StoreEntitySet="V_Detalle_Visita">
+          <ScalarProperty Name="Visita_Id" ColumnName="Visita_Id" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="Visita_fecha" ColumnName="Visita_fecha" />
+          <ScalarProperty Name="Visita_Hora" ColumnName="Visita_Hora" />
+          <ScalarProperty Name="Vendedor" ColumnName="Vendedor" />
+          <ScalarProperty Name="CodCliente" ColumnName="CodCliente" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="SucursalId" ColumnName="SucursalId" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+          <ScalarProperty Name="Resultado_de_Visita" ColumnName="Resultado de Visita" />
+          <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Análisis" ColumnName="Análisis" />
+          <ScalarProperty Name="Plan_de_Acción" ColumnName="Plan de Acción" />
+          <ScalarProperty Name="Responsable" ColumnName="Responsable" />
+          <ScalarProperty Name="Fecha_de_Compromiso" ColumnName="Fecha de Compromiso" />
+          <ScalarProperty Name="Plan_de_Acción_Estado" ColumnName="Plan de Acción Estado" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Dual_Visita">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_Dual_Visita">
+        <MappingFragment StoreEntitySet="V_Dual_Visita">
+          <ScalarProperty Name="VisitaDual_Id" ColumnName="VisitaDual_Id" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="VisitaDual_Fecha" ColumnName="VisitaDual_Fecha" />
+          <ScalarProperty Name="Visita_Hora_Entrada" ColumnName="Visita_Hora_Entrada" />
+          <ScalarProperty Name="Visita_Hora_Salida" ColumnName="Visita_Hora_Salida" />
+          <ScalarProperty Name="Visitador" ColumnName="Visitador" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+          <ScalarProperty Name="SucursalId" ColumnName="SucursalId" />
+          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_PLAN_SEMANAL">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_PLAN_SEMANAL">
+        <MappingFragment StoreEntitySet="V_PLAN_SEMANAL">
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="Visitador" ColumnName="Visitador" />
+          <ScalarProperty Name="JefeVentas_Id" ColumnName="JefeVentas_Id" />
+          <ScalarProperty Name="SucursalID" ColumnName="SucursalID" />
+          <ScalarProperty Name="VendedorId" ColumnName="VendedorId" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="DiaSemana" ColumnName="DiaSemana" />
+          <ScalarProperty Name="NroSemana" ColumnName="NroSemana" />
+          <ScalarProperty Name="HoraEntrada" ColumnName="HoraEntrada" />
+          <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_RUTA_DIA">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_RUTA_DIA">
+        <MappingFragment StoreEntitySet="V_RUTA_DIA">
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="Visitador" ColumnName="Visitador" />
+          <ScalarProperty Name="JefeVentas_Id" ColumnName="JefeVentas_Id" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="DiaSemana" ColumnName="DiaSemana" />
+          <ScalarProperty Name="NroSemana" ColumnName="NroSemana" />
+          <ScalarProperty Name="HoraEntrada" ColumnName="HoraEntrada" />
+          <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_RUTA_DIA_NUEVO">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_RUTA_DIA_NUEVO">
+        <MappingFragment StoreEntitySet="V_RUTA_DIA_NUEVO">
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="Visitador" ColumnName="Visitador" />
+          <ScalarProperty Name="Legajo" ColumnName="Legajo" />
+          <ScalarProperty Name="JefeVentas_Id" ColumnName="JefeVentas_Id" />
+          <ScalarProperty Name="SucursalId" ColumnName="SucursalId" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="DiaSemana" ColumnName="DiaSemana" />
+          <ScalarProperty Name="NroSemana" ColumnName="NroSemana" />
+          <ScalarProperty Name="HoraEntrada" ColumnName="HoraEntrada" />
+          <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_VDetallePlanSVendedores">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_VDetallePlanSVendedores">
+        <MappingFragment StoreEntitySet="V_VDetallePlanSVendedores">
+          <ScalarProperty Name="PlanSemanalId" ColumnName="PlanSemanalId" />
+          <ScalarProperty Name="NroSemana" ColumnName="NroSemana" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="DiaSemana" ColumnName="DiaSemana" />
+          <ScalarProperty Name="VendedorId" ColumnName="VendedorId" />
+          <ScalarProperty Name="NombreVendedor" ColumnName="NombreVendedor" />
+          <ScalarProperty Name="SucursalId" ColumnName="SucursalId" />
+          <ScalarProperty Name="SucursalDireccion" ColumnName="SucursalDireccion" />
+          <ScalarProperty Name="SucursalCiudad" ColumnName="SucursalCiudad" />
+          <ScalarProperty Name="CodigoJefe" ColumnName="CodigoJefe" />
+          <ScalarProperty Name="NombreJefe" ColumnName="NombreJefe" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="ObjetivoVisita" ColumnName="ObjetivoVisita" />
+          <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
+          <ScalarProperty Name="Cliente_RazonSocial" ColumnName="Cliente_RazonSocial" />
+          <ScalarProperty Name="PlanSemanal_Horario" ColumnName="PlanSemanal_Horario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Visitas_Detalle">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_Visitas_Detalle">
+        <MappingFragment StoreEntitySet="V_Visitas_Detalle">
+          <ScalarProperty Name="Visita_Id" ColumnName="Visita_Id" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="Visita_fecha" ColumnName="Visita_fecha" />
+          <ScalarProperty Name="Dia" ColumnName="Dia" />
+          <ScalarProperty Name="Mes" ColumnName="Mes" />
+          <ScalarProperty Name="Año" ColumnName="Año" />
+          <ScalarProperty Name="Visita_Hora" ColumnName="Visita_Hora" />
+          <ScalarProperty Name="Vendedor" ColumnName="Vendedor" />
+          <ScalarProperty Name="Division" ColumnName="Division" />
+          <ScalarProperty Name="CodCliente" ColumnName="CodCliente" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+          <ScalarProperty Name="Resultado_de_Visita" ColumnName="Resultado de Visita" />
+          <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Análisis" ColumnName="Análisis" />
+          <ScalarProperty Name="Plan_de_Acción" ColumnName="Plan de Acción" />
+          <ScalarProperty Name="Responsable" ColumnName="Responsable" />
+          <ScalarProperty Name="Fecha_de_Compromiso" ColumnName="Fecha de Compromiso" />
+          <ScalarProperty Name="Plan_de_Acción_Estado" ColumnName="Plan de Acción Estado" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="SucursalID" ColumnName="SucursalID" />
+          <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+          <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_Visitas_Dual">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.V_Visitas_Dual">
+        <MappingFragment StoreEntitySet="V_Visitas_Dual">
+          <ScalarProperty Name="VisitaDual_Id" ColumnName="VisitaDual_Id" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="VisitaDual_Fecha" ColumnName="VisitaDual_Fecha" />
+          <ScalarProperty Name="Dia" ColumnName="Dia" />
+          <ScalarProperty Name="Visita_Hora_Entrada" ColumnName="Visita_Hora_Entrada" />
+          <ScalarProperty Name="Visita_Hora_Salida" ColumnName="Visita_Hora_Salida" />
+          <ScalarProperty Name="Visitador" ColumnName="Visitador" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+          <ScalarProperty Name="Dirección" ColumnName="Dirección" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="UbicacionEntrada" ColumnName="UbicacionEntrada" />
+          <ScalarProperty Name="UbicacionSalida" ColumnName="UbicacionSalida" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VCoberturaVendedor">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.VCoberturaVendedor">
+        <MappingFragment StoreEntitySet="VCoberturaVendedor">
+          <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+          <ScalarProperty Name="Vendedor_Nombre" ColumnName="Vendedor_Nombre" />
+          <ScalarProperty Name="JefeVentas_Nombre" ColumnName="JefeVentas_Nombre" />
+          <ScalarProperty Name="JefeVentas_Id" ColumnName="JefeVentas_Id" />
+          <ScalarProperty Name="Cantidad_Visitas" ColumnName="Cantidad_Visitas" />
+          <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VFrecuenciaVendedorCliente">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.VFrecuenciaVendedorCliente">
+        <MappingFragment StoreEntitySet="VFrecuenciaVendedorCliente">
+          <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+          <ScalarProperty Name="Frecuencia" ColumnName="Frecuencia" />
+          <ScalarProperty Name="Vendedor_Nombre" ColumnName="Vendedor_Nombre" />
+          <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+          <ScalarProperty Name="JefeVentas_Id" ColumnName="JefeVentas_Id" />
+          <ScalarProperty Name="JefeVentas_Nombre" ColumnName="JefeVentas_Nombre" />
+          <ScalarProperty Name="Sucursal_Ciudad" ColumnName="Sucursal_Ciudad" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+          <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
+          <ScalarProperty Name="Cliente_RazonSocial" ColumnName="Cliente_RazonSocial" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="CantidadVisita" ColumnName="CantidadVisita" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VNotifCostoBodegaByH">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.VNotifCostoBodegaByH">
+        <MappingFragment StoreEntitySet="VNotifCostoBodegaByH">
+          <ScalarProperty Name="EMPRESA" ColumnName="EMPRESA" />
+          <ScalarProperty Name="CodigoBodega" ColumnName="CodigoBodega" />
+          <ScalarProperty Name="NombreBodega" ColumnName="NombreBodega" />
+          <ScalarProperty Name="CostoBodega" ColumnName="CostoBodega" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VPlanSemanalCargado">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.VPlanSemanalCargado">
+        <MappingFragment StoreEntitySet="VPlanSemanalCargado">
+          <ScalarProperty Name="Visitador" ColumnName="Visitador" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="NroSemana" ColumnName="NroSemana" />
+          <ScalarProperty Name="JefeVentas" ColumnName="JefeVentas" />
+          <ScalarProperty Name="Division" ColumnName="Division" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VPlanSemanalCargado_Yves">
+      <EntityTypeMapping TypeName="PLAN_VISITAModelLectura.VPlanSemanalCargado_Yves">
+        <MappingFragment StoreEntitySet="VPlanSemanalCargado_Yves">
+          <ScalarProperty Name="Visitador" ColumnName="Visitador" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="NroSemana" ColumnName="NroSemana" />
+          <ScalarProperty Name="JefeVentas" ColumnName="JefeVentas" />
+          <ScalarProperty Name="Division" ColumnName="Division" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

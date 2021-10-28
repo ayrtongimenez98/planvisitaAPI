@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PLAN_VISITAModelLectura" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Detalle_Visita">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+      <PropertyRef Name="Visita_fecha" />
+      <PropertyRef Name="VendedorID" />
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="CodCliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Resultado_de_Visita" />
+      <PropertyRef Name="Motivo" />
+      <PropertyRef Name="Observacion" />
+      <PropertyRef Name="Cantidad" />
+    </Key>
+    <Property Name="Visita_Id" Type="Int32" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Visita_Hora" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="VendedorID" Type="Int32" Nullable="false" />
+    <Property Name="Vendedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SucursalId" Type="Int32" Nullable="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dirección" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Resultado_de_Visita" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Motivo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Análisis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Plan_de_Acción" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Responsable" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_de_Compromiso" Type="DateTime" Precision="3" />
+    <Property Name="Plan_de_Acción_Estado" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_CARTERA_ACTUAL">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Cantidad_Visitas" />
+      <PropertyRef Name="Vendedor_Nombre" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Sucursal_Direccion" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="JefeVentas_Nombre" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int16" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="Int16" Nullable="false" />
+    <Property Name="Promedio_Ventas" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Vendedor_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Expr1" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Cartera_Clientes">
+    <Key>
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Cod__de_Cliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Cod_Sucursal" />
+    </Key>
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cod__de_Cliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cod_Sucursal" Type="Int32" Nullable="false" />
+    <Property Name="Frecuencia_de_Visita" Type="Int32" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_CLIENTE_SUCURSAL">
+    <Key>
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Sucursal_Direccion" />
+    </Key>
+    <Property Name="Cliente_Cod" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Clientes_HBF">
+    <Key>
+      <PropertyRef Name="cardcode" />
+      <PropertyRef Name="Address" />
+    </Key>
+    <Property Name="Fila" Type="Int64" />
+    <Property Name="cardcode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cardfname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="V_Clientes_Total">
+    <Key>
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Sucursal_Direccion" />
+    </Key>
+    <Property Name="Cliente_Cod" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_ClientesVenRep">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="Vendedor_Rol" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="JefeDeVentas" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Cantidad_Visitas" />
+      <PropertyRef Name="ClienteSAP" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Sucursal_Direccion" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Vendedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vendedor_Rol" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeDeVentas" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="Int32" Nullable="false" />
+    <Property Name="ClienteSAP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Detalle_Visita">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+      <PropertyRef Name="Visita_fecha" />
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="CodCliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Resultado_de_Visita" />
+      <PropertyRef Name="Motivo" />
+      <PropertyRef Name="Observacion" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="Ubicacion" />
+    </Key>
+    <Property Name="Visita_Id" Type="Int32" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Visita_Hora" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Vendedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SucursalId" Type="Int32" Nullable="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dirección" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Resultado_de_Visita" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Motivo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Análisis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Plan_de_Acción" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Responsable" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_de_Compromiso" Type="DateTime" Precision="3" />
+    <Property Name="Plan_de_Acción_Estado" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="Ubicacion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Dual_Visita">
+    <Key>
+      <PropertyRef Name="VisitaDual_Id" />
+      <PropertyRef Name="VisitaDual_Fecha" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="Ubicacion" />
+    </Key>
+    <Property Name="VisitaDual_Id" Type="Guid" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="VisitaDual_Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Visita_Hora_Entrada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_Hora_Salida" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SucursalId" Type="Int32" Nullable="false" />
+    <Property Name="Dirección" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="Ubicacion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_PLAN_SEMANAL">
+    <Key>
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="SucursalID" />
+      <PropertyRef Name="VendedorId" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Objetivo" />
+    </Key>
+    <Property Name="Periodo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="SucursalID" Type="Int32" Nullable="false" />
+    <Property Name="VendedorId" Type="Int32" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DiaSemana" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="NroSemana" Type="Int32" Nullable="false" />
+    <Property Name="HoraEntrada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Objetivo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_RUTA_DIA">
+    <Key>
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Objetivo" />
+    </Key>
+    <Property Name="Periodo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DiaSemana" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="NroSemana" Type="Int32" Nullable="false" />
+    <Property Name="HoraEntrada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Objetivo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_RUTA_DIA_NUEVO">
+    <Key>
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Legajo" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Objetivo" />
+    </Key>
+    <Property Name="Periodo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Legajo" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="SucursalId" Type="Int32" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DiaSemana" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+    <Property Name="NroSemana" Type="Int32" Nullable="false" />
+    <Property Name="HoraEntrada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Objetivo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_VDetallePlanSVendedores">
+    <Key>
+      <PropertyRef Name="PlanSemanalId" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="DiaSemana" />
+      <PropertyRef Name="VendedorId" />
+      <PropertyRef Name="NombreVendedor" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="SucursalDireccion" />
+      <PropertyRef Name="SucursalCiudad" />
+      <PropertyRef Name="CodigoJefe" />
+      <PropertyRef Name="NombreJefe" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="ObjetivoVisita" />
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="PlanSemanal_Horario" />
+    </Key>
+    <Property Name="PlanSemanalId" Type="Int32" Nullable="false" />
+    <Property Name="NroSemana" Type="Int32" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DiaSemana" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VendedorId" Type="Int32" Nullable="false" />
+    <Property Name="NombreVendedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SucursalId" Type="Int32" Nullable="false" />
+    <Property Name="SucursalDireccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SucursalCiudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodigoJefe" Type="Int32" Nullable="false" />
+    <Property Name="NombreJefe" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="ObjetivoVisita" Type="Int32" Nullable="false" />
+    <Property Name="Cliente_Cod" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PlanSemanal_Horario" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="V_Visitas_Detalle">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+      <PropertyRef Name="Visita_fecha" />
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="CodCliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Observacion" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="SucursalID" />
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Ubicacion" />
+    </Key>
+    <Property Name="Visita_Id" Type="Int32" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Dia" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Mes" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Año" Type="Int32" />
+    <Property Name="Visita_Hora" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Vendedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Division" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CodCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dirección" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Resultado_de_Visita" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Motivo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Análisis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Plan_de_Acción" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Responsable" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha_de_Compromiso" Type="DateTime" Precision="3" />
+    <Property Name="Plan_de_Acción_Estado" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="SucursalID" Type="Int32" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Ubicacion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Visitas_Dual">
+    <Key>
+      <PropertyRef Name="VisitaDual_Id" />
+      <PropertyRef Name="VisitaDual_Fecha" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="UbicacionEntrada" />
+    </Key>
+    <Property Name="VisitaDual_Id" Type="Guid" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="VisitaDual_Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Dia" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Visita_Hora_Entrada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_Hora_Salida" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Dirección" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="UbicacionEntrada" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="UbicacionSalida" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VCoberturaVendedor">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Vendedor_Nombre" />
+      <PropertyRef Name="JefeVentas_Nombre" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="Cantidad_Visitas" />
+      <PropertyRef Name="Sucursal_Id" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Vendedor_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="JefeVentas_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VFrecuenciaVendedorCliente">
+    <Key>
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Vendedor_Nombre" />
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="JefeVentas_Nombre" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="Direccion" />
+    </Key>
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Frecuencia" Type="Int32" />
+    <Property Name="Vendedor_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Cliente_Cod" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="CantidadVisita" Type="Int32" />
+    <Property Name="Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VNotifCostoBodegaByH">
+    <Key>
+      <PropertyRef Name="EMPRESA" />
+      <PropertyRef Name="CodigoBodega" />
+    </Key>
+    <Property Name="EMPRESA" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodigoBodega" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NombreBodega" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CostoBodega" Type="Decimal" Precision="38" Scale="6" />
+  </EntityType>
+  <EntityType Name="VPlanSemanalCargado">
+    <Key>
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="JefeVentas" />
+      <PropertyRef Name="Division" />
+    </Key>
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="NroSemana" Type="Int32" />
+    <Property Name="JefeVentas" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Division" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VPlanSemanalCargado_Yves">
+    <Key>
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="JefeVentas" />
+      <PropertyRef Name="Division" />
+    </Key>
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <Property Name="NroSemana" Type="Int32" />
+    <Property Name="JefeVentas" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Division" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="PLAN_VISITAEntitiesLectura" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Detalle_Visita" EntityType="Self.Detalle_Visita" />
+    <EntitySet Name="V_CARTERA_ACTUAL" EntityType="Self.V_CARTERA_ACTUAL" />
+    <EntitySet Name="V_Cartera_Clientes" EntityType="Self.V_Cartera_Clientes" />
+    <EntitySet Name="V_CLIENTE_SUCURSAL" EntityType="Self.V_CLIENTE_SUCURSAL" />
+    <EntitySet Name="V_Clientes_HBF" EntityType="Self.V_Clientes_HBF" />
+    <EntitySet Name="V_Clientes_Total" EntityType="Self.V_Clientes_Total" />
+    <EntitySet Name="V_ClientesVenRep" EntityType="Self.V_ClientesVenRep" />
+    <EntitySet Name="V_Detalle_Visita" EntityType="Self.V_Detalle_Visita" />
+    <EntitySet Name="V_Dual_Visita" EntityType="Self.V_Dual_Visita" />
+    <EntitySet Name="V_PLAN_SEMANAL" EntityType="Self.V_PLAN_SEMANAL" />
+    <EntitySet Name="V_RUTA_DIA" EntityType="Self.V_RUTA_DIA" />
+    <EntitySet Name="V_RUTA_DIA_NUEVO" EntityType="Self.V_RUTA_DIA_NUEVO" />
+    <EntitySet Name="V_VDetallePlanSVendedores" EntityType="Self.V_VDetallePlanSVendedores" />
+    <EntitySet Name="V_Visitas_Detalle" EntityType="Self.V_Visitas_Detalle" />
+    <EntitySet Name="V_Visitas_Dual" EntityType="Self.V_Visitas_Dual" />
+    <EntitySet Name="VCoberturaVendedor" EntityType="Self.VCoberturaVendedor" />
+    <EntitySet Name="VFrecuenciaVendedorCliente" EntityType="Self.VFrecuenciaVendedorCliente" />
+    <EntitySet Name="VNotifCostoBodegaByH" EntityType="Self.VNotifCostoBodegaByH" />
+    <EntitySet Name="VPlanSemanalCargado" EntityType="Self.VPlanSemanalCargado" />
+    <EntitySet Name="VPlanSemanalCargado_Yves" EntityType="Self.VPlanSemanalCargado_Yves" />
+  </EntityContainer>
+</Schema>

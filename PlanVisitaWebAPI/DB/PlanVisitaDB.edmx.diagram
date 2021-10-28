@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e92d82462fbf472ea0febcf431510b31" Name="Diagram1">
+      <Diagram DiagramId="217db0417eeb410e89eb89d1df41fd4e" Name="Diagram1">
         <EntityTypeShape EntityType="PLAN_VISITAModel.Canal" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PLAN_VISITAModel.CanalSucursal" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PLAN_VISITAModel.Cliente" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
@@ -60,6 +60,13 @@
         <AssociationConnector Association="PLAN_VISITAModel.FK_ZonaSucursal_Zona" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.CanalVendedor" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.JefeVentasCanal" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Clientes_HBF" Width="1.5" PointX="17.375" PointY="6.75" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_PLAN_SEMANAL" Width="1.5" PointX="17.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_RUTA_DIA" Width="1.5" PointX="12.375" PointY="17.75" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_RUTA_DIA_NUEVO" Width="1.5" PointX="17.375" PointY="14.75" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Visitas_Detalle" Width="1.5" PointX="14.375" PointY="17.75" />
+        <AssociationConnector Association="PLAN_VISITAModel.fk_usuario_vendedor_id" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_VDetallePlanSVendedores" Width="1.5" PointX="5.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
