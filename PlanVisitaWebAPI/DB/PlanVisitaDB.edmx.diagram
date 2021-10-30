@@ -67,6 +67,10 @@
         <EntityTypeShape EntityType="PLAN_VISITAModel.V_Visitas_Detalle" Width="1.5" PointX="14.375" PointY="17.75" />
         <AssociationConnector Association="PLAN_VISITAModel.fk_usuario_vendedor_id" />
         <EntityTypeShape EntityType="PLAN_VISITAModel.V_VDetallePlanSVendedores" Width="1.5" PointX="5.375" PointY="19.75" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Canales_HBF" Width="1.5" PointX="19.375" PointY="6.75" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanSemanalDetalleSAP" Width="1.5" PointX="7.375" PointY="19.75" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VendedorClienteSAP" Width="1.5" PointX="19.375" PointY="9.75" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VisitaSAP" Width="1.5" PointX="9.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

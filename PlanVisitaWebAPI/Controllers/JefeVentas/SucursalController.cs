@@ -9,9 +9,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace PlanVisitaWebAPI.Controllers.JefeVentas
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class SucursalController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
@@ -22,20 +24,20 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                 filtro = "";
             if (codCliente == null)
                 codCliente = "";
-            var listaSucursals = new List<Sucursal>();
+            var listaSucursals = new List<V_Clientes_HBF>();
 
             if (string.IsNullOrEmpty(codCliente))
             {
-                listaSucursals = db.Sucursal.Where(x => x.Sucursal_Direccion.Contains(filtro) || x.Sucursal_Ciudad.Contains(filtro) || x.Cliente_Cod.Contains(filtro)).ToList();
+                listaSucursals = db.V_Clientes_HBF.Where(x => x.street.Contains(filtro) || x.city.Contains(filtro) || x.cardcode.Contains(filtro)).ToList();
             } else
             {
-                listaSucursals = db.Sucursal.Where(x => (x.Sucursal_Direccion.Contains(filtro) || x.Sucursal_Ciudad.Contains(filtro)) && x.Cliente_Cod == codCliente).ToList();
+                listaSucursals = db.V_Clientes_HBF.Where(x => (x.street.Contains(filtro) || x.city.Contains(filtro)) && x.cardcode == codCliente).ToList();
             }
 
             var paginationModel = new PaginationModel<SucursalResponseListModel>()
             {
                 CantidadTotal = listaSucursals.Count,
-                Listado = listaSucursals.Skip(skip).Take(take).Select(x => new SucursalResponseListModel() { Cliente_Cod = x.Cliente_Cod, Sucursal_Ciudad = x.Sucursal_Ciudad, Sucursal_Direccion = x.Sucursal_Direccion, Sucursal_FechaCreacion = x.Sucursal_FechaCreacion, Sucursal_FechaLastUpdate = x.Sucursal_FechaLastUpdate, Sucursal_Id = x.Sucursal_Id })
+                Listado = listaSucursals.Skip(skip).Take(take).Select(x => new SucursalResponseListModel() { Cliente_Cod = x.cardcode, Sucursal_Ciudad = x.city, Sucursal_Direccion = x.street, Sucursal_Id = Convert.ToInt32(x.Address), Sucursal_Nombre = x.Address2 })
             };
             var json = JsonConvert.SerializeObject(paginationModel);
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -46,14 +48,13 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
         // GET api/<controller>/5
         public HttpResponseMessage Get(int id)
         {
-            var Sucursal = db.Sucursal.FirstOrDefault(x => x.Sucursal_Id == id);
+            var Sucursal = db.V_Clientes_HBF.FirstOrDefault(x => x.Address == id.ToString());
             var sucursalModel = new SucursalResponseListModel() { 
-                Cliente_Cod = Sucursal.Cliente_Cod, 
-                Sucursal_Ciudad = Sucursal.Sucursal_Ciudad, 
-                Sucursal_Direccion = Sucursal.Sucursal_Direccion, 
-                Sucursal_FechaCreacion = Sucursal.Sucursal_FechaCreacion, 
-                Sucursal_FechaLastUpdate = Sucursal.Sucursal_FechaLastUpdate, 
-                Sucursal_Id = Sucursal.Sucursal_Id
+                Cliente_Cod = Sucursal.cardcode, 
+                Sucursal_Ciudad = Sucursal.city, 
+                Sucursal_Direccion = Sucursal.street, 
+                Sucursal_Id = Convert.ToInt32(Sucursal.Address),
+                Sucursal_Nombre = Sucursal.Address2
             };
 
 
@@ -130,7 +131,7 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                 nuevoSucursal.Sucursal_Direccion = model.Sucursal_Direccion;
                 nuevoSucursal.Sucursal_FechaLastUpdate = DateTime.Now;
 
-                db.Sucursal.Add(nuevoSucursal);
+                
 
                 var resultado = db.SaveChanges();
 

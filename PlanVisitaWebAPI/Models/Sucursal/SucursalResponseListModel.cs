@@ -10,8 +10,7 @@ namespace PlanVisitaWebAPI.Models.Sucursal
         public int Sucursal_Id { get; set; }
         public string Sucursal_Ciudad { get; set; }
         public string Sucursal_Direccion { get; set; }
-        public DateTime Sucursal_FechaCreacion { get; set; }
-        public DateTime Sucursal_FechaLastUpdate { get; set; }
+        public string Sucursal_Nombre { get; set; }
         public string Cliente_Cod { get; set; }
     }
 }

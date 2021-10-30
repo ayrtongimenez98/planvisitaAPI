@@ -12,19 +12,19 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Visita
+    public partial class VisitaSAP
     {
         public int Visita_Id { get; set; }
         public int Vendedor_Id { get; set; }
         public int Sucursal_Id { get; set; }
+        public string Cliente_Cod { get; set; }
         public System.DateTime Visita_fecha { get; set; }
         public int Estado_Id { get; set; }
         public int Motivo_Id { get; set; }
         public string Visita_Observacion { get; set; }
-        public string Visita_Ubicacion { get; set; }
-        public System.DateTime Visita_Hora { get; set; }
-    
-        public virtual EstadoMotivo EstadoMotivo { get; set; }
-        public virtual VendedorCliente VendedorCliente { get; set; }
+        public string Visita_Ubicacion_Entrada { get; set; }
+        public string Visita_Ubicacion_Salida { get; set; }
+        public System.DateTime Visita_Hora_Entrada { get; set; }
+        public System.DateTime Visita_Hora_Salida { get; set; }
     }
 }

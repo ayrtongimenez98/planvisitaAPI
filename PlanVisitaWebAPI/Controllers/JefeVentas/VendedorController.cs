@@ -33,7 +33,7 @@ namespace PlanVisitaWebAPI.Controllers
                 var canales = db.JefeVentas.First(x => x.JefeVentas_Id == jefeVentasId).Canal;
                 var canalesId = canales.Select(x => x.Canal_Id);
                 var sucursalesId = db.CanalSucursal.Where(x => canalesId.Any(y => y == x.Canal_Id)).ToList().Select(x => x.Sucursal_Id);
-                var vendedoresId = db.VendedorCliente.Where(x => sucursalesId.Any(y => y == x.Sucursal_Id)).ToList().Select(x => x.Vendedor_Id);
+                var vendedoresId = db.VendedorCliente.Where(x => sucursalesId.Any(y => y == x.Sucursal_Id) && x.Cantidad_Visitas > 0).ToList().Select(x => x.Vendedor_Id);
 
 
                 var listaVendedors = db.Vendedor.Where(x => vendedoresId.Any(y => y == x.Vendedor_Id) &&  ( x.Vendedor_Nombre.Contains(filtro) || x.Vendedor_Mail.Contains(filtro))).ToList();

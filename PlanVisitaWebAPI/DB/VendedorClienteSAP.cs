@@ -12,14 +12,12 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class VendedorZona
+    public partial class VendedorClienteSAP
     {
         public int Vendedor_Id { get; set; }
-        public int Zona_Id { get; set; }
-        public string VendedorZonaEstado { get; set; }
-        public string VendedorZonaPeriodo { get; set; }
-    
-        public virtual Vendedor Vendedor { get; set; }
-        public virtual Zona Zona { get; set; }
+        public string Cliente_Cod { get; set; }
+        public int Sucursal_Id { get; set; }
+        public int Cantidad_Visitas { get; set; }
+        public Nullable<decimal> Promedio_Ventas { get; set; }
     }
 }

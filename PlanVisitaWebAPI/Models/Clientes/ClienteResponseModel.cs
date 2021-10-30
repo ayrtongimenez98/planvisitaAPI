@@ -8,8 +8,8 @@ namespace PlanVisitaWebAPI.Models
 {
     public class ClienteResponseModel
     {
-        public Cliente Cliente { get; set; }
-        public PaginationModel<DB.Sucursal> Sucursales { get; set; }
+        public string Cliente_Cod { get; set; }
+        public string Cliente_RazonSocial { get; set; }
 
     }
 }

@@ -30,8 +30,8 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                 string token = headers.GetValues("userToken").First();
                 var vendedorId = Convert.ToInt32(token);
 
-                var plan = dbLectura.V_VDetallePlanSVendedores.Where(x => x.VendedorId == vendedorId).ToList();
-                plan = plan.Where(x => x.PlanSemanal_Horario.Date >= model.Fecha_Desde.Date && x.PlanSemanal_Horario.Date <= model.Fecha_Hasta && (x.Cliente_RazonSocial.Contains(model.Filtro) || x.SucursalDireccion.Contains(model.Filtro))).ToList();
+                var plan = db.V_VDetallePlanSVendedores.Where(x => x.VendedorId == vendedorId).ToList();
+                //plan = plan.Where(x => x.PlanSemanal_Horario.Date >= model.Fecha_Desde.Date && x.PlanSemanal_Horario.Date <= model.Fecha_Hasta && (x.Cliente_RazonSocial.Contains(model.Filtro) || x.SucursalDireccion.Contains(model.Filtro))).ToList();
 
                 var paginationModel = new PaginationModel<V_VDetallePlanSVendedores>()
                 {

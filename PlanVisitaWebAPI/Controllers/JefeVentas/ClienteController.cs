@@ -21,11 +21,12 @@ namespace PlanVisitaWebAPI.Controllers
         {
             if (filtro == null)
                 filtro = "";
-            var listaClientes = db.Cliente.Where(x => x.Cliente_RazonSocial.Contains(filtro) || x.Cliente_Cod.Contains(filtro)).ToList();
+            var listaClientes = db.V_Clientes_HBF.Where(x => x.cardcode.Contains(filtro) || x.cardfname.Contains(filtro)).Select(x => new ClienteResponseModel() { Cliente_Cod = x.cardcode, Cliente_RazonSocial = x.cardfname }).Distinct().OrderBy(x => x.Cliente_Cod).ToList();
+            var listaClientesModel = listaClientes;
 
-            var paginationModel = new PaginationModel<Cliente>() { 
-                CantidadTotal = listaClientes.Count,
-                Listado = listaClientes.Skip(skip).Take(take)
+            var paginationModel = new PaginationModel<ClienteResponseModel>() { 
+                CantidadTotal = listaClientesModel.Count(),
+                Listado = listaClientesModel.Skip(skip).Take(take)
             };
             var json = JsonConvert.SerializeObject(paginationModel);
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -34,14 +35,16 @@ namespace PlanVisitaWebAPI.Controllers
         }
 
         // GET api/<controller>/5
-        public HttpResponseMessage Get(string id, string filtroS = "", int takeS = 10, int skipS = 0)
+        public HttpResponseMessage Get(string id)
         {
-            if (filtroS == null)
-                filtroS = "";
-            var cliente = db.Cliente.FirstOrDefault(x => x.Cliente_Cod == id);
-            
+           
+            var cliente = db.V_Clientes_HBF.FirstOrDefault(x => x.cardcode == id);
+            var clienteModel = new ClienteResponseModel() {
+                Cliente_RazonSocial = cliente.cardfname,
+                Cliente_Cod = cliente.cardcode
+            };
 
-            var json = JsonConvert.SerializeObject(cliente);
+            var json = JsonConvert.SerializeObject(clienteModel);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;
@@ -108,7 +111,7 @@ namespace PlanVisitaWebAPI.Controllers
                 nuevoCliente.Cliente_RazonSocial = model.Nombre;
                 nuevoCliente.Cliente_FechaLastUpdate = DateTime.Now;
 
-                db.Cliente.Add(nuevoCliente);
+               
 
                 var resultado = db.SaveChanges();
 

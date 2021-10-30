@@ -803,11 +803,16 @@
       <End Role="Usuario" EntitySet="Usuario" />
     </AssociationSet>
     <EntitySet Name="V_VDetallePlanSVendedores" EntityType="PLAN_VISITAModel.V_VDetallePlanSVendedores" />
+    <EntitySet Name="V_Canales_HBF" EntityType="PLAN_VISITAModel.V_Canales_HBF" />
+    <EntitySet Name="PlanSemanalDetalleSAP" EntityType="PLAN_VISITAModel.PlanSemanalDetalleSAP" />
+    <EntitySet Name="VendedorClienteSAP" EntityType="PLAN_VISITAModel.VendedorClienteSAP" />
+    <EntitySet Name="VisitaSAP" EntityType="PLAN_VISITAModel.VisitaSAP" />
   </EntityContainer>
   <EntityType Name="V_Clientes_HBF">
     <Key>
       <PropertyRef Name="cardcode" />
       <PropertyRef Name="Address" />
+      <PropertyRef Name="GroupName" />
     </Key>
     <Property Name="Fila" Type="Int64" />
     <Property Name="cardcode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
@@ -815,6 +820,9 @@
     <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="GroupCode" Type="Int16" />
+    <Property Name="GroupName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="V_PLAN_SEMANAL">
     <Key>
@@ -957,6 +965,7 @@
       <PropertyRef Name="ObjetivoVisita" />
       <PropertyRef Name="Cliente_Cod" />
       <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="PlanSemanal_Horario" />
     </Key>
     <Property Name="PlanSemanalId" Type="Int32" Nullable="false" />
     <Property Name="NroSemana" Type="Int32" Nullable="false" />
@@ -973,5 +982,59 @@
     <Property Name="ObjetivoVisita" Type="Int32" Nullable="false" />
     <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
     <Property Name="Cliente_RazonSocial" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="PlanSemanal_Horario" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="V_Canales_HBF">
+    <Key>
+      <PropertyRef Name="GroupCode" />
+      <PropertyRef Name="GroupName" />
+    </Key>
+    <Property Name="GroupCode" Type="Int16" Nullable="false" />
+    <Property Name="GroupName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="GroupType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PlanSemanalDetalleSAP">
+    <Key>
+      <PropertyRef Name="PlanSemanal_Id" />
+      <PropertyRef Name="PlanSemanal_DiaSemana" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="PlanSemanal_Horario" />
+    </Key>
+    <Property Name="PlanSemanal_Id" Type="Int32" Nullable="false" />
+    <Property Name="PlanSemanal_DiaSemana" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PlanSemanal_Horario" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ObjetivoVisita_Id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VendedorClienteSAP">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Sucursal_Id" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="Int32" Nullable="false" />
+    <Property Name="Promedio_Ventas" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="VisitaSAP">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+    </Key>
+    <Property Name="Visita_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Estado_Id" Type="Int32" Nullable="false" />
+    <Property Name="Motivo_Id" Type="Int32" Nullable="false" />
+    <Property Name="Visita_Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_Ubicacion_Entrada" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="Visita_Ubicacion_Salida" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="Visita_Hora_Entrada" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Visita_Hora_Salida" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
 </Schema>

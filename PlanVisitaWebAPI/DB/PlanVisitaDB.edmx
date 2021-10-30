@@ -180,6 +180,21 @@
           <Property Name="PlanSemanal_Horario" Type="datetime" Nullable="false" />
           <Property Name="ObjetivoVisita_Id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PlanSemanalDetalleSAP">
+          <Key>
+            <PropertyRef Name="PlanSemanal_Id" />
+            <PropertyRef Name="PlanSemanal_DiaSemana" />
+            <PropertyRef Name="Sucursal_Id" />
+            <PropertyRef Name="Cliente_Cod" />
+            <PropertyRef Name="PlanSemanal_Horario" />
+          </Key>
+          <Property Name="PlanSemanal_Id" Type="int" Nullable="false" />
+          <Property Name="PlanSemanal_DiaSemana" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Sucursal_Id" Type="int" Nullable="false" />
+          <Property Name="Cliente_Cod" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PlanSemanal_Horario" Type="datetime" Nullable="false" />
+          <Property Name="ObjetivoVisita_Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="PlanVisita">
           <Key>
             <PropertyRef Name="PlanVisita_Id" />
@@ -269,6 +284,18 @@
           <Property Name="Cantidad_Visitas" Type="int" Nullable="false" />
           <Property Name="Promedio_Ventas" Type="money" />
         </EntityType>
+        <EntityType Name="VendedorClienteSAP">
+          <Key>
+            <PropertyRef Name="Vendedor_Id" />
+            <PropertyRef Name="Cliente_Cod" />
+            <PropertyRef Name="Sucursal_Id" />
+          </Key>
+          <Property Name="Vendedor_Id" Type="int" Nullable="false" />
+          <Property Name="Cliente_Cod" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Sucursal_Id" Type="int" Nullable="false" />
+          <Property Name="Cantidad_Visitas" Type="int" Nullable="false" />
+          <Property Name="Promedio_Ventas" Type="money" />
+        </EntityType>
         <EntityType Name="VendedorZona">
           <Key>
             <PropertyRef Name="Vendedor_Id" />
@@ -330,6 +357,23 @@
           <Property Name="VisitaDual_Fecha" Type="datetime" Nullable="false" />
           <Property Name="VisitaDual_Observacion" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="VisitaSAP">
+          <Key>
+            <PropertyRef Name="Visita_Id" />
+          </Key>
+          <Property Name="Visita_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vendedor_Id" Type="int" Nullable="false" />
+          <Property Name="Sucursal_Id" Type="int" Nullable="false" />
+          <Property Name="Cliente_Cod" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Visita_fecha" Type="datetime" Nullable="false" />
+          <Property Name="Estado_Id" Type="int" Nullable="false" />
+          <Property Name="Motivo_Id" Type="int" Nullable="false" />
+          <Property Name="Visita_Observacion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Visita_Ubicacion_Entrada" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="Visita_Ubicacion_Salida" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="Visita_Hora_Entrada" Type="datetime" Nullable="false" />
+          <Property Name="Visita_Hora_Salida" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Zona">
           <Key>
             <PropertyRef Name="Zona_Id" />
@@ -348,12 +392,24 @@
           <Property Name="ZonaSucursalEstado" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="ZonaSucursalCantidad_Visitas" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_HBF' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_Canales_HBF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_Canales_HBF">
+          <Key>
+            <PropertyRef Name="GroupCode" />
+            <PropertyRef Name="GroupName" />
+          </Key>
+          <Property Name="GroupCode" Type="smallint" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="GroupType" Type="char" MaxLength="1" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_Clientes_HBF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="V_Clientes_HBF">
           <Key>
             <PropertyRef Name="cardcode" />
             <PropertyRef Name="Address" />
+            <PropertyRef Name="GroupName" />
           </Key>
           <Property Name="Fila" Type="bigint" />
           <Property Name="cardcode" Type="nvarchar" MaxLength="15" Nullable="false" />
@@ -361,9 +417,12 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_HBF' no tiene def
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="city" Type="nvarchar" MaxLength="100" />
           <Property Name="street" Type="nvarchar" MaxLength="100" />
+          <Property Name="GroupCode" Type="smallint" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="V_PLAN_SEMANAL">
           <Key>
             <PropertyRef Name="Periodo" />
@@ -389,8 +448,8 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' no tiene def
           <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Fecha" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_RUTA_DIA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_RUTA_DIA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="V_RUTA_DIA">
           <Key>
             <PropertyRef Name="Periodo" />
@@ -412,8 +471,8 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_RUTA_DIA' no tiene definid
           <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Fecha" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_RUTA_DIA_NUEVO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_RUTA_DIA_NUEVO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="V_RUTA_DIA_NUEVO">
           <Key>
             <PropertyRef Name="Periodo" />
@@ -439,8 +498,8 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_RUTA_DIA_NUEVO' no tiene d
           <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Fecha" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_VDetallePlanSVendedores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_VDetallePlanSVendedores' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="V_VDetallePlanSVendedores">
           <Key>
             <PropertyRef Name="PlanSemanalId" />
@@ -458,6 +517,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_VDetallePlanSVendedores' n
             <PropertyRef Name="ObjetivoVisita" />
             <PropertyRef Name="Cliente_Cod" />
             <PropertyRef Name="Cliente_RazonSocial" />
+            <PropertyRef Name="PlanSemanal_Horario" />
           </Key>
           <Property Name="PlanSemanalId" Type="int" Nullable="false" />
           <Property Name="NroSemana" Type="int" Nullable="false" />
@@ -474,9 +534,10 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_VDetallePlanSVendedores' n
           <Property Name="ObjetivoVisita" Type="int" Nullable="false" />
           <Property Name="Cliente_Cod" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="PlanSemanal_Horario" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="V_Visitas_Detalle">
           <Key>
             <PropertyRef Name="Visita_Id" />
@@ -563,18 +624,6 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
             </Principal>
             <Dependent Role="CanalVendedor">
               <PropertyRef Name="Vendedor_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_JefeVentasCanal_Canal">
-          <End Role="Canal" Type="Self.Canal" Multiplicity="1" />
-          <End Role="JefeVentasCanal" Type="Self.JefeVentasCanal" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Canal">
-              <PropertyRef Name="Canal_Id" />
-            </Principal>
-            <Dependent Role="JefeVentasCanal">
-              <PropertyRef Name="Canal_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -877,6 +926,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
           <EntitySet Name="PlanAccion" EntityType="Self.PlanAccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanSemanal" EntityType="Self.PlanSemanal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanSemanalDetalle" EntityType="Self.PlanSemanalDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanSemanalDetalleSAP" EntityType="Self.PlanSemanalDetalleSAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanVisita" EntityType="Self.PlanVisita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
@@ -885,13 +935,22 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendedorCliente" EntityType="Self.VendedorCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VendedorClienteSAP" EntityType="Self.VendedorClienteSAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VendedorZona" EntityType="Self.VendedorZona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VentaLinea" EntityType="Self.VentaLinea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visita" EntityType="Self.Visita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisitaDual" EntityType="Self.VisitaDual" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisitaSAP" EntityType="Self.VisitaSAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zona" EntityType="Self.Zona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZonaSucursal" EntityType="Self.ZonaSucursal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_Canales_HBF" EntityType="Self.V_Canales_HBF" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Canales_HBF].[GroupCode] AS [GroupCode], 
+    [V_Canales_HBF].[GroupName] AS [GroupName], 
+    [V_Canales_HBF].[GroupType] AS [GroupType]
+    FROM [dbo].[V_Canales_HBF] AS [V_Canales_HBF]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="V_Clientes_HBF" EntityType="Self.V_Clientes_HBF" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [V_Clientes_HBF].[Fila] AS [Fila], 
@@ -899,7 +958,10 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
     [V_Clientes_HBF].[cardfname] AS [cardfname], 
     [V_Clientes_HBF].[Address] AS [Address], 
     [V_Clientes_HBF].[city] AS [city], 
-    [V_Clientes_HBF].[street] AS [street]
+    [V_Clientes_HBF].[street] AS [street], 
+    [V_Clientes_HBF].[GroupCode] AS [GroupCode], 
+    [V_Clientes_HBF].[GroupName] AS [GroupName], 
+    [V_Clientes_HBF].[Address2] AS [Address2]
     FROM [dbo].[V_Clientes_HBF] AS [V_Clientes_HBF]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="V_PLAN_SEMANAL" EntityType="Self.V_PLAN_SEMANAL" store:Type="Views" store:Schema="dbo">
@@ -964,7 +1026,8 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
     [V_VDetallePlanSVendedores].[Cantidad] AS [Cantidad], 
     [V_VDetallePlanSVendedores].[ObjetivoVisita] AS [ObjetivoVisita], 
     [V_VDetallePlanSVendedores].[Cliente_Cod] AS [Cliente_Cod], 
-    [V_VDetallePlanSVendedores].[Cliente_RazonSocial] AS [Cliente_RazonSocial]
+    [V_VDetallePlanSVendedores].[Cliente_RazonSocial] AS [Cliente_RazonSocial], 
+    [V_VDetallePlanSVendedores].[PlanSemanal_Horario] AS [PlanSemanal_Horario]
     FROM [dbo].[V_VDetallePlanSVendedores] AS [V_VDetallePlanSVendedores]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="V_Visitas_Detalle" EntityType="Self.V_Visitas_Detalle" store:Type="Views" store:Schema="dbo">
@@ -1011,10 +1074,6 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
           <AssociationSet Name="FK_CanalVendedor_Vendedor" Association="Self.FK_CanalVendedor_Vendedor">
             <End Role="Vendedor" EntitySet="Vendedor" />
             <End Role="CanalVendedor" EntitySet="CanalVendedor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_JefeVentasCanal_Canal" Association="Self.FK_JefeVentasCanal_Canal">
-            <End Role="Canal" EntitySet="Canal" />
-            <End Role="JefeVentasCanal" EntitySet="JefeVentasCanal" />
           </AssociationSet>
           <AssociationSet Name="FK_JefeVentasCanal_JefeVentas" Association="Self.FK_JefeVentasCanal_JefeVentas">
             <End Role="JefeVentas" EntitySet="JefeVentas" />
@@ -1912,11 +1971,16 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
           <EntitySet Name="V_VDetallePlanSVendedores" EntityType="PLAN_VISITAModel.V_VDetallePlanSVendedores" />
+          <EntitySet Name="V_Canales_HBF" EntityType="PLAN_VISITAModel.V_Canales_HBF" />
+          <EntitySet Name="PlanSemanalDetalleSAP" EntityType="PLAN_VISITAModel.PlanSemanalDetalleSAP" />
+          <EntitySet Name="VendedorClienteSAP" EntityType="PLAN_VISITAModel.VendedorClienteSAP" />
+          <EntitySet Name="VisitaSAP" EntityType="PLAN_VISITAModel.VisitaSAP" />
         </EntityContainer>
         <EntityType Name="V_Clientes_HBF">
           <Key>
             <PropertyRef Name="cardcode" />
             <PropertyRef Name="Address" />
+            <PropertyRef Name="GroupName" />
           </Key>
           <Property Name="Fila" Type="Int64" />
           <Property Name="cardcode" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
@@ -1924,6 +1988,9 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
           <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GroupCode" Type="Int16" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="V_PLAN_SEMANAL">
           <Key>
@@ -2066,6 +2133,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
             <PropertyRef Name="ObjetivoVisita" />
             <PropertyRef Name="Cliente_Cod" />
             <PropertyRef Name="Cliente_RazonSocial" />
+            <PropertyRef Name="PlanSemanal_Horario" />
           </Key>
           <Property Name="PlanSemanalId" Type="Int32" Nullable="false" />
           <Property Name="NroSemana" Type="Int32" Nullable="false" />
@@ -2082,6 +2150,60 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
           <Property Name="ObjetivoVisita" Type="Int32" Nullable="false" />
           <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Cliente_RazonSocial" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="PlanSemanal_Horario" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_Canales_HBF">
+          <Key>
+            <PropertyRef Name="GroupCode" />
+            <PropertyRef Name="GroupName" />
+          </Key>
+          <Property Name="GroupCode" Type="Int16" Nullable="false" />
+          <Property Name="GroupName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="GroupType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PlanSemanalDetalleSAP">
+          <Key>
+            <PropertyRef Name="PlanSemanal_Id" />
+            <PropertyRef Name="PlanSemanal_DiaSemana" />
+            <PropertyRef Name="Sucursal_Id" />
+            <PropertyRef Name="Cliente_Cod" />
+            <PropertyRef Name="PlanSemanal_Horario" />
+          </Key>
+          <Property Name="PlanSemanal_Id" Type="Int32" Nullable="false" />
+          <Property Name="PlanSemanal_DiaSemana" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PlanSemanal_Horario" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ObjetivoVisita_Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VendedorClienteSAP">
+          <Key>
+            <PropertyRef Name="Vendedor_Id" />
+            <PropertyRef Name="Cliente_Cod" />
+            <PropertyRef Name="Sucursal_Id" />
+          </Key>
+          <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad_Visitas" Type="Int32" Nullable="false" />
+          <Property Name="Promedio_Ventas" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="VisitaSAP">
+          <Key>
+            <PropertyRef Name="Visita_Id" />
+          </Key>
+          <Property Name="Visita_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+          <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Visita_fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estado_Id" Type="Int32" Nullable="false" />
+          <Property Name="Motivo_Id" Type="Int32" Nullable="false" />
+          <Property Name="Visita_Observacion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Visita_Ubicacion_Entrada" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="Visita_Ubicacion_Salida" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="Visita_Hora_Entrada" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Visita_Hora_Salida" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2456,6 +2578,9 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
           <EntitySetMapping Name="V_Clientes_HBF">
             <EntityTypeMapping TypeName="PLAN_VISITAModel.V_Clientes_HBF">
               <MappingFragment StoreEntitySet="V_Clientes_HBF">
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
                 <ScalarProperty Name="street" ColumnName="street" />
                 <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -2551,6 +2676,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
           <EntitySetMapping Name="V_VDetallePlanSVendedores">
             <EntityTypeMapping TypeName="PLAN_VISITAModel.V_VDetallePlanSVendedores">
               <MappingFragment StoreEntitySet="V_VDetallePlanSVendedores">
+                <ScalarProperty Name="PlanSemanal_Horario" ColumnName="PlanSemanal_Horario" />
                 <ScalarProperty Name="Cliente_RazonSocial" ColumnName="Cliente_RazonSocial" />
                 <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
                 <ScalarProperty Name="ObjetivoVisita" ColumnName="ObjetivoVisita" />
@@ -2566,6 +2692,56 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene 
                 <ScalarProperty Name="Periodo" ColumnName="Periodo" />
                 <ScalarProperty Name="NroSemana" ColumnName="NroSemana" />
                 <ScalarProperty Name="PlanSemanalId" ColumnName="PlanSemanalId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Canales_HBF">
+            <EntityTypeMapping TypeName="PLAN_VISITAModel.V_Canales_HBF">
+              <MappingFragment StoreEntitySet="V_Canales_HBF">
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanSemanalDetalleSAP">
+            <EntityTypeMapping TypeName="PLAN_VISITAModel.PlanSemanalDetalleSAP">
+              <MappingFragment StoreEntitySet="PlanSemanalDetalleSAP">
+                <ScalarProperty Name="ObjetivoVisita_Id" ColumnName="ObjetivoVisita_Id" />
+                <ScalarProperty Name="PlanSemanal_Horario" ColumnName="PlanSemanal_Horario" />
+                <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
+                <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+                <ScalarProperty Name="PlanSemanal_DiaSemana" ColumnName="PlanSemanal_DiaSemana" />
+                <ScalarProperty Name="PlanSemanal_Id" ColumnName="PlanSemanal_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VendedorClienteSAP">
+            <EntityTypeMapping TypeName="PLAN_VISITAModel.VendedorClienteSAP">
+              <MappingFragment StoreEntitySet="VendedorClienteSAP">
+                <ScalarProperty Name="Promedio_Ventas" ColumnName="Promedio_Ventas" />
+                <ScalarProperty Name="Cantidad_Visitas" ColumnName="Cantidad_Visitas" />
+                <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+                <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
+                <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisitaSAP">
+            <EntityTypeMapping TypeName="PLAN_VISITAModel.VisitaSAP">
+              <MappingFragment StoreEntitySet="VisitaSAP">
+                <ScalarProperty Name="Visita_Hora_Salida" ColumnName="Visita_Hora_Salida" />
+                <ScalarProperty Name="Visita_Hora_Entrada" ColumnName="Visita_Hora_Entrada" />
+                <ScalarProperty Name="Visita_Ubicacion_Salida" ColumnName="Visita_Ubicacion_Salida" />
+                <ScalarProperty Name="Visita_Ubicacion_Entrada" ColumnName="Visita_Ubicacion_Entrada" />
+                <ScalarProperty Name="Visita_Observacion" ColumnName="Visita_Observacion" />
+                <ScalarProperty Name="Motivo_Id" ColumnName="Motivo_Id" />
+                <ScalarProperty Name="Estado_Id" ColumnName="Estado_Id" />
+                <ScalarProperty Name="Visita_fecha" ColumnName="Visita_fecha" />
+                <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
+                <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+                <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+                <ScalarProperty Name="Visita_Id" ColumnName="Visita_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

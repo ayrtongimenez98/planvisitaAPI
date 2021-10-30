@@ -12,14 +12,10 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class VendedorZona
+    public partial class V_Canales_HBF
     {
-        public int Vendedor_Id { get; set; }
-        public int Zona_Id { get; set; }
-        public string VendedorZonaEstado { get; set; }
-        public string VendedorZonaPeriodo { get; set; }
-    
-        public virtual Vendedor Vendedor { get; set; }
-        public virtual Zona Zona { get; set; }
+        public short GroupCode { get; set; }
+        public string GroupName { get; set; }
+        public string GroupType { get; set; }
     }
 }
