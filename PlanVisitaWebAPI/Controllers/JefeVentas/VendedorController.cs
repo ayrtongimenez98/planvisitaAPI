@@ -28,22 +28,14 @@ namespace PlanVisitaWebAPI.Controllers
             var response = new HttpResponseMessage();
             if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
             {
-                string token = headers.GetValues("jefeToken").First();
-                var jefeVentasId = Convert.ToInt32(token);
-                var canales = db.JefeVentas.First(x => x.JefeVentas_Id == jefeVentasId).Canal;
-                var canalesId = canales.Select(x => x.Canal_Id);
-                var sucursalesId = db.CanalSucursal.Where(x => canalesId.Any(y => y == x.Canal_Id)).ToList().Select(x => x.Sucursal_Id);
-                var vendedoresId = db.VendedorCliente.Where(x => sucursalesId.Any(y => y == x.Sucursal_Id) && x.Cantidad_Visitas > 0).ToList().Select(x => x.Vendedor_Id);
+                
 
-
-                var listaVendedors = db.Vendedor.Where(x => vendedoresId.Any(y => y == x.Vendedor_Id) &&  ( x.Vendedor_Nombre.Contains(filtro) || x.Vendedor_Mail.Contains(filtro))).ToList();
+                var listaVendedors = db.Vendedor.Where(x => ( x.Vendedor_Nombre.Contains(filtro) || x.Vendedor_Mail.Contains(filtro))).ToList();
 
                 var paginationModel = new PaginationModel<VendedorSucursalResponseModel>()
                 {
                     CantidadTotal = listaVendedors.Count,
-                    Listado = listaVendedors.Skip(skip).Take(take).Select(x => new VendedorSucursalResponseModel() { JefeVentas_Id = x.JefeVentas_Id,
-                                                                                                                     Vendedor_FechaCreacion = x.Vendedor_FechaCreacion,
-                                                                                                                     Vendedor_FechaLastUpdate = x.Vendedor_FechaLastUpdate,
+                    Listado = listaVendedors.Skip(skip).Take(take).Select(x => new VendedorSucursalResponseModel() { 
                                                                                                                      Vendedor_Id = x.Vendedor_Id,
                                                                                                                      Vendedor_Mail = x.Vendedor_Mail,
                                                                                                                      Vendedor_Nombre = x.Vendedor_Nombre,
@@ -72,7 +64,15 @@ namespace PlanVisitaWebAPI.Controllers
         {
             var Vendedor = db.Vendedor.FirstOrDefault(x => x.Vendedor_Id == id);
 
-            var json = JsonConvert.SerializeObject(Vendedor);
+            var model = new VendedorSucursalResponseModel()
+            {
+                Vendedor_Id = Vendedor.Vendedor_Id,
+                Vendedor_Mail = Vendedor.Vendedor_Mail,
+                Vendedor_Nombre = Vendedor.Vendedor_Nombre,
+                Vendedor_Rol = Vendedor.Vendedor_Rol
+            };
+
+            var json = JsonConvert.SerializeObject(model);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;

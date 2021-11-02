@@ -9,7 +9,7 @@ namespace PlanVisitaWebAPI.Models.VendedorSucursal
     {
         public int Vendedor_Id { get; set; }
         public int Sucursal_Id { get; set; }
+        public string Cliente_Cod { get; set; }
         public int Cantidad { get; set; }
-        public string Filtro { get; set; }
     }
 }

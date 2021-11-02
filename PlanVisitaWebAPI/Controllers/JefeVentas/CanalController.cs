@@ -22,19 +22,41 @@ namespace PlanVisitaWebAPI.Controllers
         {
             if (filtro == null)
                 filtro = "";
-            var listaCanals = db.Canal.Where(x => x.Descripcion.Contains(filtro)).ToList();
+            HttpRequestMessage re = Request;
+            var headers = re.Headers;
 
-            var paginationModel = new PaginationModel<CanalResponseModel>()
+
+            var response = new HttpResponseMessage();
+            if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
             {
-                CantidadTotal = listaCanals.Count,
-                Listado = listaCanals.Skip(skip).Take(take).Select(x => new CanalResponseModel() {Canal_Id = x.Canal_Id, Descripcion = x.Descripcion })
-            };
-            var json = JsonConvert.SerializeObject(paginationModel, new JsonSerializerSettings()
+                string token = headers.GetValues("jefeToken").First();
+                var jefeVentasId = Convert.ToInt32(token);
+                var canales = db.Database.SqlQuery<CanalResponseModel>("SELECT GroupCode as Canal_Id, GroupName as Descripcion, GroupType as Tipo FROM V_Canales_HBF c inner join JefeVentasCanal j on  c.GroupCode = j.Canal_Id where j.JefeVentas_Id = " + jefeVentasId).ToList<CanalResponseModel>();
+
+                var paginationModel = new PaginationModel<CanalResponseModel>()
+                {
+                    CantidadTotal = canales.Count,
+                    Listado = canales.Skip(skip).Take(take)
+                };
+                var json = JsonConvert.SerializeObject(paginationModel, new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+                response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+            }
+            else
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                var validation = new SystemValidationModel()
+                {
+                    Success = false,
+                    Message = "Credenciales incorrectas."
+                };
+                var json = JsonConvert.SerializeObject(validation);
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            }
             return response;
         }
 

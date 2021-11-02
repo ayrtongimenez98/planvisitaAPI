@@ -23,7 +23,7 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
 
 
         // GET: api/VendedorSucursal/5
-        public HttpResponseMessage Get([FromBody] VendedorSucursalUpdateModel value, int skip = 0, int take = 10, string filtro = "")
+        public HttpResponseMessage Get(int skip = 0, int take = 10, string filtro = "", int vendedor = 0, int sucursal = 0, string cliente = "", bool asignado = true)
         {
             HttpRequestMessage re = Request;
             var headers = re.Headers;
@@ -31,10 +31,13 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
             {
                 filtro = "";
             }
+            if (cliente == null) {
+                cliente = "";
+            }
             var response = Request.CreateResponse();
             var validation = new SystemValidationModel();
             string json = null;
-            if ((string.IsNullOrEmpty(value.Vendedor_Id.ToString()) && string.IsNullOrEmpty(value.Sucursal_Id.ToString())) || (!headers.Contains("jefeToken")))
+            if ((string.IsNullOrEmpty(vendedor.ToString()) && string.IsNullOrEmpty(sucursal.ToString())) || (!headers.Contains("jefeToken")))
             {
                 validation.Success = false;
                 response.StatusCode = HttpStatusCode.BadRequest;
@@ -43,47 +46,30 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
             else
             {
                 string token = headers.GetValues("jefeToken").First();
-                var jefeVentasId = Convert.ToInt32(token);
-                if (value.Vendedor_Id != 0 && value.Sucursal_Id == 0)
+                if (vendedor != 0 && (sucursal == 0 && cliente == ""))
                 {
-                    var listaSucursalesVendedor = db.VendedorCliente.Where(x => x.Vendedor_Id == value.Vendedor_Id).ToList();
-                    var listaIds = listaSucursalesVendedor.Select(x => x.Sucursal_Id);
-                    var sucursales = db.Sucursal.Where(x => listaIds.Any(y => y == x.Sucursal_Id) && x.Sucursal_Direccion.Contains(filtro)).ToList();
-                    var cantidad = sucursales.Count;
-                    var sucursalesModels = sucursales.Skip(skip).Take(take).Select(x => new SucursalVendedorResponseModel()
+                    var sucursales = new List<SucursalVendedorResponseModel>();
+                    if (asignado) {
+                        sucursales = db.Database.SqlQuery<SucursalVendedorResponseModel>("select Cast(h.Address as varchar) as Sucursal_Id, h.city as Sucursal_Ciudad, h.street as Sucursal_Direccion, h.Address2 as Sucursal_Local, h.GroupCode as Canal_Id,h.cardcode as Cliente_Cod, h.cardfname as Cliente_RazonSocial, vc.Cantidad_Visitas as Cantidad_Visitas from VendedorClienteSAP vc inner join V_Clientes_HBF h on vc.Cliente_Cod COLLATE Modern_Spanish_CI_AS = h.cardcode and vc.Sucursal_Id  = h.Address where h.cardfname like '%" + filtro + "%' and vc.Vendedor_Id = " + vendedor).ToList<SucursalVendedorResponseModel>();
+                    } else
                     {
-                        Cliente_Cod = x.Cliente_Cod,
-                        Sucursal_Ciudad = x.Sucursal_Ciudad,
-                        Sucursal_Direccion = x.Sucursal_Direccion,
-                        Sucursal_FechaCreacion = x.Sucursal_FechaCreacion,
-                        Sucursal_FechaLastUpdate = x.Sucursal_FechaLastUpdate,
-                        Sucursal_Id = x.Sucursal_Id,
-                        Cantidad_Visitas = listaSucursalesVendedor.First(y => y.Sucursal_Id == x.Sucursal_Id).Cantidad_Visitas
-
-                    });
+                        sucursales = db.Database.SqlQuery<SucursalVendedorResponseModel>("select Cast(h.Address as varchar) as Sucursal_Id, h.city as Sucursal_Ciudad, h.street as Sucursal_Direccion, h.Address2 as Sucursal_Local, h.GroupCode as Canal_Id,h.cardcode as Cliente_Cod, h.cardfname as Cliente_RazonSocial from V_Clientes_HBF h where concat(h.cardcode, h.Address) not in (select concat(vc.Cliente_Cod COLLATE Modern_Spanish_CI_AS, vc.Sucursal_Id) from VendedorClienteSAP vc where vc.Vendedor_Id=" + vendedor + ") and  h.cardfname like '%" + filtro + "%'").ToList<SucursalVendedorResponseModel>();
+                    }
+                    
+                    var cantidad = sucursales.Count;
+                    var sucursalesModels = sucursales.Skip(skip).Take(take);
                     var paginationModel = new PaginationModel<SucursalVendedorResponseModel>()
                     {
                         CantidadTotal = cantidad,
                         Listado = sucursalesModels
                     };
                     json = JsonConvert.SerializeObject(paginationModel);
-                } else if(value.Vendedor_Id == 0 && value.Sucursal_Id != 0)
+                } else if(vendedor == 0 && sucursal != 0 && cliente != "")
                 {
-                    var listaVendedoresSucursal = db.VendedorCliente.Where(x => x.Sucursal_Id == value.Sucursal_Id).ToList();
-                    var listaIds = listaVendedoresSucursal.Select(x => x.Vendedor_Id);
-                    var vendedores = db.Vendedor.Where(x => listaIds.Any(y => y == x.Vendedor_Id) && x.Vendedor_Nombre.Contains(filtro)).ToList();
+                    var vendedores = db.Database.SqlQuery<VendedorSucursalResponseModel>("select v.Vendedor_Id, v.Vendedor_Nombre, v.Vendedor_Mail, v.Vendedor_Rol, vc.Cantidad_Visitas from VendedorClienteSAP vc inner join Vendedor v on vc.Vendedor_Id = v.Vendedor_Id where vc.Sucursal_Id = " + sucursal + " and vc.Cliente_Cod = '" + cliente + "'").ToList<VendedorSucursalResponseModel>();
+
                     var cantidad = vendedores.Count;
-                    var sucursalesModels = vendedores.Skip(skip).Take(take).Select(x => new VendedorSucursalResponseModel()
-                    {
-                        JefeVentas_Id = x.JefeVentas_Id,
-                        Vendedor_FechaCreacion = x.Vendedor_FechaCreacion,
-                        Vendedor_FechaLastUpdate = x.Vendedor_FechaLastUpdate,
-                        Vendedor_Id = x.Vendedor_Id,
-                        Vendedor_Mail = x.Vendedor_Mail,
-                        Vendedor_Nombre = x.Vendedor_Nombre,
-                        Vendedor_Rol = x.Vendedor_Rol,
-                        Cantidad_Visitas = listaVendedoresSucursal.First(y => y.Vendedor_Id == x.Vendedor_Id).Cantidad_Visitas
-                    });
+                    var sucursalesModels = vendedores.Skip(skip).Take(take);
                     var paginationModel = new PaginationModel<VendedorSucursalResponseModel>()
                     {
                         CantidadTotal = cantidad,
@@ -118,13 +104,14 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
             }
             else
             {
-                var newVendedorSucursal = new VendedorCliente();
+                var newVendedorSucursal = new VendedorClienteSAP();
                 newVendedorSucursal.Cantidad_Visitas = value.Cantidad;
                 newVendedorSucursal.Sucursal_Id = value.Sucursal_Id;
                 newVendedorSucursal.Vendedor_Id = value.Vendedor_Id;
+                newVendedorSucursal.Cliente_Cod = value.Cliente_Cod;
                 newVendedorSucursal.Promedio_Ventas = null;
 
-                db.VendedorCliente.Add(newVendedorSucursal);
+                db.VendedorClienteSAP.Add(newVendedorSucursal);
 
                 var resultado = db.SaveChanges();
 
@@ -161,10 +148,10 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
             }
             else
             {
-                var newVendedorSucursal = db.VendedorCliente.FirstOrDefault(x => x.Sucursal_Id == value.Sucursal_Id && x.Vendedor_Id == value.Vendedor_Id);
+                var newVendedorSucursal = db.VendedorClienteSAP.FirstOrDefault(x => x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.Vendedor_Id == value.Vendedor_Id);
                 newVendedorSucursal.Cantidad_Visitas = value.Cantidad;
 
-                db.VendedorCliente.Add(newVendedorSucursal);
+               
 
                 var resultado = db.SaveChanges();
 
@@ -202,10 +189,10 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
             }
             else
             {
-                var newVendedorSucursal = db.VendedorCliente.FirstOrDefault(x => x.Sucursal_Id == value.Sucursal_Id && x.Vendedor_Id == value.Vendedor_Id);
+                var newVendedorSucursal = db.VendedorClienteSAP.FirstOrDefault(x => x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod  && x.Vendedor_Id == value.Vendedor_Id);
                 newVendedorSucursal.Cantidad_Visitas = value.Cantidad;
 
-                db.VendedorCliente.Remove(newVendedorSucursal);
+                db.VendedorClienteSAP.Remove(newVendedorSucursal);
 
                 var resultado = db.SaveChanges();
 
@@ -227,5 +214,11 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
             response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;
         }
+    }
+
+    public class ClienteSucursalModel 
+    {
+        public int Sucursal_Id { get; set; }
+        public string Cliente_Cod { get; set; }
     }
 }
