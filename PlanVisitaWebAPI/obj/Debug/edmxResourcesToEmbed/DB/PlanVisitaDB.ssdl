@@ -33,6 +33,14 @@
     <Property Name="Cliente_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Cliente_FechaLastUpdate" Type="datetime" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'PLAN_VISITA.dbo.ClientesPeriodo' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ClientesPeriodo">
+          <Property Name="Vendedor_Id" Type="int" />
+          <Property Name="Sucursal_Id" Type="int" />
+          <Property Name="Cantidad_Visitas" Type="int" />
+          <Property Name="Periodo" Type="varchar" MaxLength="5" />
+        </EntityType>-->
   <EntityType Name="Division">
     <Key>
       <PropertyRef Name="Division_Id" />
@@ -87,6 +95,20 @@
     </Key>
     <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
     <Property Name="Canal_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LocationHistory">
+    <Key>
+      <PropertyRef Name="LocationHistory" />
+    </Key>
+    <Property Name="LocationHistory" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="LocationHistoryFecha" Type="datetime" Nullable="false" />
+    <Property Name="LocationHistoryGeolocation" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="LocationHistoryUser" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="LocationHistoryTime" Type="datetime" Nullable="false" />
+    <Property Name="LocationHistoryDescription" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="LocationHistoryPrecision" Type="smallmoney" Nullable="false" />
+    <Property Name="LocationHistoryHeading" Type="smallmoney" Nullable="false" />
+    <Property Name="LocationHistorySpeed" Type="smallmoney" Nullable="false" />
   </EntityType>
   <EntityType Name="Motivo">
     <Key>
@@ -236,6 +258,13 @@
     <Property Name="Tarea_Nombre" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Tarea_FechaLastUpdate" Type="datetime" Nullable="false" />
     <Property Name="Tarea_FechaCreacion" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="Task_Id" />
+    </Key>
+    <Property Name="Task_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Task_Description" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="Ubicacion">
     <Key>
@@ -388,6 +417,45 @@
     <Property Name="ZonaSucursalCantidad_Visitas" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.Detalle_Visita' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Detalle_Visita">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+      <PropertyRef Name="Visita_fecha" />
+      <PropertyRef Name="VendedorID" />
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="CodCliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Resultado de Visita" />
+      <PropertyRef Name="Motivo" />
+      <PropertyRef Name="Observacion" />
+      <PropertyRef Name="Cantidad" />
+    </Key>
+    <Property Name="Visita_Id" Type="int" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="5" />
+    <Property Name="Visita_fecha" Type="datetime" Nullable="false" />
+    <Property Name="Visita_Hora" Type="varchar" MaxLength="30" />
+    <Property Name="VendedorID" Type="int" Nullable="false" />
+    <Property Name="Vendedor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CodCliente" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="SucursalId" Type="int" Nullable="false" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Dirección" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="Resultado de Visita" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Motivo" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Observacion" Type="varchar(max)" Nullable="false" />
+    <Property Name="Análisis" Type="varchar(max)" />
+    <Property Name="Plan de Acción" Type="varchar(max)" />
+    <Property Name="Responsable" Type="varchar" MaxLength="40" />
+    <Property Name="Fecha de Compromiso" Type="datetime" />
+    <Property Name="Plan de Acción Estado" Type="varchar" MaxLength="40" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
 warning 6002: The table/view 'PLAN_VISITA.dbo.V_Canales_HBF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="V_Canales_HBF">
     <Key>
@@ -397,6 +465,67 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Canales_HBF' does not have a pri
     <Property Name="GroupCode" Type="smallint" Nullable="false" />
     <Property Name="GroupName" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="GroupType" Type="char" MaxLength="1" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_CARTERA_ACTUAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_CARTERA_ACTUAL">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Cantidad_Visitas" />
+      <PropertyRef Name="Vendedor_Nombre" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Sucursal_Direccion" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="JefeVentas_Nombre" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="smallint" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="int" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="smallint" Nullable="false" />
+    <Property Name="Promedio_Ventas" Type="money" />
+    <Property Name="Vendedor_Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Expr1" Type="int" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
+    <Property Name="JefeVentas_Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_Cartera_Clientes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_Cartera_Clientes">
+    <Key>
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Cod. de Cliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Cod_Sucursal" />
+    </Key>
+    <Property Name="Visitador" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cod. de Cliente" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Cod_Sucursal" Type="int" Nullable="false" />
+    <Property Name="Frecuencia de Visita" Type="int" />
+    <Property Name="Periodo" Type="varchar" MaxLength="5" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_CLIENTE_SUCURSAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_CLIENTE_SUCURSAL">
+    <Key>
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Sucursal_Direccion" />
+    </Key>
+    <Property Name="Cliente_Cod" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'PLAN_VISITA.dbo.V_Clientes_HBF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -415,6 +544,117 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Clientes_HBF' does not have a pr
     <Property Name="GroupCode" Type="smallint" />
     <Property Name="GroupName" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_Clientes_Total' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_Clientes_Total">
+    <Key>
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Sucursal_Direccion" />
+    </Key>
+    <Property Name="Cliente_Cod" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="int" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_ClientesVenRep' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_ClientesVenRep">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="Vendedor_Rol" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="JefeDeVentas" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Cantidad_Visitas" />
+      <PropertyRef Name="ClienteSAP" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Sucursal_Direccion" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="int" Nullable="false" />
+    <Property Name="Vendedor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Vendedor_Rol" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
+    <Property Name="JefeDeVentas" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="int" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="int" Nullable="false" />
+    <Property Name="ClienteSAP" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_Detalle_Visita' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_Detalle_Visita">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="CodCliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Resultado de Visita" />
+      <PropertyRef Name="Motivo" />
+      <PropertyRef Name="Observacion" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="Ubicacion" />
+      <PropertyRef Name="Vendedor_Id" />
+    </Key>
+    <Property Name="Visita_Id" Type="int" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="5" />
+    <Property Name="Visita_fecha" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Visita_Hora" Type="varchar" MaxLength="30" />
+    <Property Name="Dia" Type="nvarchar" MaxLength="30" />
+    <Property Name="Vendedor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CodCliente" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="SucursalId" Type="int" Nullable="false" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Dirección" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="Resultado de Visita" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Motivo" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Observacion" Type="varchar(max)" Nullable="false" />
+    <Property Name="Análisis" Type="varchar(max)" />
+    <Property Name="Plan de Acción" Type="varchar(max)" />
+    <Property Name="Responsable" Type="varchar" MaxLength="40" />
+    <Property Name="Fecha de Compromiso" Type="datetime" />
+    <Property Name="Plan de Acción Estado" Type="varchar" MaxLength="40" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="Ubicacion" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_Dual_Visita' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_Dual_Visita">
+    <Key>
+      <PropertyRef Name="VisitaDual_Id" />
+      <PropertyRef Name="VisitaDual_Fecha" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="Ubicacion" />
+    </Key>
+    <Property Name="VisitaDual_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="5" />
+    <Property Name="VisitaDual_Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Visita_Hora_Entrada" Type="varchar" MaxLength="30" />
+    <Property Name="Visita_Hora_Salida" Type="varchar" MaxLength="30" />
+    <Property Name="Visitador" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SucursalId" Type="int" Nullable="false" />
+    <Property Name="Dirección" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="Observacion" Type="varchar(max)" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="Ubicacion" Type="char" MaxLength="50" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -442,6 +682,30 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' does not have a pr
     <Property Name="HoraEntrada" Type="varchar" MaxLength="30" />
     <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
     <Property Name="Fecha" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_PlanSemCargXDia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_PlanSemCargXDia">
+    <Key>
+      <PropertyRef Name="NombreVendedor" />
+      <PropertyRef Name="NroSemana" />
+      <PropertyRef Name="Periodo" />
+      <PropertyRef Name="NombreJefe" />
+      <PropertyRef Name="LUNES" />
+      <PropertyRef Name="MARTES" />
+      <PropertyRef Name="MIERCOLES" />
+      <PropertyRef Name="JUEVES" />
+      <PropertyRef Name="VIERNES" />
+    </Key>
+    <Property Name="NombreVendedor" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="NroSemana" Type="int" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="NombreJefe" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="LUNES" Type="int" Nullable="false" />
+    <Property Name="MARTES" Type="int" Nullable="false" />
+    <Property Name="MIERCOLES" Type="int" Nullable="false" />
+    <Property Name="JUEVES" Type="int" Nullable="false" />
+    <Property Name="VIERNES" Type="int" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'PLAN_VISITA.dbo.V_RUTA_DIA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -573,6 +837,83 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="SucursalID" Type="int" Nullable="false" />
     <Property Name="frecuencia" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Dual' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_Visitas_Dual">
+    <Key>
+      <PropertyRef Name="VisitaDual_Id" />
+      <PropertyRef Name="VisitaDual_Fecha" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="UbicacionEntrada" />
+    </Key>
+    <Property Name="VisitaDual_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="5" />
+    <Property Name="VisitaDual_Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Dia" Type="nvarchar" MaxLength="30" />
+    <Property Name="Visita_Hora_Entrada" Type="varchar" MaxLength="30" />
+    <Property Name="Visita_Hora_Salida" Type="varchar" MaxLength="30" />
+    <Property Name="Visitador" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Dirección" Type="varchar" MaxLength="1024" Nullable="false" />
+    <Property Name="Observacion" Type="varchar(max)" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="UbicacionEntrada" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="UbicacionSalida" Type="char" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.VClienteSAPHBF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="VClienteSAPHBF">
+    <Key>
+      <PropertyRef Name="CodigoCliente" />
+      <PropertyRef Name="CodSucursal" />
+      <PropertyRef Name="Empresa" />
+    </Key>
+    <Property Name="CodigoCliente" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="RazonSocial" Type="nvarchar" MaxLength="100" />
+    <Property Name="NombreFantasia" Type="nvarchar" MaxLength="100" />
+    <Property Name="RUC" Type="nvarchar" MaxLength="32" />
+    <Property Name="CodSucursal" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Direccion" Type="nvarchar" MaxLength="100" />
+    <Property Name="Localidad" Type="nvarchar" MaxLength="100" />
+    <Property Name="Departamento" Type="nvarchar" MaxLength="100" />
+    <Property Name="U_TipoCliente" Type="nvarchar" MaxLength="50" />
+    <Property Name="Telefono" Type="nvarchar" MaxLength="20" />
+    <Property Name="Estado" Type="varchar" MaxLength="8" />
+    <Property Name="U_ClasifClientDPP" Type="nvarchar" MaxLength="15" />
+    <Property Name="Empresa" Type="varchar" MaxLength="8" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="VFrecuenciaVendedorCliente">
+    <Key>
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Vendedor_Nombre" />
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="JefeVentas_Nombre" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Cantidad" />
+    </Key>
+    <Property Name="Sucursal_Id" Type="int" Nullable="false" />
+    <Property Name="Frecuencia" Type="int" />
+    <Property Name="Vendedor_Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="int" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
+    <Property Name="JefeVentas_Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Periodo" Type="varchar" MaxLength="5" />
+    <Property Name="Cliente_Cod" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="CantidadVisita" Type="int" />
   </EntityType>
   <Association Name="FK_CanalSucursal_Canal">
     <End Role="Canal" Type="Self.Canal" Multiplicity="1" />
@@ -913,6 +1254,7 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a
     <EntitySet Name="EstadoMotivo" EntityType="Self.EstadoMotivo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JefeVentas" EntityType="Self.JefeVentas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="JefeVentasCanal" EntityType="Self.JefeVentasCanal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LocationHistory" EntityType="Self.LocationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Motivo" EntityType="Self.Motivo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Notificacion" EntityType="Self.Notificacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ObjetivoVisita" EntityType="Self.ObjetivoVisita" Schema="dbo" store:Type="Tables" />
@@ -926,6 +1268,7 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a
     <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tarea" EntityType="Self.Tarea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ubicacion" EntityType="Self.Ubicacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
@@ -939,12 +1282,71 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a
     <EntitySet Name="VisitaSAP" EntityType="Self.VisitaSAP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Zona" EntityType="Self.Zona" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ZonaSucursal" EntityType="Self.ZonaSucursal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Detalle_Visita" EntityType="Self.Detalle_Visita" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Detalle_Visita].[Visita_Id] AS [Visita_Id], 
+    [Detalle_Visita].[Periodo] AS [Periodo], 
+    [Detalle_Visita].[Visita_fecha] AS [Visita_fecha], 
+    [Detalle_Visita].[Visita_Hora] AS [Visita_Hora], 
+    [Detalle_Visita].[VendedorID] AS [VendedorID], 
+    [Detalle_Visita].[Vendedor] AS [Vendedor], 
+    [Detalle_Visita].[CodCliente] AS [CodCliente], 
+    [Detalle_Visita].[Cliente] AS [Cliente], 
+    [Detalle_Visita].[SucursalId] AS [SucursalId], 
+    [Detalle_Visita].[Ciudad] AS [Ciudad], 
+    [Detalle_Visita].[Dirección] AS [Dirección], 
+    [Detalle_Visita].[Resultado de Visita] AS [Resultado de Visita], 
+    [Detalle_Visita].[Motivo] AS [Motivo], 
+    [Detalle_Visita].[Observacion] AS [Observacion], 
+    [Detalle_Visita].[Análisis] AS [Análisis], 
+    [Detalle_Visita].[Plan de Acción] AS [Plan de Acción], 
+    [Detalle_Visita].[Responsable] AS [Responsable], 
+    [Detalle_Visita].[Fecha de Compromiso] AS [Fecha de Compromiso], 
+    [Detalle_Visita].[Plan de Acción Estado] AS [Plan de Acción Estado], 
+    [Detalle_Visita].[Cantidad] AS [Cantidad]
+    FROM [dbo].[Detalle_Visita] AS [Detalle_Visita]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="V_Canales_HBF" EntityType="Self.V_Canales_HBF" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [V_Canales_HBF].[GroupCode] AS [GroupCode], 
     [V_Canales_HBF].[GroupName] AS [GroupName], 
     [V_Canales_HBF].[GroupType] AS [GroupType]
     FROM [dbo].[V_Canales_HBF] AS [V_Canales_HBF]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_CARTERA_ACTUAL" EntityType="Self.V_CARTERA_ACTUAL" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_CARTERA_ACTUAL].[Vendedor_Id] AS [Vendedor_Id], 
+    [V_CARTERA_ACTUAL].[Sucursal_Id] AS [Sucursal_Id], 
+    [V_CARTERA_ACTUAL].[Cantidad_Visitas] AS [Cantidad_Visitas], 
+    [V_CARTERA_ACTUAL].[Promedio_Ventas] AS [Promedio_Ventas], 
+    [V_CARTERA_ACTUAL].[Vendedor_Nombre] AS [Vendedor_Nombre], 
+    [V_CARTERA_ACTUAL].[Cliente_RazonSocial] AS [Cliente_RazonSocial], 
+    [V_CARTERA_ACTUAL].[Sucursal_Direccion] AS [Sucursal_Direccion], 
+    [V_CARTERA_ACTUAL].[Sucursal_Ciudad] AS [Sucursal_Ciudad], 
+    [V_CARTERA_ACTUAL].[Expr1] AS [Expr1], 
+    [V_CARTERA_ACTUAL].[JefeVentas_Id] AS [JefeVentas_Id], 
+    [V_CARTERA_ACTUAL].[JefeVentas_Nombre] AS [JefeVentas_Nombre]
+    FROM [dbo].[V_CARTERA_ACTUAL] AS [V_CARTERA_ACTUAL]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Cartera_Clientes" EntityType="Self.V_Cartera_Clientes" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Cartera_Clientes].[Visitador] AS [Visitador], 
+    [V_Cartera_Clientes].[Cod. de Cliente] AS [Cod. de Cliente], 
+    [V_Cartera_Clientes].[Cliente] AS [Cliente], 
+    [V_Cartera_Clientes].[Direccion] AS [Direccion], 
+    [V_Cartera_Clientes].[Ciudad] AS [Ciudad], 
+    [V_Cartera_Clientes].[Cod_Sucursal] AS [Cod_Sucursal], 
+    [V_Cartera_Clientes].[Frecuencia de Visita] AS [Frecuencia de Visita], 
+    [V_Cartera_Clientes].[Periodo] AS [Periodo]
+    FROM [dbo].[V_Cartera_Clientes] AS [V_Cartera_Clientes]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_CLIENTE_SUCURSAL" EntityType="Self.V_CLIENTE_SUCURSAL" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_CLIENTE_SUCURSAL].[Cliente_Cod] AS [Cliente_Cod], 
+    [V_CLIENTE_SUCURSAL].[Cliente_RazonSocial] AS [Cliente_RazonSocial], 
+    [V_CLIENTE_SUCURSAL].[Sucursal_Ciudad] AS [Sucursal_Ciudad], 
+    [V_CLIENTE_SUCURSAL].[Sucursal_Direccion] AS [Sucursal_Direccion]
+    FROM [dbo].[V_CLIENTE_SUCURSAL] AS [V_CLIENTE_SUCURSAL]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="V_Clientes_HBF" EntityType="Self.V_Clientes_HBF" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -958,6 +1360,72 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a
     [V_Clientes_HBF].[GroupName] AS [GroupName], 
     [V_Clientes_HBF].[Address2] AS [Address2]
     FROM [dbo].[V_Clientes_HBF] AS [V_Clientes_HBF]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Clientes_Total" EntityType="Self.V_Clientes_Total" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Clientes_Total].[Cliente_Cod] AS [Cliente_Cod], 
+    [V_Clientes_Total].[Cliente_RazonSocial] AS [Cliente_RazonSocial], 
+    [V_Clientes_Total].[Sucursal_Id] AS [Sucursal_Id], 
+    [V_Clientes_Total].[Sucursal_Direccion] AS [Sucursal_Direccion]
+    FROM [dbo].[V_Clientes_Total] AS [V_Clientes_Total]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_ClientesVenRep" EntityType="Self.V_ClientesVenRep" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_ClientesVenRep].[Vendedor_Id] AS [Vendedor_Id], 
+    [V_ClientesVenRep].[Vendedor] AS [Vendedor], 
+    [V_ClientesVenRep].[Vendedor_Rol] AS [Vendedor_Rol], 
+    [V_ClientesVenRep].[JefeVentas_Id] AS [JefeVentas_Id], 
+    [V_ClientesVenRep].[JefeDeVentas] AS [JefeDeVentas], 
+    [V_ClientesVenRep].[Sucursal_Id] AS [Sucursal_Id], 
+    [V_ClientesVenRep].[Cantidad_Visitas] AS [Cantidad_Visitas], 
+    [V_ClientesVenRep].[ClienteSAP] AS [ClienteSAP], 
+    [V_ClientesVenRep].[Sucursal_Ciudad] AS [Sucursal_Ciudad], 
+    [V_ClientesVenRep].[Sucursal_Direccion] AS [Sucursal_Direccion], 
+    [V_ClientesVenRep].[Cliente_RazonSocial] AS [Cliente_RazonSocial]
+    FROM [dbo].[V_ClientesVenRep] AS [V_ClientesVenRep]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Detalle_Visita" EntityType="Self.V_Detalle_Visita" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Detalle_Visita].[Visita_Id] AS [Visita_Id], 
+    [V_Detalle_Visita].[Periodo] AS [Periodo], 
+    [V_Detalle_Visita].[Visita_fecha] AS [Visita_fecha], 
+    [V_Detalle_Visita].[Visita_Hora] AS [Visita_Hora], 
+    [V_Detalle_Visita].[Dia] AS [Dia], 
+    [V_Detalle_Visita].[Vendedor] AS [Vendedor], 
+    [V_Detalle_Visita].[CodCliente] AS [CodCliente], 
+    [V_Detalle_Visita].[Cliente] AS [Cliente], 
+    [V_Detalle_Visita].[SucursalId] AS [SucursalId], 
+    [V_Detalle_Visita].[Ciudad] AS [Ciudad], 
+    [V_Detalle_Visita].[Dirección] AS [Dirección], 
+    [V_Detalle_Visita].[Resultado de Visita] AS [Resultado de Visita], 
+    [V_Detalle_Visita].[Motivo] AS [Motivo], 
+    [V_Detalle_Visita].[Observacion] AS [Observacion], 
+    [V_Detalle_Visita].[Análisis] AS [Análisis], 
+    [V_Detalle_Visita].[Plan de Acción] AS [Plan de Acción], 
+    [V_Detalle_Visita].[Responsable] AS [Responsable], 
+    [V_Detalle_Visita].[Fecha de Compromiso] AS [Fecha de Compromiso], 
+    [V_Detalle_Visita].[Plan de Acción Estado] AS [Plan de Acción Estado], 
+    [V_Detalle_Visita].[Cantidad] AS [Cantidad], 
+    [V_Detalle_Visita].[Ubicacion] AS [Ubicacion], 
+    [V_Detalle_Visita].[Vendedor_Id] AS [Vendedor_Id]
+    FROM [dbo].[V_Detalle_Visita] AS [V_Detalle_Visita]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Dual_Visita" EntityType="Self.V_Dual_Visita" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Dual_Visita].[VisitaDual_Id] AS [VisitaDual_Id], 
+    [V_Dual_Visita].[Periodo] AS [Periodo], 
+    [V_Dual_Visita].[VisitaDual_Fecha] AS [VisitaDual_Fecha], 
+    [V_Dual_Visita].[Visita_Hora_Entrada] AS [Visita_Hora_Entrada], 
+    [V_Dual_Visita].[Visita_Hora_Salida] AS [Visita_Hora_Salida], 
+    [V_Dual_Visita].[Visitador] AS [Visitador], 
+    [V_Dual_Visita].[Cliente] AS [Cliente], 
+    [V_Dual_Visita].[Ciudad] AS [Ciudad], 
+    [V_Dual_Visita].[SucursalId] AS [SucursalId], 
+    [V_Dual_Visita].[Dirección] AS [Dirección], 
+    [V_Dual_Visita].[Observacion] AS [Observacion], 
+    [V_Dual_Visita].[Cantidad] AS [Cantidad], 
+    [V_Dual_Visita].[Ubicacion] AS [Ubicacion]
+    FROM [dbo].[V_Dual_Visita] AS [V_Dual_Visita]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="V_PLAN_SEMANAL" EntityType="Self.V_PLAN_SEMANAL" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -974,6 +1442,19 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a
     [V_PLAN_SEMANAL].[Objetivo] AS [Objetivo], 
     [V_PLAN_SEMANAL].[Fecha] AS [Fecha]
     FROM [dbo].[V_PLAN_SEMANAL] AS [V_PLAN_SEMANAL]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_PlanSemCargXDia" EntityType="Self.V_PlanSemCargXDia" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_PlanSemCargXDia].[NombreVendedor] AS [NombreVendedor], 
+    [V_PlanSemCargXDia].[NroSemana] AS [NroSemana], 
+    [V_PlanSemCargXDia].[Periodo] AS [Periodo], 
+    [V_PlanSemCargXDia].[NombreJefe] AS [NombreJefe], 
+    [V_PlanSemCargXDia].[LUNES] AS [LUNES], 
+    [V_PlanSemCargXDia].[MARTES] AS [MARTES], 
+    [V_PlanSemCargXDia].[MIERCOLES] AS [MIERCOLES], 
+    [V_PlanSemCargXDia].[JUEVES] AS [JUEVES], 
+    [V_PlanSemCargXDia].[VIERNES] AS [VIERNES]
+    FROM [dbo].[V_PlanSemCargXDia] AS [V_PlanSemCargXDia]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="V_RUTA_DIA" EntityType="Self.V_RUTA_DIA" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -1053,6 +1534,57 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a
     [V_Visitas_Detalle].[SucursalID] AS [SucursalID], 
     [V_Visitas_Detalle].[frecuencia] AS [frecuencia]
     FROM [dbo].[V_Visitas_Detalle] AS [V_Visitas_Detalle]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="V_Visitas_Dual" EntityType="Self.V_Visitas_Dual" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_Visitas_Dual].[VisitaDual_Id] AS [VisitaDual_Id], 
+    [V_Visitas_Dual].[Periodo] AS [Periodo], 
+    [V_Visitas_Dual].[VisitaDual_Fecha] AS [VisitaDual_Fecha], 
+    [V_Visitas_Dual].[Dia] AS [Dia], 
+    [V_Visitas_Dual].[Visita_Hora_Entrada] AS [Visita_Hora_Entrada], 
+    [V_Visitas_Dual].[Visita_Hora_Salida] AS [Visita_Hora_Salida], 
+    [V_Visitas_Dual].[Visitador] AS [Visitador], 
+    [V_Visitas_Dual].[Cliente] AS [Cliente], 
+    [V_Visitas_Dual].[Ciudad] AS [Ciudad], 
+    [V_Visitas_Dual].[Dirección] AS [Dirección], 
+    [V_Visitas_Dual].[Observacion] AS [Observacion], 
+    [V_Visitas_Dual].[Cantidad] AS [Cantidad], 
+    [V_Visitas_Dual].[UbicacionEntrada] AS [UbicacionEntrada], 
+    [V_Visitas_Dual].[UbicacionSalida] AS [UbicacionSalida]
+    FROM [dbo].[V_Visitas_Dual] AS [V_Visitas_Dual]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VClienteSAPHBF" EntityType="Self.VClienteSAPHBF" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VClienteSAPHBF].[CodigoCliente] AS [CodigoCliente], 
+    [VClienteSAPHBF].[RazonSocial] AS [RazonSocial], 
+    [VClienteSAPHBF].[NombreFantasia] AS [NombreFantasia], 
+    [VClienteSAPHBF].[RUC] AS [RUC], 
+    [VClienteSAPHBF].[CodSucursal] AS [CodSucursal], 
+    [VClienteSAPHBF].[Direccion] AS [Direccion], 
+    [VClienteSAPHBF].[Localidad] AS [Localidad], 
+    [VClienteSAPHBF].[Departamento] AS [Departamento], 
+    [VClienteSAPHBF].[U_TipoCliente] AS [U_TipoCliente], 
+    [VClienteSAPHBF].[Telefono] AS [Telefono], 
+    [VClienteSAPHBF].[Estado] AS [Estado], 
+    [VClienteSAPHBF].[U_ClasifClientDPP] AS [U_ClasifClientDPP], 
+    [VClienteSAPHBF].[Empresa] AS [Empresa]
+    FROM [dbo].[VClienteSAPHBF] AS [VClienteSAPHBF]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VFrecuenciaVendedorCliente" EntityType="Self.VFrecuenciaVendedorCliente" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VFrecuenciaVendedorCliente].[Sucursal_Id] AS [Sucursal_Id], 
+    [VFrecuenciaVendedorCliente].[Frecuencia] AS [Frecuencia], 
+    [VFrecuenciaVendedorCliente].[Vendedor_Nombre] AS [Vendedor_Nombre], 
+    [VFrecuenciaVendedorCliente].[Vendedor_Id] AS [Vendedor_Id], 
+    [VFrecuenciaVendedorCliente].[JefeVentas_Id] AS [JefeVentas_Id], 
+    [VFrecuenciaVendedorCliente].[JefeVentas_Nombre] AS [JefeVentas_Nombre], 
+    [VFrecuenciaVendedorCliente].[Sucursal_Ciudad] AS [Sucursal_Ciudad], 
+    [VFrecuenciaVendedorCliente].[Periodo] AS [Periodo], 
+    [VFrecuenciaVendedorCliente].[Cliente_Cod] AS [Cliente_Cod], 
+    [VFrecuenciaVendedorCliente].[Cliente_RazonSocial] AS [Cliente_RazonSocial], 
+    [VFrecuenciaVendedorCliente].[Cantidad] AS [Cantidad], 
+    [VFrecuenciaVendedorCliente].[CantidadVisita] AS [CantidadVisita]
+    FROM [dbo].[VFrecuenciaVendedorCliente] AS [VFrecuenciaVendedorCliente]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_CanalSucursal_Canal" Association="Self.FK_CanalSucursal_Canal">
       <End Role="Canal" EntitySet="Canal" />

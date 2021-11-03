@@ -48,7 +48,7 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                     }
                     else
                     {
-                        var jefeVentas = db.JefeVentas.First(x => x.JefeVentas_Id == user.JefeVentas_Id);
+                        var jefeVentas = db.JefeVenta.First(x => x.JefeVentas_Id == user.JefeVentas_Id);
                         usuarioLogin.Es_Jefe = true;
                         usuarioLogin.Nombre = jefeVentas.JefeVentas_Nombre;
                         usuarioLogin.Usuario_Id = jefeVentas.JefeVentas_Id;

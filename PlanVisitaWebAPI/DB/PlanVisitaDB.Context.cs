@@ -32,7 +32,8 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<Empresa> Empresa { get; set; }
         public virtual DbSet<Estado> Estado { get; set; }
         public virtual DbSet<EstadoMotivo> EstadoMotivo { get; set; }
-        public virtual DbSet<JefeVentas> JefeVentas { get; set; }
+        public virtual DbSet<JefeVenta> JefeVenta { get; set; }
+        public virtual DbSet<JefeVentasCanal> JefeVentasCanal { get; set; }
         public virtual DbSet<Motivo> Motivo { get; set; }
         public virtual DbSet<Notificacion> Notificacion { get; set; }
         public virtual DbSet<ObjetivoVisita> ObjetivoVisita { get; set; }
@@ -41,30 +42,43 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<PlanAccion> PlanAccion { get; set; }
         public virtual DbSet<PlanSemanal> PlanSemanal { get; set; }
         public virtual DbSet<PlanSemanalDetalle> PlanSemanalDetalle { get; set; }
+        public virtual DbSet<PlanSemanalDetalleSAP> PlanSemanalDetalleSAP { get; set; }
         public virtual DbSet<PlanVisita> PlanVisita { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Sucursal> Sucursal { get; set; }
         public virtual DbSet<Tarea> Tarea { get; set; }
+        public virtual DbSet<Task> Task { get; set; }
         public virtual DbSet<Ubicacion> Ubicacion { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
         public virtual DbSet<VendedorCliente> VendedorCliente { get; set; }
+        public virtual DbSet<VendedorClienteSAP> VendedorClienteSAP { get; set; }
         public virtual DbSet<VendedorZona> VendedorZona { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
         public virtual DbSet<VentaLinea> VentaLinea { get; set; }
         public virtual DbSet<Visita> Visita { get; set; }
         public virtual DbSet<VisitaDual> VisitaDual { get; set; }
+        public virtual DbSet<VisitaSAP> VisitaSAP { get; set; }
         public virtual DbSet<Zona> Zona { get; set; }
         public virtual DbSet<ZonaSucursal> ZonaSucursal { get; set; }
+        public virtual DbSet<Detalle_Visita> Detalle_Visita { get; set; }
+        public virtual DbSet<V_Canales_HBF> V_Canales_HBF { get; set; }
+        public virtual DbSet<V_CARTERA_ACTUAL> V_CARTERA_ACTUAL { get; set; }
+        public virtual DbSet<V_Cartera_Clientes> V_Cartera_Clientes { get; set; }
+        public virtual DbSet<V_CLIENTE_SUCURSAL> V_CLIENTE_SUCURSAL { get; set; }
         public virtual DbSet<V_Clientes_HBF> V_Clientes_HBF { get; set; }
+        public virtual DbSet<V_Clientes_Total> V_Clientes_Total { get; set; }
+        public virtual DbSet<V_ClientesVenRep> V_ClientesVenRep { get; set; }
+        public virtual DbSet<V_Detalle_Visita> V_Detalle_Visita { get; set; }
+        public virtual DbSet<V_Dual_Visita> V_Dual_Visita { get; set; }
         public virtual DbSet<V_PLAN_SEMANAL> V_PLAN_SEMANAL { get; set; }
+        public virtual DbSet<V_PlanSemCargXDia> V_PlanSemCargXDia { get; set; }
         public virtual DbSet<V_RUTA_DIA> V_RUTA_DIA { get; set; }
         public virtual DbSet<V_RUTA_DIA_NUEVO> V_RUTA_DIA_NUEVO { get; set; }
-        public virtual DbSet<V_Visitas_Detalle> V_Visitas_Detalle { get; set; }
         public virtual DbSet<V_VDetallePlanSVendedores> V_VDetallePlanSVendedores { get; set; }
-        public virtual DbSet<V_Canales_HBF> V_Canales_HBF { get; set; }
-        public virtual DbSet<PlanSemanalDetalleSAP> PlanSemanalDetalleSAP { get; set; }
-        public virtual DbSet<VendedorClienteSAP> VendedorClienteSAP { get; set; }
-        public virtual DbSet<VisitaSAP> VisitaSAP { get; set; }
+        public virtual DbSet<V_Visitas_Detalle> V_Visitas_Detalle { get; set; }
+        public virtual DbSet<V_Visitas_Dual> V_Visitas_Dual { get; set; }
+        public virtual DbSet<VClienteSAPHBF> VClienteSAPHBFs { get; set; }
+        public virtual DbSet<VFrecuenciaVendedorCliente> VFrecuenciaVendedorClientes { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Periodo()
         {
-            this.PeriodoDet = new HashSet<PeriodoDet>();
+            this.PeriodoDets = new HashSet<PeriodoDet>();
         }
     
         public string PeriodoCodigo { get; set; }
@@ -29,6 +29,6 @@ namespace PlanVisitaWebAPI.DB
         public string PeriodoEstado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PeriodoDet> PeriodoDet { get; set; }
+        public virtual ICollection<PeriodoDet> PeriodoDets { get; set; }
     }
 }

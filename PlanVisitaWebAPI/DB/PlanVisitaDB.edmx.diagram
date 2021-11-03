@@ -4,38 +4,63 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="217db0417eeb410e89eb89d1df41fd4e" Name="Diagram1">
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Canal" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.CanalSucursal" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Cliente" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Division" Width="1.5" PointX="3.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Empresa" Width="1.5" PointX="1.5" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Estado" Width="1.5" PointX="10.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.EstadoMotivo" Width="1.5" PointX="13" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.JefeVentas" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Motivo" Width="1.5" PointX="10.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Notificacion" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.ObjetivoVisita" Width="1.5" PointX="7.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Periodo" Width="1.5" PointX="12.75" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.PeriodoDet" Width="1.5" PointX="15" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanAccion" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanSemanal" Width="1.5" PointX="7.75" PointY="16.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanSemanalDetalle" Width="1.5" PointX="10" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanVisita" Width="1.5" PointX="10" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Producto" Width="1.5" PointX="12.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Sucursal" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Tarea" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Ubicacion" Width="1.5" PointX="3" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Usuario" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Vendedor" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.VendedorCliente" Width="1.5" PointX="13" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.VendedorZona" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Venta" Width="1.5" PointX="17.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.VentaLinea" Width="1.5" PointX="15" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Visita" Width="1.5" PointX="15.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.VisitaDual" Width="1.5" PointX="15.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.Zona" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.ZonaSucursal" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+      <Diagram DiagramId="bce1549999f948f5aed5c007772c7df2" Name="Diagram1">
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Canal" Width="1.5" PointX="6" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.CanalSucursal" Width="1.5" PointX="14.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Cliente" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Division" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Empresa" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Estado" Width="1.5" PointX="9.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.EstadoMotivo" Width="1.5" PointX="12" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.JefeVenta" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.JefeVentasCanal" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.LocationHistory" Width="1.5" PointX="2.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Motivo" Width="1.5" PointX="9.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Notificacion" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.ObjetivoVisita" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Periodo" Width="1.5" PointX="16.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.PeriodoDet" Width="1.5" PointX="19" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanAccion" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanSemanal" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanSemanalDetalle" Width="1.5" PointX="15" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanSemanalDetalleSAP" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanVisita" Width="1.5" PointX="15" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Producto" Width="1.5" PointX="16.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Sucursal" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Tarea" Width="1.5" PointX="9.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Task" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Ubicacion" Width="1.5" PointX="7.5" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Usuario" Width="1.5" PointX="10.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Vendedor" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VendedorCliente" Width="1.5" PointX="12" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VendedorClienteSAP" Width="1.5" PointX="17.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VendedorZona" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Venta" Width="1.5" PointX="0.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VentaLinea" Width="1.5" PointX="19" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Visita" Width="1.5" PointX="14.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VisitaDual" Width="1.5" PointX="14.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VisitaSAP" Width="1.5" PointX="2.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Zona" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.ZonaSucursal" Width="1.5" PointX="7.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.Detalle_Visita" Width="1.5" PointX="17.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Canales_HBF" Width="1.5" PointX="4.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_CARTERA_ACTUAL" Width="1.5" PointX="16.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Cartera_Clientes" Width="1.5" PointX="18.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_CLIENTE_SUCURSAL" Width="1.5" PointX="19.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Clientes_HBF" Width="1.5" PointX="19.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Clientes_Total" Width="1.5" PointX="6.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_ClientesVenRep" Width="1.5" PointX="8.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Detalle_Visita" Width="1.5" PointX="10.75" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Dual_Visita" Width="1.5" PointX="20.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_PLAN_SEMANAL" Width="1.5" PointX="21.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_PlanSemCargXDia" Width="1.5" PointX="21.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_RUTA_DIA" Width="1.5" PointX="21.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_RUTA_DIA_NUEVO" Width="1.5" PointX="16.75" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_VDetallePlanSVendedores" Width="1.5" PointX="0.75" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Visitas_Detalle" Width="1.5" PointX="2.75" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Visitas_Dual" Width="1.5" PointX="4.75" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VClienteSAPHBF" Width="1.5" PointX="12.75" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.VFrecuenciaVendedorCliente" Width="1.5" PointX="22.75" PointY="14.375" IsExpanded="true" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_CanalSucursal_Canal" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_CanalSucursal_Sucursal" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_Zona_Division" ManuallyRouted="false" />
@@ -44,6 +69,7 @@
         <AssociationConnector Association="PLAN_VISITAModel.IESTADOMOTIVO1" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.IESTADOMOTIVO2" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.IVISITA1" ManuallyRouted="false" />
+        <AssociationConnector Association="PLAN_VISITAModel.FK_JefeVentasCanal_JefeVentas" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_Notificacion_JefeVentas" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_Usuario_JefeVentas" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.IPLANSEMANALDETALLE1" ManuallyRouted="false" />
@@ -53,24 +79,13 @@
         <AssociationConnector Association="PLAN_VISITAModel.IVENTALINEA1" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_Ubicacion_Sucursal" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_ZonaSucursal_Sucursal" ManuallyRouted="false" />
+        <AssociationConnector Association="PLAN_VISITAModel.fk_usuario_vendedor_id" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_VendedorZona_Vendedor" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.IVISITA3" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.IVISITADUAL1" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_VendedorZona_Zona" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_ZonaSucursal_Zona" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.CanalVendedor" ManuallyRouted="false" />
-        <AssociationConnector Association="PLAN_VISITAModel.JefeVentasCanal" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Clientes_HBF" Width="1.5" PointX="17.375" PointY="6.75" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.V_PLAN_SEMANAL" Width="1.5" PointX="17.375" PointY="9.75" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.V_RUTA_DIA" Width="1.5" PointX="12.375" PointY="17.75" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.V_RUTA_DIA_NUEVO" Width="1.5" PointX="17.375" PointY="14.75" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Visitas_Detalle" Width="1.5" PointX="14.375" PointY="17.75" />
-        <AssociationConnector Association="PLAN_VISITAModel.fk_usuario_vendedor_id" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.V_VDetallePlanSVendedores" Width="1.5" PointX="5.375" PointY="19.75" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.V_Canales_HBF" Width="1.5" PointX="19.375" PointY="6.75" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanSemanalDetalleSAP" Width="1.5" PointX="7.375" PointY="19.75" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.VendedorClienteSAP" Width="1.5" PointX="19.375" PointY="9.75" />
-        <EntityTypeShape EntityType="PLAN_VISITAModel.VisitaSAP" Width="1.5" PointX="9.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

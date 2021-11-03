@@ -12,9 +12,11 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Task
+    public partial class JefeVentasCanal
     {
-        public int Task_Id { get; set; }
-        public string Task_Description { get; set; }
+        public int JefeVentas_Id { get; set; }
+        public int Canal_Id { get; set; }
+    
+        public virtual JefeVenta JefeVenta { get; set; }
     }
 }

@@ -9,55 +9,74 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace PlanVisitaWebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MarcacionesController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
         // GET api/<controller>
-        public HttpResponseMessage Get([FromBody] MarcacionesFiltroModel model)
+        public HttpResponseMessage Get(DateTime Fecha_Desde, DateTime Fecha_Hasta, int Vendedor_Id = 0, string Cliente_Cod = "", string Filtro = "", int Skip = 0, int Take = 10)
         {
+
             HttpRequestMessage re = Request;
             var headers = re.Headers;
-            if (model.Filtro == null)
-                model.Filtro = "";
+            if (Filtro == null)
+                Filtro = "";
 
             var response = new HttpResponseMessage();
             if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
             {
                 string token = headers.GetValues("jefeToken").First();
                 var jefeVentasId = Convert.ToInt32(token);
-                var canales = db.JefeVentas.First(x => x.JefeVentas_Id == jefeVentasId).Canal;
-                var canalesId = canales.Select(x => x.Canal_Id);
-                var sucursalesId = db.CanalSucursal.Where(x => canalesId.Any(y => y == x.Canal_Id)).ToList().Select(x => x.Sucursal_Id);
-                var vendedoresId = db.VendedorCliente.Where(x => sucursalesId.Any(y => y == x.Sucursal_Id)).ToList().Select(x => x.Vendedor_Id);
+                
+                var marcacionesList = new List<MarcacionesResponseModel>();
+                var paginationModel = new PaginationModel<MarcacionesResponseModel>();
+                var marcacionesQuery = db.Database.SqlQuery<MarcacionesResponseModel>(@"
+                   SELECT vs.Visita_Id,  
+                    	   FORMAT (vs.Visita_fecha, 'yyyy_MM') as Periodo, 
+                    	   vs.Visita_fecha, 
+                           CAST(FORMAT(vs.Visita_Hora_Entrada, 'hh:mm') AS varchar) AS Visita_Hora_Entrada, 
+                    	   CAST(FORMAT(vs.Visita_Hora_Salida, 'hh:mm')AS varchar) AS Visita_Hora_Salida, 
+                    	   vs.Vendedor_Id, 
+                    	   v.Vendedor_Nombre as Vendedor, 
+                    	   c.cardcode as CodCliente, 
+                    	   c.cardfname as Cliente, 
+                    	   c.city as Ciudad, 
+                    	   c.street as Direccion, 
+                    	   c.Address as Sucursal_Id, 
+                    	   vs.Visita_Observacion as Observacion, 
+                    	   vs.Visita_Ubicacion_Entrada, 
+                    	   vs.Visita_Ubicacion_Salida,
+                            DATENAME(MONTH, vs.Visita_fecha) AS Mes,
+                            DATENAME(YEAR, vs.Visita_fecha) AS Año,
+                            DATENAME(WEEKDAY, vs.Visita_fecha) AS Dia
+                    FROM VisitaSAP vs 
+                    inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
+                    inner join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and vs.Sucursal_Id = c.Address
+                    inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
+                    inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
 
-                var marcacionesList = new List<V_Visitas_Detalle>();
-                var paginationModel = new PaginationModel<V_Visitas_Detalle>();
-                var marcacionesQuery = db.V_Visitas_Detalle.Where(x => x.Cliente.Contains(model.Filtro) || x.Dirección.Contains(model.Filtro));
-
-                if(model.Vendedor_Id != 0)
+                if (Vendedor_Id != 0)
                 {
-                    marcacionesQuery = marcacionesQuery.Where(x => x.Vendedor_Id == model.Vendedor_Id);
-                } else
-                {
-                    marcacionesQuery = marcacionesQuery.Where(x => vendedoresId.Any(y => y == x.Vendedor_Id));
+                    marcacionesQuery = marcacionesQuery.Where(x => x.Vendedor_Id == Vendedor_Id).ToList();
                 }
 
-                if(model.Cliente_Cod != null)
+                if (Cliente_Cod != null)
                 {
-                    marcacionesQuery = marcacionesQuery.Where(x => x.CodCliente == model.Cliente_Cod);
+                    marcacionesQuery = marcacionesQuery.Where(x => x.CodCliente == Cliente_Cod).ToList();
                 }
 
-                if(model.Fecha_Desde.Date != Convert.ToDateTime("01/01/0001").Date && model.Fecha_Hasta.Date != Convert.ToDateTime("01/01/0001").Date)
+                if (Fecha_Desde.Date != Convert.ToDateTime("01/01/0001").Date && Fecha_Hasta.Date != Convert.ToDateTime("01/01/0001").Date)
                 {
-                    marcacionesQuery = marcacionesQuery.Where(x => x.Visita_fecha >= model.Fecha_Desde && x.Visita_fecha <= model.Fecha_Hasta);
+                    marcacionesQuery = marcacionesQuery.Where(x => x.Visita_fecha >= Fecha_Desde && x.Visita_fecha <= Fecha_Hasta).ToList();
                 }
                 marcacionesList = marcacionesQuery.ToList();
 
                 paginationModel.CantidadTotal = marcacionesList.Count;
-                paginationModel.Listado = marcacionesList.Skip(model.Skip).Take(model.Take);
+                paginationModel.Listado = marcacionesList.Skip(Skip).Take(Take);
 
                 var json = JsonConvert.SerializeObject(paginationModel);
                 response = Request.CreateResponse(HttpStatusCode.OK);
@@ -84,7 +103,7 @@ namespace PlanVisitaWebAPI.Controllers
         {
             HttpRequestMessage re = Request;
             var headers = re.Headers;
-           
+
 
             var response = new HttpResponseMessage();
             if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
@@ -98,7 +117,8 @@ namespace PlanVisitaWebAPI.Controllers
                     var json = JsonConvert.SerializeObject(marcacion);
                     response = Request.CreateResponse(HttpStatusCode.OK);
                     response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                } else
+                }
+                else
                 {
                     var validation = new SystemValidationModel()
                     {
@@ -138,7 +158,8 @@ namespace PlanVisitaWebAPI.Controllers
                 string token = headers.GetValues("jefeToken").First();
                 var jefeVentasId = Convert.ToInt32(token);
 
-                var newVisita = new Visita() { 
+                var newVisita = new Visita()
+                {
                     Visita_Ubicacion = value.Visita_Ubicacion,
                     Visita_Observacion = value.Visita_Observacion,
                     Estado_Id = value.Estado_Id,

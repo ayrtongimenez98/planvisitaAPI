@@ -17,8 +17,8 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Division()
         {
-            this.Zona = new HashSet<Zona>();
-            this.JefeVentas = new HashSet<JefeVentas>();
+            this.Zonas = new HashSet<Zona>();
+            this.JefeVentas = new HashSet<JefeVenta>();
         }
     
         public int Division_Id { get; set; }
@@ -28,9 +28,9 @@ namespace PlanVisitaWebAPI.DB
         public System.DateTime Division_FechaLastUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Zona> Zona { get; set; }
+        public virtual ICollection<Zona> Zonas { get; set; }
         public virtual Empresa Empresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<JefeVentas> JefeVentas { get; set; }
+        public virtual ICollection<JefeVenta> JefeVentas { get; set; }
     }
 }

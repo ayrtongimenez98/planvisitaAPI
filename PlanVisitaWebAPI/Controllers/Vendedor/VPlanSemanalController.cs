@@ -15,7 +15,6 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
     public class VPlanSemanalController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
-        private PLAN_VISITAEntitiesLectura dbLectura = new PLAN_VISITAEntitiesLectura();
         // GET: api/VPlanSemanal
         public HttpResponseMessage Get([FromBody] PlanSemanalFiltroModel model)
         {
@@ -86,7 +85,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                         PlanSemanal_NroSemana = model.PlanSemanal_NroSemana,
                         PlanSemanal_Periodo = model.PlanSemanal_Periodo,
                         Vendedor_Id = vendedorId,
-                        PlanSemanalDetalle = model.Detalle.Select(x => new PlanSemanalDetalle() { ObjetivoVisita_Id = x.ObjetivoVisita_Id, 
+                        PlanSemanalDetalles = model.Detalle.Select(x => new PlanSemanalDetalle() { ObjetivoVisita_Id = x.ObjetivoVisita_Id, 
                                                                                                   PlanSemanal_DiaSemana = x.PlanSemanal_DiaSemana, 
                                                                                                   PlanSemanal_Horario = x.PlanSemanal_Horario, 
                                                                                                   Sucursal_Id = x.Sucursal_Id }).ToList()

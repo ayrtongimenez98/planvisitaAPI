@@ -17,8 +17,8 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ObjetivoVisita()
         {
-            this.PlanSemanalDetalle = new HashSet<PlanSemanalDetalle>();
-            this.PlanVisita = new HashSet<PlanVisita>();
+            this.PlanSemanalDetalles = new HashSet<PlanSemanalDetalle>();
+            this.PlanVisitas = new HashSet<PlanVisita>();
         }
     
         public int ObjetivoVisita_Id { get; set; }
@@ -27,8 +27,8 @@ namespace PlanVisitaWebAPI.DB
         public System.DateTime ObjetivoVisita_FechaLastUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanSemanalDetalle> PlanSemanalDetalle { get; set; }
+        public virtual ICollection<PlanSemanalDetalle> PlanSemanalDetalles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlanVisita> PlanVisita { get; set; }
+        public virtual ICollection<PlanVisita> PlanVisitas { get; set; }
     }
 }

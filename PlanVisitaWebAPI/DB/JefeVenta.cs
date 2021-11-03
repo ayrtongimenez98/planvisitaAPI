@@ -12,14 +12,14 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class JefeVentas
+    public partial class JefeVenta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public JefeVentas()
+        public JefeVenta()
         {
-            this.Notificacion = new HashSet<Notificacion>();
-            this.Usuario = new HashSet<Usuario>();
-            this.Canal = new HashSet<Canal>();
+            this.JefeVentasCanals = new HashSet<JefeVentasCanal>();
+            this.Notificacions = new HashSet<Notificacion>();
+            this.Usuarios = new HashSet<Usuario>();
         }
     
         public int JefeVentas_Id { get; set; }
@@ -31,10 +31,10 @@ namespace PlanVisitaWebAPI.DB
     
         public virtual Division Division { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Notificacion> Notificacion { get; set; }
+        public virtual ICollection<JefeVentasCanal> JefeVentasCanals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuario { get; set; }
+        public virtual ICollection<Notificacion> Notificacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Canal> Canal { get; set; }
+        public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }

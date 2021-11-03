@@ -17,7 +17,7 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empresa()
         {
-            this.Division = new HashSet<Division>();
+            this.Divisions = new HashSet<Division>();
         }
     
         public int Empresa_Id { get; set; }
@@ -26,6 +26,6 @@ namespace PlanVisitaWebAPI.DB
         public System.DateTime Empresa_FechaLastUpdate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Division> Division { get; set; }
+        public virtual ICollection<Division> Divisions { get; set; }
     }
 }

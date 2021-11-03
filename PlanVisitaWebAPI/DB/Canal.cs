@@ -17,19 +17,16 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Canal()
         {
-            this.CanalSucursal = new HashSet<CanalSucursal>();
-            this.Vendedor = new HashSet<Vendedor>();
-            this.JefeVentas = new HashSet<JefeVentas>();
+            this.CanalSucursals = new HashSet<CanalSucursal>();
+            this.Vendedors = new HashSet<Vendedor>();
         }
     
         public int Canal_Id { get; set; }
         public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CanalSucursal> CanalSucursal { get; set; }
+        public virtual ICollection<CanalSucursal> CanalSucursals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vendedor> Vendedor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<JefeVentas> JefeVentas { get; set; }
+        public virtual ICollection<Vendedor> Vendedors { get; set; }
     }
 }

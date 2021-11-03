@@ -12,9 +12,16 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Task
+    public partial class V_PlanSemCargXDia
     {
-        public int Task_Id { get; set; }
-        public string Task_Description { get; set; }
+        public string NombreVendedor { get; set; }
+        public int NroSemana { get; set; }
+        public string Periodo { get; set; }
+        public string NombreJefe { get; set; }
+        public int LUNES { get; set; }
+        public int MARTES { get; set; }
+        public int MIERCOLES { get; set; }
+        public int JUEVES { get; set; }
+        public int VIERNES { get; set; }
     }
 }

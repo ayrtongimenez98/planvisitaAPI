@@ -17,7 +17,7 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Producto()
         {
-            this.VentaLinea = new HashSet<VentaLinea>();
+            this.VentaLineas = new HashSet<VentaLinea>();
         }
     
         public int Producto_Id { get; set; }
@@ -29,6 +29,6 @@ namespace PlanVisitaWebAPI.DB
         public string Producto_Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VentaLinea> VentaLinea { get; set; }
+        public virtual ICollection<VentaLinea> VentaLineas { get; set; }
     }
 }

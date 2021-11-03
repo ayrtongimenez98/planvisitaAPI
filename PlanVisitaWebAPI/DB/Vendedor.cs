@@ -17,9 +17,9 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Vendedor()
         {
-            this.VendedorZona = new HashSet<VendedorZona>();
-            this.Canal = new HashSet<Canal>();
-            this.Usuario = new HashSet<Usuario>();
+            this.Usuarios = new HashSet<Usuario>();
+            this.VendedorZonas = new HashSet<VendedorZona>();
+            this.Canals = new HashSet<Canal>();
         }
     
         public int Vendedor_Id { get; set; }
@@ -31,10 +31,10 @@ namespace PlanVisitaWebAPI.DB
         public string Vendedor_Rol { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VendedorZona> VendedorZona { get; set; }
+        public virtual ICollection<Usuario> Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Canal> Canal { get; set; }
+        public virtual ICollection<VendedorZona> VendedorZonas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuario { get; set; }
+        public virtual ICollection<Canal> Canals { get; set; }
     }
 }

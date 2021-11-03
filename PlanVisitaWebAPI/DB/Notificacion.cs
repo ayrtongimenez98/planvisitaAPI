@@ -20,6 +20,6 @@ namespace PlanVisitaWebAPI.DB
         public int JefeVentas_Id { get; set; }
         public string Estado { get; set; }
     
-        public virtual JefeVentas JefeVentas { get; set; }
+        public virtual JefeVenta JefeVenta { get; set; }
     }
 }

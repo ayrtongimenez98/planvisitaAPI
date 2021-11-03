@@ -17,9 +17,9 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sucursal()
         {
-            this.CanalSucursal = new HashSet<CanalSucursal>();
-            this.Ubicacion = new HashSet<Ubicacion>();
-            this.ZonaSucursal = new HashSet<ZonaSucursal>();
+            this.CanalSucursals = new HashSet<CanalSucursal>();
+            this.Ubicacions = new HashSet<Ubicacion>();
+            this.ZonaSucursals = new HashSet<ZonaSucursal>();
         }
     
         public int Sucursal_Id { get; set; }
@@ -30,10 +30,10 @@ namespace PlanVisitaWebAPI.DB
         public string Cliente_Cod { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CanalSucursal> CanalSucursal { get; set; }
+        public virtual ICollection<CanalSucursal> CanalSucursals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ubicacion> Ubicacion { get; set; }
+        public virtual ICollection<Ubicacion> Ubicacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ZonaSucursal> ZonaSucursal { get; set; }
+        public virtual ICollection<ZonaSucursal> ZonaSucursals { get; set; }
     }
 }

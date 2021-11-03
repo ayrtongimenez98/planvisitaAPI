@@ -17,8 +17,8 @@ namespace PlanVisitaWebAPI.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public VendedorCliente()
         {
-            this.Visita = new HashSet<Visita>();
-            this.VisitaDual = new HashSet<VisitaDual>();
+            this.Visitas = new HashSet<Visita>();
+            this.VisitaDuals = new HashSet<VisitaDual>();
         }
     
         public int Vendedor_Id { get; set; }
@@ -27,8 +27,8 @@ namespace PlanVisitaWebAPI.DB
         public Nullable<decimal> Promedio_Ventas { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Visita> Visita { get; set; }
+        public virtual ICollection<Visita> Visitas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VisitaDual> VisitaDual { get; set; }
+        public virtual ICollection<VisitaDual> VisitaDuals { get; set; }
     }
 }

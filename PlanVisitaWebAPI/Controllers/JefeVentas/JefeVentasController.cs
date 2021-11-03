@@ -20,9 +20,9 @@ namespace PlanVisitaWebAPI.Controllers
         {
             if (filtro == null)
                 filtro = "";
-            var listaJefeVentass = db.JefeVentas.Where(x => x.JefeVentas_Nombre.Contains(filtro) || x.JefeVentas_Id.ToString().Contains(filtro) || x.JefeVentas_Mail.Contains(filtro)).ToList();
+            var listaJefeVentass = db.JefeVenta.Where(x => x.JefeVentas_Nombre.Contains(filtro) || x.JefeVentas_Id.ToString().Contains(filtro) || x.JefeVentas_Mail.Contains(filtro)).ToList();
 
-            var paginationModel = new PaginationModel<DB.JefeVentas>()
+            var paginationModel = new PaginationModel<DB.JefeVenta>()
             {
                 CantidadTotal = listaJefeVentass.Count,
                 Listado = listaJefeVentass.Skip(skip).Take(take)
@@ -36,7 +36,7 @@ namespace PlanVisitaWebAPI.Controllers
         // GET api/<controller>/5
         public HttpResponseMessage Get(int id)
         {
-            var JefeVentas = db.JefeVentas.FirstOrDefault(x => x.JefeVentas_Id == id);
+            var JefeVentas = db.JefeVenta.FirstOrDefault(x => x.JefeVentas_Id == id);
 
 
             var json = JsonConvert.SerializeObject(JefeVentas);
@@ -60,7 +60,7 @@ namespace PlanVisitaWebAPI.Controllers
             else
             {
 
-                var nuevoJefeVentas = new DB.JefeVentas();
+                var nuevoJefeVentas = new DB.JefeVenta();
                 nuevoJefeVentas.JefeVentas_Nombre = model.JefeVentas_Nombre;
                 nuevoJefeVentas.JefeVentas_Id = model.JefeVentas_Id;
                 nuevoJefeVentas.JefeVentas_FechaCreacion = DateTime.Now;
@@ -68,7 +68,7 @@ namespace PlanVisitaWebAPI.Controllers
                 nuevoJefeVentas.JefeVentas_Mail = model.JefeVentas_Mail;
                 nuevoJefeVentas.JefeVentas_FechaLastUpdate = DateTime.Now;
 
-                db.JefeVentas.Add(nuevoJefeVentas);
+                db.JefeVenta.Add(nuevoJefeVentas);
 
                 var resultado = db.SaveChanges();
 
@@ -106,7 +106,7 @@ namespace PlanVisitaWebAPI.Controllers
             else
             {
 
-                var nuevoJefeVentas = db.JefeVentas.FirstOrDefault(x => x.JefeVentas_Id == id);
+                var nuevoJefeVentas = db.JefeVenta.FirstOrDefault(x => x.JefeVentas_Id == id);
 
                 nuevoJefeVentas.JefeVentas_Nombre = model.JefeVentas_Nombre;
                 nuevoJefeVentas.JefeVentas_Id = model.JefeVentas_Id;
@@ -115,7 +115,7 @@ namespace PlanVisitaWebAPI.Controllers
                 nuevoJefeVentas.JefeVentas_Mail = model.JefeVentas_Mail;
                 nuevoJefeVentas.JefeVentas_FechaLastUpdate = DateTime.Now;
 
-                db.JefeVentas.Add(nuevoJefeVentas);
+                db.JefeVenta.Add(nuevoJefeVentas);
 
                 var resultado = db.SaveChanges();
 
