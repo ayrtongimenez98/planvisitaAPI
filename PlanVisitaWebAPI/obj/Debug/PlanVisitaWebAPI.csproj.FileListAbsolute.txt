@@ -158,6 +158,8 @@ C:\Desarrollo\PlanVisitaWebAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.pdb
 C:\Desarrollo\PlanVisitaWebAPI\PlanVisitaWebAPI\bin\System.Web.Cors.dll
 C:\Desarrollo\PlanVisitaWebAPI\PlanVisitaWebAPI\bin\System.Web.Http.Cors.dll
 C:\Desarrollo\PlanVisitaWebAPI\PlanVisitaWebAPI\bin\System.Web.Http.Cors.xml
+C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.AssemblyReference.cache
+C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.CoreCompileInputs.cache
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\bin\PlanVisitaWebAPI.dll.config
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\bin\PlanVisitaWebAPI.dll
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\bin\PlanVisitaWebAPI.pdb
@@ -313,8 +315,6 @@ C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\bin\es\Microsoft.Owin.Security.Goog
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\bin\es\System.Web.Http.Owin.resources.dll
-C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.AssemblyReference.cache
-C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.CoreCompileInputs.cache
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.CopyComplete
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.dll
 C:\Desarrollo\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.pdb

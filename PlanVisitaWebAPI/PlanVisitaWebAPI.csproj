@@ -265,9 +265,6 @@
     <Compile Include="DB\Cliente.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\Detalle_Visita.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\Division.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
@@ -280,13 +277,10 @@
     <Compile Include="DB\EstadoMotivo.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\JefeVenta.cs">
+    <Compile Include="DB\JefeVentas.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JefeVentasCanal.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\LocationHistory.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Motivo.cs">
@@ -311,9 +305,6 @@
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanSemanalDetalle.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\PlanSemanalDetalleSAP.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanSemanalSAP.cs">
@@ -376,9 +367,6 @@
     <Compile Include="DB\VentaLinea.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\VFrecuenciaVendedorCliente.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\Visita.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
@@ -397,43 +385,10 @@
     <Compile Include="DB\V_Cartera_Clientes.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\V_ClientesVenRep.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\V_Clientes_HBF.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\V_Clientes_Total.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\V_CLIENTE_SUCURSAL.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Detalle_Visita.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Dual_Visita.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_PlanSemCargXDia.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_PLAN_SEMANAL.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_RUTA_DIA.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_RUTA_DIA_NUEVO.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_VDetallePlanSVendedores.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Visitas_Detalle.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Visitas_Dual.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Zona.cs">

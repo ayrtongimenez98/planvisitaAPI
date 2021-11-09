@@ -110,7 +110,33 @@ namespace PlanVisitaWebAPI.Controllers
             {
                 string token = headers.GetValues("jefeToken").First();
                 var jefeVentasId = Convert.ToInt32(token);
-                var marcacion = db.V_Visitas_Detalle.FirstOrDefault(x => x.Visita_Id == id);
+
+                var marcacionesQuery = db.Database.SqlQuery<MarcacionesResponseModel>(@"
+                   SELECT vs.Visita_Id,  
+                    	   FORMAT (vs.Visita_fecha, 'yyyy_MM') as Periodo, 
+                    	   vs.Visita_fecha, 
+                           CAST(FORMAT(vs.Visita_Hora_Entrada, 'hh:mm') AS varchar) AS Visita_Hora_Entrada, 
+                    	   CAST(FORMAT(vs.Visita_Hora_Salida, 'hh:mm')AS varchar) AS Visita_Hora_Salida, 
+                    	   vs.Vendedor_Id, 
+                    	   v.Vendedor_Nombre as Vendedor, 
+                    	   c.cardcode as CodCliente, 
+                    	   c.cardfname as Cliente, 
+                    	   c.city as Ciudad, 
+                    	   c.street as Direccion, 
+                    	   c.Address as Sucursal_Id, 
+                    	   vs.Visita_Observacion as Observacion, 
+                    	   vs.Visita_Ubicacion_Entrada, 
+                    	   vs.Visita_Ubicacion_Salida,
+                            DATENAME(MONTH, vs.Visita_fecha) AS Mes,
+                            DATENAME(YEAR, vs.Visita_fecha) AS Año,
+                            DATENAME(WEEKDAY, vs.Visita_fecha) AS Dia
+                    FROM VisitaSAP vs 
+                    inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
+                    inner join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and vs.Sucursal_Id = c.Address
+                    inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
+                    inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
+
+                var marcacion = marcacionesQuery.FirstOrDefault(x => x.Visita_Id == id);
 
                 if (marcacion != null)
                 {

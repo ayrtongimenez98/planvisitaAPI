@@ -64,7 +64,7 @@ namespace PlanVisitaWebAPI.Controllers
 
                 if (Fecha_Desde.Date != Convert.ToDateTime("01/01/0001").Date && Fecha_Hasta.Date != Convert.ToDateTime("01/01/0001").Date)
                 {
-                    PlanSemanalQuery = PlanSemanalQuery.Where(x => x.PlanSemanal_Horario >= Fecha_Desde && x.PlanSemanal_Horario <= Fecha_Hasta).ToList();
+                    PlanSemanalQuery = PlanSemanalQuery.Where(x => x.PlanSemanal_Horario.Date >= Fecha_Desde.Date && x.PlanSemanal_Horario.Date <= Fecha_Hasta.Date).ToList();
                 }
                 PlanSemanalList = PlanSemanalQuery.ToList();
 
@@ -103,7 +103,25 @@ namespace PlanVisitaWebAPI.Controllers
             {
                 string token = headers.GetValues("jefeToken").First();
                 var jefeVentasId = Convert.ToInt32(token);
-                var marcacion = db.V_Visitas_Detalle.FirstOrDefault(x => x.Visita_Id == id);
+                var PlanSemanalQuery = db.Database.SqlQuery<PlanSemanalResponseModel>(@"
+                   SELECT vs.PlanSemanal_Id,  
+                    	   FORMAT (vs.PlanSemanal_Horario, 'yyyy_MM') as Periodo, 
+                    	   vs.PlanSemanal_Horario,
+                           CAST(FORMAT(vs.PlanSemanal_Horario, 'hh:mm') AS varchar) AS PlanSemanal_Hora_Entrada, 
+                    	   vs.Vendedor_Id, 
+                    	   v.Vendedor_Nombre as Vendedor, 
+                    	   c.cardcode as CodCliente, 
+                    	   c.cardfname as Cliente, 
+                    	   c.city as Ciudad, 
+                    	   c.street as Direccion, 
+                    	   c.Address as Sucursal_Id, 
+                    	   vs.PlanSemanal_Estado
+                    FROM PlanSemanalSAP vs 
+                    inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
+                    inner join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and vs.Sucursal_Id = c.Address
+                 ").ToList<PlanSemanalResponseModel>();
+
+                var marcacion = PlanSemanalQuery.FirstOrDefault(x => x.PlanSemanal_Id == id);
 
                 if (marcacion != null)
                 {

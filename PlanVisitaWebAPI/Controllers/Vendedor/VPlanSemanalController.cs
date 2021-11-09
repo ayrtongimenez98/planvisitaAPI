@@ -16,12 +16,12 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
         // GET: api/VPlanSemanal
-        public HttpResponseMessage Get([FromBody] PlanSemanalFiltroModel model)
+        public HttpResponseMessage Get(DateTime Fecha_Desde, DateTime Fecha_Hasta, string Cliente_Cod = "", string Filtro = "", int Skip = 0, int Take = 10)
         {
             HttpRequestMessage re = Request;
             var headers = re.Headers;
-            if (model.Filtro == null)
-                model.Filtro = "";
+            if (Filtro == null)
+                Filtro = "";
 
             var response = new HttpResponseMessage();
             if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
@@ -29,14 +29,47 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                 string token = headers.GetValues("userToken").First();
                 var vendedorId = Convert.ToInt32(token);
 
-                var plan = db.V_VDetallePlanSVendedores.Where(x => x.VendedorId == vendedorId).ToList();
-                //plan = plan.Where(x => x.PlanSemanal_Horario.Date >= model.Fecha_Desde.Date && x.PlanSemanal_Horario.Date <= model.Fecha_Hasta && (x.Cliente_RazonSocial.Contains(model.Filtro) || x.SucursalDireccion.Contains(model.Filtro))).ToList();
+                var PlanSemanalList = new List<PlanSemanalResponseModel>();
+                var paginationModel = new PaginationModel<PlanSemanalResponseModel>();
+                var PlanSemanalQuery = db.Database.SqlQuery<PlanSemanalResponseModel>(@"
+                   SELECT vs.PlanSemanal_Id,  
+                    	   FORMAT (vs.PlanSemanal_Horario, 'yyyy_MM') as Periodo, 
+                    	   vs.PlanSemanal_Horario,
+                           CAST(FORMAT(vs.PlanSemanal_Horario, 'hh:mm') AS varchar) AS PlanSemanal_Hora_Entrada, 
+                    	   vs.Vendedor_Id, 
+                    	   v.Vendedor_Nombre as Vendedor, 
+                    	   c.cardcode as CodCliente, 
+                    	   c.cardfname as Cliente, 
+                    	   c.city as Ciudad, 
+                    	   c.street as Direccion, 
+                    	   c.Address as Sucursal_Id, 
+                    	   vs.PlanSemanal_Estado
+                    FROM PlanSemanalSAP vs 
+                    inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
+                    inner join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and vs.Sucursal_Id = c.Address
+                 ").ToList<PlanSemanalResponseModel>();
 
-                var paginationModel = new PaginationModel<V_VDetallePlanSVendedores>()
+                if (vendedorId != 0)
                 {
-                    CantidadTotal = plan.Count,
-                    Listado = plan.Skip(model.Skip).Take(model.Take)
-                };
+                    PlanSemanalQuery = PlanSemanalQuery.Where(x => x.Vendedor_Id == vendedorId).ToList();
+                }
+
+                if (Cliente_Cod != null)
+                {
+                    PlanSemanalQuery = PlanSemanalQuery.Where(x => x.CodCliente == Cliente_Cod).ToList();
+                }
+
+                if (Fecha_Desde.Date != Convert.ToDateTime("01/01/0001").Date && Fecha_Hasta.Date != Convert.ToDateTime("01/01/0001").Date)
+                {
+                    PlanSemanalQuery = PlanSemanalQuery.Where(x => x.PlanSemanal_Horario >= Fecha_Desde && x.PlanSemanal_Horario <= Fecha_Hasta).ToList();
+                }
+                PlanSemanalList = PlanSemanalQuery.ToList();
+
+
+
+                paginationModel.CantidadTotal = PlanSemanalList.Count;
+                paginationModel.Listado = PlanSemanalList.Skip(Skip).Take(Take);
+
                 var json = JsonConvert.SerializeObject(paginationModel);
                 response = Request.CreateResponse(HttpStatusCode.OK);
                 response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
@@ -55,59 +88,59 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
         }
 
         // POST: api/VPlanSemanal
-        public HttpResponseMessage Post([FromBody] PlanSemanalUpdateModel model)
+        public HttpResponseMessage Post([FromBody] List<PlanSemanalUpdateModel> list)
         {
             HttpRequestMessage re = Request;
             var headers = re.Headers;
-            
-
+            var validation = new SystemValidationModel();
             var response = new HttpResponseMessage();
             if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
             {
-                if (string.IsNullOrEmpty(model.PlanSemanal_Periodo) || model.PlanSemanal_NroSemana == 0 || !model.Detalle.Any())
+                string token = headers.GetValues("jefeToken").First();
+                var jefeVentasId = Convert.ToInt32(token);
+
+                var modelList = new List<PlanSemanalSAP>();
+
+                foreach (var value in list)
                 {
-                    var validation = new SystemValidationModel()
+                    var newPlan = new PlanSemanalSAP()
                     {
-                        Success = false,
-                        Message = "Datos incompletos."
+                        Cliente_Cod = value.Cliente_Cod,
+                        PlanSemanal_Estado = value.PlanSemanal_Estado,
+                        Sucursal_Id = value.Sucursal_Id,
+                        Vendedor_Id = value.Vendedor_Id,
+                        PlanSemanal_Horario = value.PlanSemanal_Horario,
+                        ObjetivoVisita_Id = value.ObjetivoVisita_Id
                     };
+
+                    modelList.Add(newPlan);
+                }
+
+
+                db.PlanSemanalSAP.AddRange(modelList);
+
+                var resultado = db.SaveChanges();
+
+                if (resultado > 0)
+                {
+                    validation.Success = false;
+                    validation.Message = "Creado con éxito";
                     var json = JsonConvert.SerializeObject(validation);
-                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                    response = Request.CreateResponse(HttpStatusCode.OK);
                     response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                } else
+                }
+                else
                 {
-                    string token = headers.GetValues("userToken").First();
-                    var vendedorId = Convert.ToInt32(token);
-
-                    var cabecera = new PlanSemanal()
-                    {
-                        PlanSemanal_Estado = "N",
-                        PlanSemanal_NroSemana = model.PlanSemanal_NroSemana,
-                        PlanSemanal_Periodo = model.PlanSemanal_Periodo,
-                        Vendedor_Id = vendedorId,
-                        PlanSemanalDetalles = model.Detalle.Select(x => new PlanSemanalDetalle() { ObjetivoVisita_Id = x.ObjetivoVisita_Id, 
-                                                                                                  PlanSemanal_DiaSemana = x.PlanSemanal_DiaSemana, 
-                                                                                                  PlanSemanal_Horario = x.PlanSemanal_Horario, 
-                                                                                                  Sucursal_Id = x.Sucursal_Id }).ToList()
-                    };
-
-                    db.PlanSemanal.Add(cabecera);
-
-                    var resultado = db.SaveChanges();
-
-                    var validation = new SystemValidationModel()
-                    {
-                        Success = resultado > 0,
-                        Message = resultado > 0 ? "Agregado con éxito." : "Credenciales incorrectas."
-                    };
+                    validation.Success = false;
+                    validation.Message = "Ocurrió un error al añadir.";
                     var json = JsonConvert.SerializeObject(validation);
-                    response = Request.CreateResponse(resultado > 0 ? HttpStatusCode.OK : HttpStatusCode.Conflict);
+                    response = Request.CreateResponse(HttpStatusCode.NotFound);
                     response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 }
             }
             else
             {
-                var validation = new SystemValidationModel()
+                validation = new SystemValidationModel()
                 {
                     Success = false,
                     Message = "Credenciales incorrectas."
