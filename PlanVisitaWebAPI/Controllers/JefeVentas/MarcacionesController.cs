@@ -158,19 +158,20 @@ namespace PlanVisitaWebAPI.Controllers
                 string token = headers.GetValues("jefeToken").First();
                 var jefeVentasId = Convert.ToInt32(token);
 
-                var newVisita = new Visita()
+                var newVisita = new VisitaSAP()
                 {
-                    Visita_Ubicacion = value.Visita_Ubicacion,
+                    Cliente_Cod = value.Cliente_Cod,
                     Visita_Observacion = value.Visita_Observacion,
                     Estado_Id = value.Estado_Id,
                     Motivo_Id = value.Motivo_Id,
                     Sucursal_Id = value.Sucursal_Id,
                     Vendedor_Id = value.Vendedor_Id,
                     Visita_fecha = value.Visita_fecha,
-                    Visita_Hora = value.Visita_Hora
+                    Visita_Hora_Entrada = value.Visita_Hora_Entrada,
+                    Visita_Ubicacion_Entrada = value.Visita_Ubicacion_Entrada
                 };
 
-                db.Visita.Add(newVisita);
+                db.VisitaSAP.Add(newVisita);
 
                 var resultado = db.SaveChanges();
 
@@ -204,15 +205,55 @@ namespace PlanVisitaWebAPI.Controllers
         }
 
         // PUT api/<controller>/5
-        public HttpResponseMessage Put(int id)
+        public HttpResponseMessage Put([FromBody] MarcacionesUpdateModel value)
         {
-            var response = Request.CreateResponse();
+            HttpRequestMessage re = Request;
+            var headers = re.Headers;
+
             var validation = new SystemValidationModel();
-            validation.Success = false;
-            response.StatusCode = HttpStatusCode.BadRequest;
-            validation.Message = "Por política de la empresa, no puede editar marcaciones.";
-            var json = JsonConvert.SerializeObject(validation);
-            response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            var response = new HttpResponseMessage();
+            if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
+            {
+                string token = headers.GetValues("jefeToken").First();
+                var jefeVentasId = Convert.ToInt32(token);
+
+                var visita = db.VisitaSAP.FirstOrDefault(x => x.Visita_Id == value.Visita_Id);
+
+
+
+                visita.Visita_Hora_Salida = value.Visita_Hora_Salida;
+                visita.Visita_Ubicacion_Salida = value.Visita_Ubicacion_Salida;
+
+                
+
+                var resultado = db.SaveChanges();
+
+                if (resultado > 0)
+                {
+                    validation.Success = false;
+                    validation.Message = "Actualizado con éxito";
+                    var json = JsonConvert.SerializeObject(validation);
+                    response = Request.CreateResponse(HttpStatusCode.OK);
+                    response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                }
+                else
+                {
+                    validation.Success = false;
+                    validation.Message = "Ocurrió un error al actualizar.";
+                    var json = JsonConvert.SerializeObject(validation);
+                    response = Request.CreateResponse(HttpStatusCode.NotFound);
+                    response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                }
+            }
+            else
+            {
+                validation.Success = false;
+                validation.Message = "Credenciales incorrectas.";
+                var json = JsonConvert.SerializeObject(validation);
+                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+            }
+
             return response;
         }
 

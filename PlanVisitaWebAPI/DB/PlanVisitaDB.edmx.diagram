@@ -86,6 +86,7 @@
         <AssociationConnector Association="PLAN_VISITAModel.FK_VendedorZona_Zona" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.FK_ZonaSucursal_Zona" ManuallyRouted="false" />
         <AssociationConnector Association="PLAN_VISITAModel.CanalVendedor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PLAN_VISITAModel.PlanSemanalSAP" Width="1.5" PointX="19.375" PointY="22.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

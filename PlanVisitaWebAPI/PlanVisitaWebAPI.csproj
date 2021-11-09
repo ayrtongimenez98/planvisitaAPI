@@ -249,6 +249,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JefeVentas\JefeVentasController.cs" />
     <Compile Include="Controllers\JefeVentas\MarcacionesController.cs" />
+    <Compile Include="Controllers\JefeVentas\PlanSemanalController.cs" />
     <Compile Include="Controllers\JefeVentas\SucursalController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorSucursalController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -313,6 +314,9 @@
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanSemanalDetalleSAP.cs">
+      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\PlanSemanalSAP.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanVisita.cs">
@@ -458,6 +462,7 @@
     <Compile Include="Models\Marcaciones\MarcacionesUpdateModel.cs" />
     <Compile Include="Models\PlanSemanal\PlanSemanalDetalleUpdateModel.cs" />
     <Compile Include="Models\PlanSemanal\PlanSemanalFiltroModel.cs" />
+    <Compile Include="Models\PlanSemanal\PlanSemanalResponseModel.cs" />
     <Compile Include="Models\PlanSemanal\PlanSemanalUpdateModel.cs" />
     <Compile Include="Models\Shared\PaginationModel.cs" />
     <Compile Include="Models\Shared\SystemValidationModel.cs" />
@@ -549,6 +554,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PlanSemanal\" />
     <Folder Include="Views\Sucursal\" />
   </ItemGroup>
   <ItemGroup>

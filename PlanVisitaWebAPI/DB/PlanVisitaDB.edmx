@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PLAN_VISITAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PLAN_VISITAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Canal">
           <Key>
             <PropertyRef Name="Canal_Id" />
@@ -38,14 +38,6 @@
           <Property Name="Cliente_FechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="Cliente_FechaLastUpdate" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PLAN_VISITA.dbo.ClientesPeriodo' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="ClientesPeriodo">
-          <Property Name="Vendedor_Id" Type="int" />
-          <Property Name="Sucursal_Id" Type="int" />
-          <Property Name="Cantidad_Visitas" Type="int" />
-          <Property Name="Periodo" Type="varchar" MaxLength="5" />
-        </EntityType>-->
         <EntityType Name="Division">
           <Key>
             <PropertyRef Name="Division_Id" />
@@ -202,20 +194,19 @@ warning 6013: The table/view 'PLAN_VISITA.dbo.ClientesPeriodo' does not have a p
           <Property Name="PlanSemanal_Horario" Type="datetime" Nullable="false" />
           <Property Name="ObjetivoVisita_Id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="PlanSemanalDetalleSAP">
+        <EntityType Name="PlanSemanalSAP">
           <Key>
             <PropertyRef Name="PlanSemanal_Id" />
-            <PropertyRef Name="PlanSemanal_DiaSemana" />
             <PropertyRef Name="Sucursal_Id" />
             <PropertyRef Name="Cliente_Cod" />
-            <PropertyRef Name="PlanSemanal_Horario" />
           </Key>
           <Property Name="PlanSemanal_Id" Type="int" Nullable="false" />
-          <Property Name="PlanSemanal_DiaSemana" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="Sucursal_Id" Type="int" Nullable="false" />
           <Property Name="Cliente_Cod" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="PlanSemanal_Horario" Type="datetime" Nullable="false" />
+          <Property Name="Vendedor_Id" Type="int" Nullable="false" />
           <Property Name="ObjetivoVisita_Id" Type="int" Nullable="false" />
+          <Property Name="PlanSemanal_Estado" Type="varchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="PlanVisita">
           <Key>
@@ -421,8 +412,8 @@ warning 6013: The table/view 'PLAN_VISITA.dbo.ClientesPeriodo' does not have a p
           <Property Name="ZonaSucursalEstado" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="ZonaSucursalCantidad_Visitas" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.Detalle_Visita' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.Detalle_Visita' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="Detalle_Visita">
           <Key>
             <PropertyRef Name="Visita_Id" />
@@ -460,8 +451,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.Detalle_Visita' does not have a pr
           <Property Name="Plan de Acción Estado" Type="varchar" MaxLength="40" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_Canales_HBF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Canales_HBF' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_Canales_HBF">
           <Key>
             <PropertyRef Name="GroupCode" />
@@ -471,8 +462,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Canales_HBF' does not have a pri
           <Property Name="GroupName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="GroupType" Type="char" MaxLength="1" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_CARTERA_ACTUAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_CARTERA_ACTUAL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_CARTERA_ACTUAL">
           <Key>
             <PropertyRef Name="Vendedor_Id" />
@@ -498,8 +489,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_CARTERA_ACTUAL' does not have a 
           <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
           <Property Name="JefeVentas_Nombre" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_Cartera_Clientes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Cartera_Clientes' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_Cartera_Clientes">
           <Key>
             <PropertyRef Name="Visitador" />
@@ -518,8 +509,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Cartera_Clientes' does not have 
           <Property Name="Frecuencia de Visita" Type="int" />
           <Property Name="Periodo" Type="varchar" MaxLength="5" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_CLIENTE_SUCURSAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_CLIENTE_SUCURSAL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_CLIENTE_SUCURSAL">
           <Key>
             <PropertyRef Name="Cliente_Cod" />
@@ -532,8 +523,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_CLIENTE_SUCURSAL' does not have 
           <Property Name="Sucursal_Ciudad" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Sucursal_Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_Clientes_HBF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_HBF' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_Clientes_HBF">
           <Key>
             <PropertyRef Name="cardcode" />
@@ -550,8 +541,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Clientes_HBF' does not have a pr
           <Property Name="GroupName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Address2" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_Clientes_Total' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_Total' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_Clientes_Total">
           <Key>
             <PropertyRef Name="Cliente_Cod" />
@@ -564,8 +555,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Clientes_Total' does not have a 
           <Property Name="Sucursal_Id" Type="int" Nullable="false" />
           <Property Name="Sucursal_Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_ClientesVenRep' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_ClientesVenRep' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_ClientesVenRep">
           <Key>
             <PropertyRef Name="Vendedor_Id" />
@@ -592,8 +583,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_ClientesVenRep' does not have a 
           <Property Name="Sucursal_Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
           <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_Detalle_Visita' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Detalle_Visita' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_Detalle_Visita">
           <Key>
             <PropertyRef Name="Visita_Id" />
@@ -633,8 +624,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Detalle_Visita' does not have a 
           <Property Name="Ubicacion" Type="char" MaxLength="50" Nullable="false" />
           <Property Name="Vendedor_Id" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_Dual_Visita' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Dual_Visita' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_Dual_Visita">
           <Key>
             <PropertyRef Name="VisitaDual_Id" />
@@ -661,8 +652,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Dual_Visita' does not have a pri
           <Property Name="Cantidad" Type="int" Nullable="false" />
           <Property Name="Ubicacion" Type="char" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_PLAN_SEMANAL">
           <Key>
             <PropertyRef Name="Periodo" />
@@ -688,8 +679,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_PLAN_SEMANAL' does not have a pr
           <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Fecha" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_PlanSemCargXDia' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_PlanSemCargXDia' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_PlanSemCargXDia">
           <Key>
             <PropertyRef Name="NombreVendedor" />
@@ -712,8 +703,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_PlanSemCargXDia' does not have a
           <Property Name="JUEVES" Type="int" Nullable="false" />
           <Property Name="VIERNES" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_RUTA_DIA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_RUTA_DIA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_RUTA_DIA">
           <Key>
             <PropertyRef Name="Periodo" />
@@ -735,8 +726,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_RUTA_DIA' does not have a primar
           <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Fecha" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_RUTA_DIA_NUEVO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_RUTA_DIA_NUEVO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_RUTA_DIA_NUEVO">
           <Key>
             <PropertyRef Name="Periodo" />
@@ -762,8 +753,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_RUTA_DIA_NUEVO' does not have a 
           <Property Name="Objetivo" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="Fecha" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_VDetallePlanSVendedores' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_VDetallePlanSVendedores' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_VDetallePlanSVendedores">
           <Key>
             <PropertyRef Name="PlanSemanalId" />
@@ -800,8 +791,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_VDetallePlanSVendedores' does no
           <Property Name="Cliente_RazonSocial" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="PlanSemanal_Horario" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Detalle' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_Visitas_Detalle">
           <Key>
             <PropertyRef Name="Visita_Id" />
@@ -843,8 +834,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Detalle' does not have a
           <Property Name="SucursalID" Type="int" Nullable="false" />
           <Property Name="frecuencia" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Dual' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Visitas_Dual' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="V_Visitas_Dual">
           <Key>
             <PropertyRef Name="VisitaDual_Id" />
@@ -871,8 +862,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.V_Visitas_Dual' does not have a pr
           <Property Name="UbicacionEntrada" Type="char" MaxLength="50" Nullable="false" />
           <Property Name="UbicacionSalida" Type="char" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.VClienteSAPHBF' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VClienteSAPHBF' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VClienteSAPHBF">
           <Key>
             <PropertyRef Name="CodigoCliente" />
@@ -893,8 +884,8 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.VClienteSAPHBF' does not have a pr
           <Property Name="U_ClasifClientDPP" Type="nvarchar" MaxLength="15" />
           <Property Name="Empresa" Type="varchar" MaxLength="8" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VFrecuenciaVendedorCliente">
           <Key>
             <PropertyRef Name="Sucursal_Id" />
@@ -1268,7 +1259,7 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' does n
           <EntitySet Name="PlanAccion" EntityType="Self.PlanAccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanSemanal" EntityType="Self.PlanSemanal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanSemanalDetalle" EntityType="Self.PlanSemanalDetalle" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PlanSemanalDetalleSAP" EntityType="Self.PlanSemanalDetalleSAP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanSemanalSAP" EntityType="Self.PlanSemanalSAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlanVisita" EntityType="Self.PlanVisita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sucursal" EntityType="Self.Sucursal" Schema="dbo" store:Type="Tables" />
@@ -1696,8 +1687,7 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' does n
             <End Role="VisitaDual" EntitySet="VisitaDual" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PLAN_VISITAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3077,7 +3067,22 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' does n
             <End Role="Canal" EntitySet="Canals" />
             <End Role="Vendedor" EntitySet="Vendedors" />
           </AssociationSet>
+          <EntitySet Name="PlanSemanalSAP" EntityType="PLAN_VISITAModel.PlanSemanalSAP" />
         </EntityContainer>
+        <EntityType Name="PlanSemanalSAP">
+          <Key>
+            <PropertyRef Name="PlanSemanal_Id" />
+            <PropertyRef Name="Sucursal_Id" />
+            <PropertyRef Name="Cliente_Cod" />
+          </Key>
+          <Property Name="PlanSemanal_Id" Type="Int32" Nullable="false" />
+          <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cliente_Cod" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PlanSemanal_Horario" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+          <Property Name="ObjetivoVisita_Id" Type="Int32" Nullable="false" />
+          <Property Name="PlanSemanal_Estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3271,18 +3276,6 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' does n
                 <ScalarProperty Name="PlanSemanal_Id" ColumnName="PlanSemanal_Id" />
                 <ScalarProperty Name="PlanSemanal_DiaSemana" ColumnName="PlanSemanal_DiaSemana" />
                 <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
-                <ScalarProperty Name="PlanSemanal_Horario" ColumnName="PlanSemanal_Horario" />
-                <ScalarProperty Name="ObjetivoVisita_Id" ColumnName="ObjetivoVisita_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlanSemanalDetalleSAPs">
-            <EntityTypeMapping TypeName="PLAN_VISITAModel.PlanSemanalDetalleSAP">
-              <MappingFragment StoreEntitySet="PlanSemanalDetalleSAP">
-                <ScalarProperty Name="PlanSemanal_Id" ColumnName="PlanSemanal_Id" />
-                <ScalarProperty Name="PlanSemanal_DiaSemana" ColumnName="PlanSemanal_DiaSemana" />
-                <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
-                <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
                 <ScalarProperty Name="PlanSemanal_Horario" ColumnName="PlanSemanal_Horario" />
                 <ScalarProperty Name="ObjetivoVisita_Id" ColumnName="ObjetivoVisita_Id" />
               </MappingFragment>
@@ -3854,6 +3847,19 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' does n
               <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="PlanSemanalSAP">
+            <EntityTypeMapping TypeName="PLAN_VISITAModel.PlanSemanalSAP">
+              <MappingFragment StoreEntitySet="PlanSemanalSAP">
+                <ScalarProperty Name="PlanSemanal_Estado" ColumnName="PlanSemanal_Estado" />
+                <ScalarProperty Name="ObjetivoVisita_Id" ColumnName="ObjetivoVisita_Id" />
+                <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
+                <ScalarProperty Name="PlanSemanal_Horario" ColumnName="PlanSemanal_Horario" />
+                <ScalarProperty Name="Cliente_Cod" ColumnName="Cliente_Cod" />
+                <ScalarProperty Name="Sucursal_Id" ColumnName="Sucursal_Id" />
+                <ScalarProperty Name="PlanSemanal_Id" ColumnName="PlanSemanal_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3868,7 +3874,7 @@ warning 6002: The table/view 'PLAN_VISITA.dbo.VFrecuenciaVendedorCliente' does n
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
