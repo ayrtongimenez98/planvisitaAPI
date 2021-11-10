@@ -61,7 +61,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
 
                 if (Fecha_Desde.Date != Convert.ToDateTime("01/01/0001").Date && Fecha_Hasta.Date != Convert.ToDateTime("01/01/0001").Date)
                 {
-                    PlanSemanalQuery = PlanSemanalQuery.Where(x => x.PlanSemanal_Horario >= Fecha_Desde && x.PlanSemanal_Horario <= Fecha_Hasta).ToList();
+                    PlanSemanalQuery = PlanSemanalQuery.Where(x => x.PlanSemanal_Horario.Date >= Fecha_Desde.Date && x.PlanSemanal_Horario.Date <= Fecha_Hasta.Date).ToList();
                 }
                 PlanSemanalList = PlanSemanalQuery.ToList();
 
