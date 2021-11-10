@@ -96,8 +96,8 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
             var response = new HttpResponseMessage();
             if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
             {
-                string token = headers.GetValues("jefeToken").First();
-                var jefeVentasId = Convert.ToInt32(token);
+                string token = headers.GetValues("userToken").First();
+                var vendedor = Convert.ToInt32(token);
 
                 var modelList = new List<PlanSemanalSAP>();
 
@@ -108,7 +108,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                         Cliente_Cod = value.Cliente_Cod,
                         PlanSemanal_Estado = value.PlanSemanal_Estado,
                         Sucursal_Id = value.Sucursal_Id,
-                        Vendedor_Id = value.Vendedor_Id,
+                        Vendedor_Id = vendedor,
                         PlanSemanal_Horario = value.PlanSemanal_Horario,
                         ObjetivoVisita_Id = value.ObjetivoVisita_Id
                     };

@@ -255,7 +255,9 @@
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorController.cs" />
+    <Compile Include="Controllers\Vendedor\VObjetivoVisitaController.cs" />
     <Compile Include="Controllers\Vendedor\VPlanSemanalController.cs" />
+    <Compile Include="Controllers\Vendedor\VSucursalesAsignadosController.cs" />
     <Compile Include="DB\Canal.cs">
       <DependentUpon>PlanVisitaDB.tt</DependentUpon>
     </Compile>
