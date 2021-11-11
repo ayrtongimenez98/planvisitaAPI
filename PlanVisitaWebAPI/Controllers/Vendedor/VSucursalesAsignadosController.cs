@@ -45,7 +45,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
             {
                 string token = headers.GetValues("userToken").First();
                 var vendedor = Convert.ToInt32(token);
-                var sucursales = db.Database.SqlQuery<SucursalVendedorResponseModel>("select Cast(h.Address as varchar) as Sucursal_Id, h.city as Sucursal_Ciudad, h.street as Sucursal_Direccion, h.Address2 as Sucursal_Local, h.GroupCode as Canal_Id,h.cardcode as Cliente_Cod, h.cardfname as Cliente_RazonSocial, vc.Cantidad_Visitas as Cantidad_Visitas from VendedorClienteSAP vc inner join V_Clientes_HBF h on vc.Cliente_Cod COLLATE Modern_Spanish_CI_AS = h.cardcode and vc.Sucursal_Id  = h.Address where h.cardfname like '%" + filtro + "%' and vc.Vendedor_Id = " + vendedor).ToList<SucursalVendedorResponseModel>();
+                var sucursales = db.Database.SqlQuery<SucursalVendedorResponseModel>("select Cast(h.Address as varchar) as Sucursal_Id, h.city as Sucursal_Ciudad, h.street as Sucursal_Direccion, h.Address2 as Sucursal_Local, h.GroupCode as Canal_Id,h.cardcode as Cliente_Cod, h.cardfname as Cliente_RazonSocial, vc.Cantidad_Visitas as Cantidad_Visitas from VendedorClienteSAP vc inner join V_Clientes_HBF h on vc.Cliente_Cod COLLATE Modern_Spanish_CI_AS = h.cardcode and vc.Sucursal_Id  = h.Address where (h.cardfname like '%" + filtro + "%' or h.street like '%" + filtro + "%') and vc.Vendedor_Id = " + vendedor).ToList<SucursalVendedorResponseModel>();
 
 
                 var cantidad = sucursales.Count;
