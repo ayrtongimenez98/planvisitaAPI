@@ -98,8 +98,9 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
             {
                 string token = headers.GetValues("userToken").First();
                 var vendedor = Convert.ToInt32(token);
-                var last = db.PlanSemanalSAP.ToList().Last();
-                var lastId = last.PlanSemanal_Id;
+                var listaPlan = db.PlanSemanalSAP.ToList();
+                var last = listaPlan.LastOrDefault();
+                var lastId = last == null ? 0 : last.PlanSemanal_Id;
                 var modelList = new List<PlanSemanalSAP>();
 
                 foreach (var value in list)

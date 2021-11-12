@@ -14,7 +14,7 @@ using System.Web.Http.Cors;
 namespace PlanVisitaWebAPI.Controllers.Vendedor
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class MarcacionesController : ApiController
+    public class VVisitasController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
         // GET api/<controller>
@@ -71,7 +71,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
 
                 if (Fecha_Desde.Date != Convert.ToDateTime("01/01/0001").Date && Fecha_Hasta.Date != Convert.ToDateTime("01/01/0001").Date)
                 {
-                    marcacionesQuery = marcacionesQuery.Where(x => x.Visita_fecha >= Fecha_Desde && x.Visita_fecha <= Fecha_Hasta).ToList();
+                    marcacionesQuery = marcacionesQuery.Where(x => x.Visita_fecha.Date >= Fecha_Desde.Date && x.Visita_fecha.Date <= Fecha_Hasta.Date).ToList();
                 }
                 marcacionesList = marcacionesQuery.ToList();
 
@@ -194,7 +194,9 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     Vendedor_Id = vendedor,
                     Visita_fecha = value.Visita_fecha,
                     Visita_Hora_Entrada = value.Visita_Hora_Entrada,
-                    Visita_Ubicacion_Entrada = value.Visita_Ubicacion_Entrada
+                    Visita_Ubicacion_Entrada = value.Visita_Ubicacion_Entrada,
+                    Visita_Ubicacion_Salida = "",
+                    Visita_Hora_Salida = DateTime.Now
                 };
                 db.VisitaSAP.Add(newVisita);
                 var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date).FirstOrDefault();
@@ -253,6 +255,9 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
 
                 visita.Visita_Hora_Salida = value.Visita_Hora_Salida;
                 visita.Visita_Ubicacion_Salida = value.Visita_Ubicacion_Salida;
+                visita.Visita_Observacion = value.Visita_Observacion;
+                visita.Estado_Id = value.Estado_Id;
+                visita.Motivo_Id = value.Motivo_Id;
 
                 var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date).FirstOrDefault();
                 if (plan != null)
