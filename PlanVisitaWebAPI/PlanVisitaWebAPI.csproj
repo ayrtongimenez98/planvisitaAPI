@@ -255,6 +255,8 @@
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorController.cs" />
+    <Compile Include="Controllers\Vendedor\VEstadoVisitaController.cs" />
+    <Compile Include="Controllers\Vendedor\VMotivoVisitaController.cs" />
     <Compile Include="Controllers\Vendedor\VObjetivoVisitaController.cs" />
     <Compile Include="Controllers\Vendedor\VPlanSemanalController.cs" />
     <Compile Include="Controllers\Vendedor\VSucursalesAsignadosController.cs" />
