@@ -11,14 +11,14 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
-namespace PlanVisitaWebAPI.Controllers.JefeVentas
+namespace PlanVisitaWebAPI.Controllers.Vendedor
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MarcacionesController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
         // GET api/<controller>
-        public HttpResponseMessage Get(DateTime Fecha_Desde, DateTime Fecha_Hasta, int Vendedor_Id = 0, string Cliente_Cod = "", string Filtro = "", int Skip = 0, int Take = 10)
+        public HttpResponseMessage Get(DateTime Fecha_Desde, DateTime Fecha_Hasta, string Cliente_Cod = "", string Filtro = "", int Skip = 0, int Take = 10)
         {
 
             HttpRequestMessage re = Request;
@@ -27,11 +27,11 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                 Filtro = "";
 
             var response = new HttpResponseMessage();
-            if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
+            if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
             {
-                string token = headers.GetValues("jefeToken").First();
-                var jefeVentasId = Convert.ToInt32(token);
-                
+                string token = headers.GetValues("userToken").First();
+                var vendedor = Convert.ToInt32(token);
+
                 var marcacionesList = new List<MarcacionesResponseModel>();
                 var paginationModel = new PaginationModel<MarcacionesResponseModel>();
                 var marcacionesQuery = db.Database.SqlQuery<MarcacionesResponseModel>(@"
@@ -59,9 +59,9 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                     inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
                     inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
 
-                if (Vendedor_Id != 0)
+                if (vendedor != 0)
                 {
-                    marcacionesQuery = marcacionesQuery.Where(x => x.Vendedor_Id == Vendedor_Id).ToList();
+                    marcacionesQuery = marcacionesQuery.Where(x => x.Vendedor_Id == vendedor).ToList();
                 }
 
                 if (Cliente_Cod != null)
@@ -106,10 +106,10 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
 
 
             var response = new HttpResponseMessage();
-            if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
+            if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
             {
-                string token = headers.GetValues("jefeToken").First();
-                var jefeVentasId = Convert.ToInt32(token);
+                string token = headers.GetValues("userToken").First();
+                var vendedor = Convert.ToInt32(token);
 
                 var marcacionesQuery = db.Database.SqlQuery<MarcacionesResponseModel>(@"
                    SELECT vs.Visita_Id,  
@@ -179,10 +179,10 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
 
             var validation = new SystemValidationModel();
             var response = new HttpResponseMessage();
-            if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
+            if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
             {
-                string token = headers.GetValues("jefeToken").First();
-                var jefeVentasId = Convert.ToInt32(token);
+                string token = headers.GetValues("userToken").First();
+                var vendedor = Convert.ToInt32(token);
 
                 var newVisita = new VisitaSAP()
                 {
@@ -191,19 +191,23 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                     Estado_Id = value.Estado_Id,
                     Motivo_Id = value.Motivo_Id,
                     Sucursal_Id = value.Sucursal_Id,
-                    Vendedor_Id = value.Vendedor_Id,
+                    Vendedor_Id = vendedor,
                     Visita_fecha = value.Visita_fecha,
                     Visita_Hora_Entrada = value.Visita_Hora_Entrada,
                     Visita_Ubicacion_Entrada = value.Visita_Ubicacion_Entrada
                 };
-
                 db.VisitaSAP.Add(newVisita);
+                var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date).FirstOrDefault();
+                if (plan != null)
+                    plan.PlanSemanal_Estado = plan.PlanSemanal_Horario.Date <= DateTime.Now.Date  ? "E" : "A";
+
+                
 
                 var resultado = db.SaveChanges();
 
                 if (resultado > 0)
                 {
-                    validation.Success = false;
+                    validation.Success = true;
                     validation.Message = "Creado con éxito";
                     var json = JsonConvert.SerializeObject(validation);
                     response = Request.CreateResponse(HttpStatusCode.OK);
@@ -238,10 +242,10 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
 
             var validation = new SystemValidationModel();
             var response = new HttpResponseMessage();
-            if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
+            if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
             {
-                string token = headers.GetValues("jefeToken").First();
-                var jefeVentasId = Convert.ToInt32(token);
+                string token = headers.GetValues("userToken").First();
+                var vendedor = Convert.ToInt32(token);
 
                 var visita = db.VisitaSAP.FirstOrDefault(x => x.Visita_Id == value.Visita_Id);
 
@@ -250,13 +254,15 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                 visita.Visita_Hora_Salida = value.Visita_Hora_Salida;
                 visita.Visita_Ubicacion_Salida = value.Visita_Ubicacion_Salida;
 
-                
+                var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date).FirstOrDefault();
+                if (plan != null)
+                    plan.PlanSemanal_Estado = plan.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "S" : "A";
 
                 var resultado = db.SaveChanges();
 
                 if (resultado > 0)
                 {
-                    validation.Success = false;
+                    validation.Success = true;
                     validation.Message = "Actualizado con éxito";
                     var json = JsonConvert.SerializeObject(validation);
                     response = Request.CreateResponse(HttpStatusCode.OK);

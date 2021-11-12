@@ -63,7 +63,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                 {
                     PlanSemanalQuery = PlanSemanalQuery.Where(x => x.PlanSemanal_Horario.Date >= Fecha_Desde.Date && x.PlanSemanal_Horario.Date <= Fecha_Hasta.Date).ToList();
                 }
-                PlanSemanalList = PlanSemanalQuery.ToList();
+                PlanSemanalList = PlanSemanalQuery.OrderBy(x => x.PlanSemanal_Horario).ToList();
 
 
 
@@ -98,13 +98,16 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
             {
                 string token = headers.GetValues("userToken").First();
                 var vendedor = Convert.ToInt32(token);
-
+                var last = db.PlanSemanalSAP.ToList().Last();
+                var lastId = last.PlanSemanal_Id;
                 var modelList = new List<PlanSemanalSAP>();
 
                 foreach (var value in list)
                 {
+                    lastId++;
                     var newPlan = new PlanSemanalSAP()
                     {
+                        PlanSemanal_Id = lastId,
                         Cliente_Cod = value.Cliente_Cod,
                         PlanSemanal_Estado = value.PlanSemanal_Estado,
                         Sucursal_Id = value.Sucursal_Id,
@@ -123,7 +126,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
 
                 if (resultado > 0)
                 {
-                    validation.Success = false;
+                    validation.Success = true;
                     validation.Message = "Creado con éxito";
                     var json = JsonConvert.SerializeObject(validation);
                     response = Request.CreateResponse(HttpStatusCode.OK);
