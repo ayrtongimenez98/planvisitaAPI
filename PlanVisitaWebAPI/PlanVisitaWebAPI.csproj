@@ -260,147 +260,193 @@
     <Compile Include="Controllers\Vendedor\VObjetivoVisitaController.cs" />
     <Compile Include="Controllers\Vendedor\VPlanSemanalController.cs" />
     <Compile Include="Controllers\Vendedor\VSucursalesAsignadosController.cs" />
+    <Compile Include="Controllers\Vendedor\VVencimientoProductoController.cs" />
     <Compile Include="Controllers\Vendedor\VVisitasController.cs" />
     <Compile Include="DB\Canal.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\CanalSucursal.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Cliente.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Detalle_Visita.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Division.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Empresa.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Estado.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\EstadoMotivo.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JefeVentas.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JefeVentasCanal.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Motivo.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Notificacion.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\ObjetivoVisita.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Periodo.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PeriodoDet.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanAccion.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanSemanal.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanSemanalDetalle.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanSemanalSAP.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\PlanVisita.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\PlanVisitaDB.Context.cs">
+    <Compile Include="DB\PlanVisitasDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlanVisitaDB.Context.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\PlanVisitaDB.cs">
+    <Compile Include="DB\PlanVisitasDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\PlanVisitaDB.Designer.cs">
+    <Compile Include="DB\PlanVisitasDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PlanVisitaDB.edmx</DependentUpon>
+      <DependentUpon>PlanVisitasDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="DB\Producto.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Sucursal.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Tarea.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Task.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Ubicacion.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Usuario.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VClienteSAPHBF.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\VencimientoProducto.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Vendedor.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VendedorCliente.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VendedorClienteSAP.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VendedorZona.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Venta.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VentaLinea.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\VFrecuenciaVendedorCliente.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Visita.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VisitaDual.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VisitaSAP.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\VVisitasRealizadas.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\V_Canales_HBF.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\V_CARTERA_ACTUAL.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\V_Cartera_Clientes.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_ClientesVenRep.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\V_Clientes_HBF.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Clientes_Total.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\V_CLIENTE_SUCURSAL.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Detalle_Visita.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Dual_Visita.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_PlanSemCargXDia.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_PLAN_SEMANAL.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_RUTA_DIA.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_RUTA_DIA_NUEVO.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_VDetallePlanSVendedores.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Visitas_Detalle.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\V_Visitas_Dual.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Zona.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\ZonaSucursal.cs">
-      <DependentUpon>PlanVisitaDB.tt</DependentUpon>
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -431,6 +477,7 @@
     <Compile Include="Models\Sucursal\SucursalUpdateModel.cs" />
     <Compile Include="Models\Usuario\UsuarioResponseModel.cs" />
     <Compile Include="Models\Usuario\UsuarioUpdateModel.cs" />
+    <Compile Include="Models\Vencimiento\VencimientoUpsertModel.cs" />
     <Compile Include="Models\VendedorSucursal\VendedorSucursalUpdateModel.cs" />
     <Compile Include="Models\Vendedor\VendedorResponseModel.cs" />
     <Compile Include="Models\Vendedor\VendedorUpdateModel.cs" />
@@ -445,15 +492,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DB\PlanVisitaDB.Context.tt">
+    <Content Include="DB\PlanVisitasDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlanVisitaDB.edmx</DependentUpon>
-      <LastGenOutput>PlanVisitaDB.Context.cs</LastGenOutput>
+      <DependentUpon>PlanVisitasDB.edmx</DependentUpon>
+      <LastGenOutput>PlanVisitasDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DB\PlanVisitaDB.tt">
+    <Content Include="DB\PlanVisitasDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlanVisitaDB.edmx</DependentUpon>
-      <LastGenOutput>PlanVisitaDB.cs</LastGenOutput>
+      <DependentUpon>PlanVisitasDB.edmx</DependentUpon>
+      <LastGenOutput>PlanVisitasDB.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -479,12 +526,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="DB\PlanVisitaDB.edmx">
+    <EntityDeploy Include="DB\PlanVisitasDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PlanVisitaDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>PlanVisitasDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DB\PlanVisitaDB.edmx.diagram">
-      <DependentUpon>PlanVisitaDB.edmx</DependentUpon>
+    <Content Include="DB\PlanVisitasDB.edmx.diagram">
+      <DependentUpon>PlanVisitasDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

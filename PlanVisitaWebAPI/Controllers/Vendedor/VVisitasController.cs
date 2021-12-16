@@ -183,6 +183,10 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
             {
                 string token = headers.GetValues("userToken").First();
                 var vendedor = Convert.ToInt32(token);
+                if (value.Visita_Ubicacion_Salida == null)
+                    value.Visita_Ubicacion_Salida = "";
+                if (value.Visita_Hora_Salida == null)
+                    value.Visita_Hora_Salida = DateTime.Now;
 
                 var newVisita = new VisitaSAP()
                 {
@@ -195,13 +199,21 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     Visita_fecha = value.Visita_fecha,
                     Visita_Hora_Entrada = value.Visita_Hora_Entrada,
                     Visita_Ubicacion_Entrada = value.Visita_Ubicacion_Entrada,
-                    Visita_Ubicacion_Salida = "",
-                    Visita_Hora_Salida = DateTime.Now
+                    Visita_Ubicacion_Salida = value.Visita_Ubicacion_Salida,
+                    Visita_Hora_Salida = value.Visita_Hora_Salida
                 };
                 db.VisitaSAP.Add(newVisita);
-                var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date).FirstOrDefault();
-                if (plan != null)
-                    plan.PlanSemanal_Estado = plan.PlanSemanal_Horario.Date <= DateTime.Now.Date  ? "E" : "A";
+                var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date);
+                foreach (var item in plan)
+                {
+                    if(value.Visita_Ubicacion_Salida != null && value.Visita_Ubicacion_Salida != "") {
+                        item.PlanSemanal_Estado = item.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "E" : "A";
+                    } else
+                    {
+                        item.PlanSemanal_Estado = item.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "S" : "A";
+                    }
+                        
+                }
 
                 
 
@@ -244,50 +256,64 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
 
             var validation = new SystemValidationModel();
             var response = new HttpResponseMessage();
-            if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
+            try
             {
-                string token = headers.GetValues("userToken").First();
-                var vendedor = Convert.ToInt32(token);
-
-                var visita = db.VisitaSAP.FirstOrDefault(x => x.Visita_Id == value.Visita_Id);
-
-
-
-                visita.Visita_Hora_Salida = value.Visita_Hora_Salida;
-                visita.Visita_Ubicacion_Salida = value.Visita_Ubicacion_Salida;
-                visita.Visita_Observacion = value.Visita_Observacion;
-                visita.Estado_Id = value.Estado_Id;
-                visita.Motivo_Id = value.Motivo_Id;
-
-                var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date).FirstOrDefault();
-                if (plan != null)
-                    plan.PlanSemanal_Estado = plan.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "S" : "A";
-
-                var resultado = db.SaveChanges();
-
-                if (resultado > 0)
+                if (headers.Contains("userToken") && headers.GetValues("userToken") != null && !string.IsNullOrEmpty(headers.GetValues("userToken").First()))
                 {
-                    validation.Success = true;
-                    validation.Message = "Actualizado con éxito";
-                    var json = JsonConvert.SerializeObject(validation);
-                    response = Request.CreateResponse(HttpStatusCode.OK);
-                    response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    string token = headers.GetValues("userToken").First();
+                    var vendedor = Convert.ToInt32(token);
+
+                    var visita = db.VisitaSAP.FirstOrDefault(x => x.Visita_Id == value.Visita_Id);
+
+
+
+                    visita.Visita_Hora_Salida = value.Visita_Hora_Salida;
+                    visita.Visita_Ubicacion_Salida = value.Visita_Ubicacion_Salida;
+                    visita.Visita_Observacion = value.Visita_Observacion;
+                    visita.Estado_Id = value.Estado_Id;
+                    visita.Motivo_Id = value.Motivo_Id;
+
+                    var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date);
+
+
+                    foreach (var item in plan)
+                    {
+                        item.PlanSemanal_Estado = item.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "S" : "A";
+                    }
+                    var resultado = db.SaveChanges();
+
+                    if (resultado > 0)
+                    {
+                        validation.Success = true;
+                        validation.Message = "Actualizado con éxito";
+                        var json = JsonConvert.SerializeObject(validation);
+                        response = Request.CreateResponse(HttpStatusCode.OK);
+                        response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    }
+                    else
+                    {
+                        validation.Success = false;
+                        validation.Message = "Ocurrió un error al actualizar.";
+                        var json = JsonConvert.SerializeObject(validation);
+                        response = Request.CreateResponse(HttpStatusCode.NotFound);
+                        response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    }
                 }
                 else
                 {
                     validation.Success = false;
-                    validation.Message = "Ocurrió un error al actualizar.";
+                    validation.Message = "Credenciales incorrectas.";
                     var json = JsonConvert.SerializeObject(validation);
-                    response = Request.CreateResponse(HttpStatusCode.NotFound);
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest);
                     response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 }
             }
-            else
+            catch (Exception ex)
             {
                 validation.Success = false;
-                validation.Message = "Credenciales incorrectas.";
+                validation.Message = ex.Message;
                 var json = JsonConvert.SerializeObject(validation);
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
+                response = Request.CreateResponse(HttpStatusCode.NotFound);
                 response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             }
 

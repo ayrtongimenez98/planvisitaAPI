@@ -1,0 +1,990 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PLAN_VISITAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Canal">
+    <Key>
+      <PropertyRef Name="Canal_Id" />
+    </Key>
+    <Property Name="Canal_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CanalSucursal" Relationship="Self.FK_CanalSucursal_Canal" FromRole="Canal" ToRole="CanalSucursal" />
+    <NavigationProperty Name="Vendedor" Relationship="Self.CanalVendedor" FromRole="Canal" ToRole="Vendedor" />
+  </EntityType>
+  <EntityType Name="CanalSucursal">
+    <Key>
+      <PropertyRef Name="Canal_Id" />
+      <PropertyRef Name="Sucursal_Id" />
+    </Key>
+    <Property Name="Canal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Canal" Relationship="Self.FK_CanalSucursal_Canal" FromRole="CanalSucursal" ToRole="Canal" />
+    <NavigationProperty Name="Sucursal" Relationship="Self.FK_CanalSucursal_Sucursal" FromRole="CanalSucursal" ToRole="Sucursal" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Cliente_Cod" />
+    </Key>
+    <Property Name="Cliente_Cod" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Cliente_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Division">
+    <Key>
+      <PropertyRef Name="Division_Id" />
+    </Key>
+    <Property Name="Division_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Division_Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Empresa_Id" Type="Int32" Nullable="false" />
+    <Property Name="Division_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Division_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Zona" Relationship="Self.FK_Zona_Division" FromRole="Division" ToRole="Zona" />
+    <NavigationProperty Name="Empresa" Relationship="Self.IDIVISION1" FromRole="Division" ToRole="Empresa" />
+    <NavigationProperty Name="JefeVentas" Relationship="Self.IJEFEVENTAS1" FromRole="Division" ToRole="JefeVentas" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="Empresa_Id" />
+    </Key>
+    <Property Name="Empresa_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Empresa_Nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Empresa_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Empresa_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Division" Relationship="Self.IDIVISION1" FromRole="Empresa" ToRole="Division" />
+  </EntityType>
+  <EntityType Name="Estado">
+    <Key>
+      <PropertyRef Name="Estado_Id" />
+    </Key>
+    <Property Name="Estado_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Estado_Nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Estado_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EstadoMotivo" Relationship="Self.IESTADOMOTIVO1" FromRole="Estado" ToRole="EstadoMotivo" />
+  </EntityType>
+  <EntityType Name="EstadoMotivo">
+    <Key>
+      <PropertyRef Name="Estado_Id" />
+      <PropertyRef Name="Motivo_Id" />
+    </Key>
+    <Property Name="Estado_Id" Type="Int32" Nullable="false" />
+    <Property Name="Motivo_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Estado" Relationship="Self.IESTADOMOTIVO1" FromRole="EstadoMotivo" ToRole="Estado" />
+    <NavigationProperty Name="Motivo" Relationship="Self.IESTADOMOTIVO2" FromRole="EstadoMotivo" ToRole="Motivo" />
+    <NavigationProperty Name="Visita" Relationship="Self.IVISITA1" FromRole="EstadoMotivo" ToRole="Visita" />
+  </EntityType>
+  <EntityType Name="JefeVentas">
+    <Key>
+      <PropertyRef Name="JefeVentas_Id" />
+    </Key>
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Division_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="JefeVentas_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="JefeVentas_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Division" Relationship="Self.IJEFEVENTAS1" FromRole="JefeVentas" ToRole="Division" />
+    <NavigationProperty Name="JefeVentasCanal" Relationship="Self.FK_JefeVentasCanal_JefeVentas" FromRole="JefeVentas" ToRole="JefeVentasCanal" />
+    <NavigationProperty Name="Notificacion" Relationship="Self.FK_Notificacion_JefeVentas" FromRole="JefeVentas" ToRole="Notificacion" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_JefeVentas" FromRole="JefeVentas" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="JefeVentasCanal">
+    <Key>
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="Canal_Id" />
+    </Key>
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="Canal_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="JefeVentas" Relationship="Self.FK_JefeVentasCanal_JefeVentas" FromRole="JefeVentasCanal" ToRole="JefeVentas" />
+  </EntityType>
+  <EntityType Name="Motivo">
+    <Key>
+      <PropertyRef Name="Motivo_Id" />
+    </Key>
+    <Property Name="Motivo_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Motivo_Descripcion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Motivo_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Motivo_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EstadoMotivo" Relationship="Self.IESTADOMOTIVO2" FromRole="Motivo" ToRole="EstadoMotivo" />
+  </EntityType>
+  <EntityType Name="Notificacion">
+    <Key>
+      <PropertyRef Name="Notificacion_Id" />
+    </Key>
+    <Property Name="Notificacion_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Notificacion_Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Notificacion_Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="JefeVentas" Relationship="Self.FK_Notificacion_JefeVentas" FromRole="Notificacion" ToRole="JefeVentas" />
+  </EntityType>
+  <EntityType Name="ObjetivoVisita">
+    <Key>
+      <PropertyRef Name="ObjetivoVisita_Id" />
+    </Key>
+    <Property Name="ObjetivoVisita_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ObjetivoVisita_Descripcion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ObjetivoVisita_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ObjetivoVisita_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="PlanSemanalDetalle" Relationship="Self.IPLANSEMANALDETALLE1" FromRole="ObjetivoVisita" ToRole="PlanSemanalDetalle" />
+    <NavigationProperty Name="PlanVisita" Relationship="Self.IPLANVISITA1" FromRole="ObjetivoVisita" ToRole="PlanVisita" />
+  </EntityType>
+  <EntityType Name="Periodo">
+    <Key>
+      <PropertyRef Name="PeriodoCodigo" />
+    </Key>
+    <Property Name="PeriodoCodigo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PeriodoAno" Type="Int16" Nullable="false" />
+    <Property Name="PeriodoMes" Type="Int16" Nullable="false" />
+    <Property Name="PeriodoFechaInicial" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PeriodoFechaFinal" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PeriodoDescripcion" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="PeriodoEstado" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PeriodoDet" Relationship="Self.IPERIODODET1" FromRole="Periodo" ToRole="PeriodoDet" />
+  </EntityType>
+  <EntityType Name="PeriodoDet">
+    <Key>
+      <PropertyRef Name="PeriodoCodigo" />
+      <PropertyRef Name="PeriodoSemana" />
+    </Key>
+    <Property Name="PeriodoCodigo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PeriodoSemana" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PeriodoSemanaFechaInicial" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PeriodoSemanaFechaFin" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Periodo" Relationship="Self.IPERIODODET1" FromRole="PeriodoDet" ToRole="Periodo" />
+  </EntityType>
+  <EntityType Name="PlanAccion">
+    <Key>
+      <PropertyRef Name="PlanAccion_Id" />
+    </Key>
+    <Property Name="PlanAccion_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlanAccion_Analisis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PlanAccion_Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PlanAccion_Responsable" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PlanAccion_FechaComp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PlanAccion_Estado" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PlanAccion_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="planAccion_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PlandeVisita" Type="Int16" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PlanSemanal">
+    <Key>
+      <PropertyRef Name="PlanSemanal_Id" />
+    </Key>
+    <Property Name="PlanSemanal_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlanSemanal_Periodo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PlanSemanal_NroSemana" Type="Int32" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="PlanSemanal_Estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PlanSemanalDetalle" Relationship="Self.IPLANSEMANALDETALLE3" FromRole="PlanSemanal" ToRole="PlanSemanalDetalle" />
+  </EntityType>
+  <EntityType Name="PlanSemanalDetalle">
+    <Key>
+      <PropertyRef Name="PlanSemanal_Id" />
+      <PropertyRef Name="PlanSemanal_DiaSemana" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="PlanSemanal_Horario" />
+    </Key>
+    <Property Name="PlanSemanal_Id" Type="Int32" Nullable="false" />
+    <Property Name="PlanSemanal_DiaSemana" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="PlanSemanal_Horario" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ObjetivoVisita_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ObjetivoVisita" Relationship="Self.IPLANSEMANALDETALLE1" FromRole="PlanSemanalDetalle" ToRole="ObjetivoVisita" />
+    <NavigationProperty Name="PlanSemanal" Relationship="Self.IPLANSEMANALDETALLE3" FromRole="PlanSemanalDetalle" ToRole="PlanSemanal" />
+  </EntityType>
+  <EntityType Name="PlanSemanalSAP">
+    <Key>
+      <PropertyRef Name="PlanSemanal_Id" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Cliente_Cod" />
+    </Key>
+    <Property Name="PlanSemanal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cliente_Cod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PlanSemanal_Horario" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="ObjetivoVisita_Id" Type="Int32" Nullable="false" />
+    <Property Name="PlanSemanal_Estado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PlanVisita">
+    <Key>
+      <PropertyRef Name="PlanVisita_Id" />
+    </Key>
+    <Property Name="PlanVisita_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlanVisita_Periodo" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="PlanVisita_DiaSemana" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="PlanVisita_NroSemana" Type="Int32" Nullable="false" />
+    <Property Name="PlanVisita_Horario" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ObjetivoVisita_Id" Type="Int32" Nullable="false" />
+    <Property Name="PlanVisita_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PlanVisita_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ObjetivoVisita" Relationship="Self.IPLANVISITA1" FromRole="PlanVisita" ToRole="ObjetivoVisita" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="Producto_Id" />
+    </Key>
+    <Property Name="Producto_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Producto_Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Producto_Marca" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Producto_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Producto_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Producto_Precio" Type="Decimal" Precision="10" Scale="4" />
+    <Property Name="Producto_Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="VentaLinea" Relationship="Self.IVENTALINEA1" FromRole="Producto" ToRole="VentaLinea" />
+  </EntityType>
+  <EntityType Name="Sucursal">
+    <Key>
+      <PropertyRef Name="Sucursal_Id" />
+    </Key>
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sucursal_Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Sucursal_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Cliente_Cod" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CanalSucursal" Relationship="Self.FK_CanalSucursal_Sucursal" FromRole="Sucursal" ToRole="CanalSucursal" />
+    <NavigationProperty Name="Ubicacion" Relationship="Self.FK_Ubicacion_Sucursal" FromRole="Sucursal" ToRole="Ubicacion" />
+    <NavigationProperty Name="ZonaSucursal" Relationship="Self.FK_ZonaSucursal_Sucursal" FromRole="Sucursal" ToRole="ZonaSucursal" />
+  </EntityType>
+  <EntityType Name="Tarea">
+    <Key>
+      <PropertyRef Name="Tarea_Id" />
+    </Key>
+    <Property Name="Tarea_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tarea_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tarea_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Tarea_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="Task_Id" />
+    </Key>
+    <Property Name="Task_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Task_Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ubicacion">
+    <Key>
+      <PropertyRef Name="Ubicacion_Id" />
+    </Key>
+    <Property Name="Ubicacion_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Latitud" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Longitud" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Sucursal" Relationship="Self.FK_Ubicacion_Sucursal" FromRole="Ubicacion" ToRole="Sucursal" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Usuario_Id" />
+    </Key>
+    <Property Name="Usuario_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario_Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Usuario_Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="Usuario1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Usuario_Vendedor_Id" Type="Int32" />
+    <NavigationProperty Name="JefeVentas" Relationship="Self.FK_Usuario_JefeVentas" FromRole="Usuario" ToRole="JefeVentas" />
+    <NavigationProperty Name="Vendedor" Relationship="Self.fk_usuario_vendedor_id" FromRole="Usuario" ToRole="Vendedor" />
+  </EntityType>
+  <EntityType Name="Vendedor">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Vendedor_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="Vendedor_Mail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Vendedor_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Vendedor_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Vendedor_Rol" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.fk_usuario_vendedor_id" FromRole="Vendedor" ToRole="Usuario" />
+    <NavigationProperty Name="VendedorZona" Relationship="Self.FK_VendedorZona_Vendedor" FromRole="Vendedor" ToRole="VendedorZona" />
+    <NavigationProperty Name="Canal" Relationship="Self.CanalVendedor" FromRole="Vendedor" ToRole="Canal" />
+  </EntityType>
+  <EntityType Name="VendedorCliente">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Sucursal_Id" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="Int32" Nullable="false" />
+    <Property Name="Promedio_Ventas" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Visita" Relationship="Self.IVISITA3" FromRole="VendedorCliente" ToRole="Visita" />
+    <NavigationProperty Name="VisitaDual" Relationship="Self.IVISITADUAL1" FromRole="VendedorCliente" ToRole="VisitaDual" />
+  </EntityType>
+  <EntityType Name="VendedorClienteSAP">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Sucursal_Id" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cliente_Cod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="Int32" Nullable="false" />
+    <Property Name="Promedio_Ventas" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="VendedorZona">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Zona_Id" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Zona_Id" Type="Int32" Nullable="false" />
+    <Property Name="VendedorZonaEstado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="VendedorZonaPeriodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Vendedor" Relationship="Self.FK_VendedorZona_Vendedor" FromRole="VendedorZona" ToRole="Vendedor" />
+    <NavigationProperty Name="Zona" Relationship="Self.FK_VendedorZona_Zona" FromRole="VendedorZona" ToRole="Zona" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="Venta_Id" />
+    </Key>
+    <Property Name="Venta_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Venta_Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Venta_Hora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Vendedor_Id" Type="Int16" Nullable="false" />
+    <Property Name="Cliente_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Venta_Total" Type="Decimal" Precision="10" Scale="4" />
+  </EntityType>
+  <EntityType Name="VentaLinea">
+    <Key>
+      <PropertyRef Name="Venta_Id" />
+      <PropertyRef Name="Nro_Linea" />
+    </Key>
+    <Property Name="Venta_Id" Type="Int32" Nullable="false" />
+    <Property Name="Nro_Linea" Type="Int16" Nullable="false" />
+    <Property Name="Producto_Id" Type="Int32" Nullable="false" />
+    <Property Name="Producto_Comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Linea_Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="Linea_Total" Type="Decimal" Precision="10" Scale="4" />
+    <NavigationProperty Name="Producto" Relationship="Self.IVENTALINEA1" FromRole="VentaLinea" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Visita">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+    </Key>
+    <Property Name="Visita_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Visita_fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Estado_Id" Type="Int32" Nullable="false" />
+    <Property Name="Motivo_Id" Type="Int32" Nullable="false" />
+    <Property Name="Visita_Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Visita_Ubicacion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Visita_Hora" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EstadoMotivo" Relationship="Self.IVISITA1" FromRole="Visita" ToRole="EstadoMotivo" />
+    <NavigationProperty Name="VendedorCliente" Relationship="Self.IVISITA3" FromRole="Visita" ToRole="VendedorCliente" />
+  </EntityType>
+  <EntityType Name="VisitaDual">
+    <Key>
+      <PropertyRef Name="VisitaDual_Id" />
+    </Key>
+    <Property Name="VisitaDual_Id" Type="Guid" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="VisitaDual_Hora_Entrada" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="VisitaDual_Ubicacion_Entrada" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="VisitaDual_Hora_Salida" Type="DateTime" Precision="3" />
+    <Property Name="VisitaDual_Ubicacion_Salida" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="VisitaDual_Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="VisitaDual_Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="VendedorCliente" Relationship="Self.IVISITADUAL1" FromRole="VisitaDual" ToRole="VendedorCliente" />
+  </EntityType>
+  <EntityType Name="VisitaSAP">
+    <Key>
+      <PropertyRef Name="Visita_Id" />
+    </Key>
+    <Property Name="Visita_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cliente_Cod" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Visita_fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Estado_Id" Type="Int32" Nullable="false" />
+    <Property Name="Motivo_Id" Type="Int32" Nullable="false" />
+    <Property Name="Visita_Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Visita_Ubicacion_Entrada" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Visita_Ubicacion_Salida" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Visita_Hora_Entrada" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Visita_Hora_Salida" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Zona">
+    <Key>
+      <PropertyRef Name="Zona_Id" />
+    </Key>
+    <Property Name="Zona_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Zona_Descripcion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Division_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Division" Relationship="Self.FK_Zona_Division" FromRole="Zona" ToRole="Division" />
+    <NavigationProperty Name="VendedorZona" Relationship="Self.FK_VendedorZona_Zona" FromRole="Zona" ToRole="VendedorZona" />
+    <NavigationProperty Name="ZonaSucursal" Relationship="Self.FK_ZonaSucursal_Zona" FromRole="Zona" ToRole="ZonaSucursal" />
+  </EntityType>
+  <EntityType Name="ZonaSucursal">
+    <Key>
+      <PropertyRef Name="Zona_Id" />
+      <PropertyRef Name="Sucursal_Id" />
+    </Key>
+    <Property Name="Zona_Id" Type="Int32" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="ZonaSucursalEstado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ZonaSucursalCantidad_Visitas" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sucursal" Relationship="Self.FK_ZonaSucursal_Sucursal" FromRole="ZonaSucursal" ToRole="Sucursal" />
+    <NavigationProperty Name="Zona" Relationship="Self.FK_ZonaSucursal_Zona" FromRole="ZonaSucursal" ToRole="Zona" />
+  </EntityType>
+  <EntityType Name="V_Canales_HBF">
+    <Key>
+      <PropertyRef Name="GroupCode" />
+      <PropertyRef Name="GroupName" />
+    </Key>
+    <Property Name="GroupCode" Type="Int16" Nullable="false" />
+    <Property Name="GroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GroupType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_CARTERA_ACTUAL">
+    <Key>
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Cantidad_Visitas" />
+      <PropertyRef Name="Vendedor_Nombre" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Sucursal_Direccion" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="JefeVentas_Nombre" />
+    </Key>
+    <Property Name="Vendedor_Id" Type="Int16" Nullable="false" />
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad_Visitas" Type="Int16" Nullable="false" />
+    <Property Name="Promedio_Ventas" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Vendedor_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Expr1" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Cartera_Clientes">
+    <Key>
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Cod__de_Cliente" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Direccion" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="Cod_Sucursal" />
+    </Key>
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cod__de_Cliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cod_Sucursal" Type="Int32" Nullable="false" />
+    <Property Name="Frecuencia_de_Visita" Type="Int32" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="V_CLIENTE_SUCURSAL">
+    <Key>
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Sucursal_Direccion" />
+    </Key>
+    <Property Name="Cliente_Cod" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Clientes_HBF">
+    <Key>
+      <PropertyRef Name="cardcode" />
+      <PropertyRef Name="Address" />
+      <PropertyRef Name="GroupName" />
+    </Key>
+    <Property Name="Fila" Type="Int64" />
+    <Property Name="cardcode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cardfname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="street" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="GroupCode" Type="Int16" />
+    <Property Name="GroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="VClienteSAPHBF">
+    <Key>
+      <PropertyRef Name="CodigoCliente" />
+      <PropertyRef Name="CodSucursal" />
+      <PropertyRef Name="Empresa" />
+    </Key>
+    <Property Name="CodigoCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RazonSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NombreFantasia" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="RUC" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="CodSucursal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Departamento" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="U_TipoCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="U_ClasifClientDPP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Empresa" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CanalSucursal_Canal">
+    <End Role="Canal" Type="Self.Canal" Multiplicity="1" />
+    <End Role="CanalSucursal" Type="Self.CanalSucursal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Canal">
+        <PropertyRef Name="Canal_Id" />
+      </Principal>
+      <Dependent Role="CanalSucursal">
+        <PropertyRef Name="Canal_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CanalSucursal_Sucursal">
+    <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+    <End Role="CanalSucursal" Type="Self.CanalSucursal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sucursal">
+        <PropertyRef Name="Sucursal_Id" />
+      </Principal>
+      <Dependent Role="CanalSucursal">
+        <PropertyRef Name="Sucursal_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Zona_Division">
+    <End Role="Division" Type="Self.Division" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Zona" Type="Self.Zona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Division">
+        <PropertyRef Name="Division_Id" />
+      </Principal>
+      <Dependent Role="Zona">
+        <PropertyRef Name="Division_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IDIVISION1">
+    <End Role="Empresa" Type="Self.Empresa" Multiplicity="1" />
+    <End Role="Division" Type="Self.Division" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="Empresa_Id" />
+      </Principal>
+      <Dependent Role="Division">
+        <PropertyRef Name="Empresa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IJEFEVENTAS1">
+    <End Role="Division" Type="Self.Division" Multiplicity="1" />
+    <End Role="JefeVentas" Type="Self.JefeVentas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Division">
+        <PropertyRef Name="Division_Id" />
+      </Principal>
+      <Dependent Role="JefeVentas">
+        <PropertyRef Name="Division_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IESTADOMOTIVO1">
+    <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
+    <End Role="EstadoMotivo" Type="Self.EstadoMotivo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="Estado_Id" />
+      </Principal>
+      <Dependent Role="EstadoMotivo">
+        <PropertyRef Name="Estado_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IESTADOMOTIVO2">
+    <End Role="Motivo" Type="Self.Motivo" Multiplicity="1" />
+    <End Role="EstadoMotivo" Type="Self.EstadoMotivo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Motivo">
+        <PropertyRef Name="Motivo_Id" />
+      </Principal>
+      <Dependent Role="EstadoMotivo">
+        <PropertyRef Name="Motivo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IVISITA1">
+    <End Role="EstadoMotivo" Type="Self.EstadoMotivo" Multiplicity="1" />
+    <End Role="Visita" Type="Self.Visita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoMotivo">
+        <PropertyRef Name="Estado_Id" />
+        <PropertyRef Name="Motivo_Id" />
+      </Principal>
+      <Dependent Role="Visita">
+        <PropertyRef Name="Estado_Id" />
+        <PropertyRef Name="Motivo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_JefeVentasCanal_JefeVentas">
+    <End Role="JefeVentas" Type="Self.JefeVentas" Multiplicity="1" />
+    <End Role="JefeVentasCanal" Type="Self.JefeVentasCanal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JefeVentas">
+        <PropertyRef Name="JefeVentas_Id" />
+      </Principal>
+      <Dependent Role="JefeVentasCanal">
+        <PropertyRef Name="JefeVentas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notificacion_JefeVentas">
+    <End Role="JefeVentas" Type="Self.JefeVentas" Multiplicity="1" />
+    <End Role="Notificacion" Type="Self.Notificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JefeVentas">
+        <PropertyRef Name="JefeVentas_Id" />
+      </Principal>
+      <Dependent Role="Notificacion">
+        <PropertyRef Name="JefeVentas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_JefeVentas">
+    <End Role="JefeVentas" Type="Self.JefeVentas" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JefeVentas">
+        <PropertyRef Name="JefeVentas_Id" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="JefeVentas_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IPLANSEMANALDETALLE1">
+    <End Role="ObjetivoVisita" Type="Self.ObjetivoVisita" Multiplicity="1" />
+    <End Role="PlanSemanalDetalle" Type="Self.PlanSemanalDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ObjetivoVisita">
+        <PropertyRef Name="ObjetivoVisita_Id" />
+      </Principal>
+      <Dependent Role="PlanSemanalDetalle">
+        <PropertyRef Name="ObjetivoVisita_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IPLANVISITA1">
+    <End Role="ObjetivoVisita" Type="Self.ObjetivoVisita" Multiplicity="1" />
+    <End Role="PlanVisita" Type="Self.PlanVisita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ObjetivoVisita">
+        <PropertyRef Name="ObjetivoVisita_Id" />
+      </Principal>
+      <Dependent Role="PlanVisita">
+        <PropertyRef Name="ObjetivoVisita_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IPERIODODET1">
+    <End Role="Periodo" Type="Self.Periodo" Multiplicity="1" />
+    <End Role="PeriodoDet" Type="Self.PeriodoDet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Periodo">
+        <PropertyRef Name="PeriodoCodigo" />
+      </Principal>
+      <Dependent Role="PeriodoDet">
+        <PropertyRef Name="PeriodoCodigo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IPLANSEMANALDETALLE3">
+    <End Role="PlanSemanal" Type="Self.PlanSemanal" Multiplicity="1" />
+    <End Role="PlanSemanalDetalle" Type="Self.PlanSemanalDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlanSemanal">
+        <PropertyRef Name="PlanSemanal_Id" />
+      </Principal>
+      <Dependent Role="PlanSemanalDetalle">
+        <PropertyRef Name="PlanSemanal_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IVENTALINEA1">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="VentaLinea" Type="Self.VentaLinea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="Producto_Id" />
+      </Principal>
+      <Dependent Role="VentaLinea">
+        <PropertyRef Name="Producto_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ubicacion_Sucursal">
+    <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1" />
+    <End Role="Ubicacion" Type="Self.Ubicacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sucursal">
+        <PropertyRef Name="Sucursal_Id" />
+      </Principal>
+      <Dependent Role="Ubicacion">
+        <PropertyRef Name="Sucursal_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZonaSucursal_Sucursal">
+    <End Role="Sucursal" Type="Self.Sucursal" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ZonaSucursal" Type="Self.ZonaSucursal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sucursal">
+        <PropertyRef Name="Sucursal_Id" />
+      </Principal>
+      <Dependent Role="ZonaSucursal">
+        <PropertyRef Name="Sucursal_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario_vendedor_id">
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendedor">
+        <PropertyRef Name="Vendedor_Id" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="Usuario_Vendedor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendedorZona_Vendedor">
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="VendedorZona" Type="Self.VendedorZona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendedor">
+        <PropertyRef Name="Vendedor_Id" />
+      </Principal>
+      <Dependent Role="VendedorZona">
+        <PropertyRef Name="Vendedor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IVISITA3">
+    <End Role="VendedorCliente" Type="Self.VendedorCliente" Multiplicity="1" />
+    <End Role="Visita" Type="Self.Visita" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VendedorCliente">
+        <PropertyRef Name="Vendedor_Id" />
+        <PropertyRef Name="Sucursal_Id" />
+      </Principal>
+      <Dependent Role="Visita">
+        <PropertyRef Name="Vendedor_Id" />
+        <PropertyRef Name="Sucursal_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IVISITADUAL1">
+    <End Role="VendedorCliente" Type="Self.VendedorCliente" Multiplicity="1" />
+    <End Role="VisitaDual" Type="Self.VisitaDual" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VendedorCliente">
+        <PropertyRef Name="Vendedor_Id" />
+        <PropertyRef Name="Sucursal_Id" />
+      </Principal>
+      <Dependent Role="VisitaDual">
+        <PropertyRef Name="Vendedor_Id" />
+        <PropertyRef Name="Sucursal_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendedorZona_Zona">
+    <End Role="Zona" Type="Self.Zona" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="VendedorZona" Type="Self.VendedorZona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zona">
+        <PropertyRef Name="Zona_Id" />
+      </Principal>
+      <Dependent Role="VendedorZona">
+        <PropertyRef Name="Zona_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ZonaSucursal_Zona">
+    <End Role="Zona" Type="Self.Zona" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ZonaSucursal" Type="Self.ZonaSucursal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zona">
+        <PropertyRef Name="Zona_Id" />
+      </Principal>
+      <Dependent Role="ZonaSucursal">
+        <PropertyRef Name="Zona_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CanalVendedor">
+    <End Role="Canal" Type="Self.Canal" Multiplicity="*" />
+    <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="PLAN_VISITAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Canal" EntityType="Self.Canal" />
+    <EntitySet Name="CanalSucursal" EntityType="Self.CanalSucursal" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="Division" EntityType="Self.Division" />
+    <EntitySet Name="Empresa" EntityType="Self.Empresa" />
+    <EntitySet Name="Estado" EntityType="Self.Estado" />
+    <EntitySet Name="EstadoMotivo" EntityType="Self.EstadoMotivo" />
+    <EntitySet Name="JefeVentas" EntityType="Self.JefeVentas" />
+    <EntitySet Name="JefeVentasCanal" EntityType="Self.JefeVentasCanal" />
+    <EntitySet Name="Motivo" EntityType="Self.Motivo" />
+    <EntitySet Name="Notificacion" EntityType="Self.Notificacion" />
+    <EntitySet Name="ObjetivoVisita" EntityType="Self.ObjetivoVisita" />
+    <EntitySet Name="Periodo" EntityType="Self.Periodo" />
+    <EntitySet Name="PeriodoDet" EntityType="Self.PeriodoDet" />
+    <EntitySet Name="PlanAccion" EntityType="Self.PlanAccion" />
+    <EntitySet Name="PlanSemanal" EntityType="Self.PlanSemanal" />
+    <EntitySet Name="PlanSemanalDetalle" EntityType="Self.PlanSemanalDetalle" />
+    <EntitySet Name="PlanSemanalSAP" EntityType="Self.PlanSemanalSAP" />
+    <EntitySet Name="PlanVisita" EntityType="Self.PlanVisita" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" />
+    <EntitySet Name="Sucursal" EntityType="Self.Sucursal" />
+    <EntitySet Name="Tarea" EntityType="Self.Tarea" />
+    <EntitySet Name="Task" EntityType="Self.Task" />
+    <EntitySet Name="Ubicacion" EntityType="Self.Ubicacion" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <EntitySet Name="Vendedor" EntityType="Self.Vendedor" />
+    <EntitySet Name="VendedorCliente" EntityType="Self.VendedorCliente" />
+    <EntitySet Name="VendedorClienteSAP" EntityType="Self.VendedorClienteSAP" />
+    <EntitySet Name="VendedorZona" EntityType="Self.VendedorZona" />
+    <EntitySet Name="Venta" EntityType="Self.Venta" />
+    <EntitySet Name="VentaLinea" EntityType="Self.VentaLinea" />
+    <EntitySet Name="Visita" EntityType="Self.Visita" />
+    <EntitySet Name="VisitaDual" EntityType="Self.VisitaDual" />
+    <EntitySet Name="VisitaSAP" EntityType="Self.VisitaSAP" />
+    <EntitySet Name="Zona" EntityType="Self.Zona" />
+    <EntitySet Name="ZonaSucursal" EntityType="Self.ZonaSucursal" />
+    <EntitySet Name="V_Canales_HBF" EntityType="Self.V_Canales_HBF" />
+    <EntitySet Name="V_CARTERA_ACTUAL" EntityType="Self.V_CARTERA_ACTUAL" />
+    <EntitySet Name="V_Cartera_Clientes" EntityType="Self.V_Cartera_Clientes" />
+    <EntitySet Name="V_CLIENTE_SUCURSAL" EntityType="Self.V_CLIENTE_SUCURSAL" />
+    <EntitySet Name="V_Clientes_HBF" EntityType="Self.V_Clientes_HBF" />
+    <EntitySet Name="VClienteSAPHBF" EntityType="Self.VClienteSAPHBF" />
+    <AssociationSet Name="FK_CanalSucursal_Canal" Association="Self.FK_CanalSucursal_Canal">
+      <End Role="Canal" EntitySet="Canal" />
+      <End Role="CanalSucursal" EntitySet="CanalSucursal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CanalSucursal_Sucursal" Association="Self.FK_CanalSucursal_Sucursal">
+      <End Role="Sucursal" EntitySet="Sucursal" />
+      <End Role="CanalSucursal" EntitySet="CanalSucursal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Zona_Division" Association="Self.FK_Zona_Division">
+      <End Role="Division" EntitySet="Division" />
+      <End Role="Zona" EntitySet="Zona" />
+    </AssociationSet>
+    <AssociationSet Name="IDIVISION1" Association="Self.IDIVISION1">
+      <End Role="Empresa" EntitySet="Empresa" />
+      <End Role="Division" EntitySet="Division" />
+    </AssociationSet>
+    <AssociationSet Name="IJEFEVENTAS1" Association="Self.IJEFEVENTAS1">
+      <End Role="Division" EntitySet="Division" />
+      <End Role="JefeVentas" EntitySet="JefeVentas" />
+    </AssociationSet>
+    <AssociationSet Name="IESTADOMOTIVO1" Association="Self.IESTADOMOTIVO1">
+      <End Role="Estado" EntitySet="Estado" />
+      <End Role="EstadoMotivo" EntitySet="EstadoMotivo" />
+    </AssociationSet>
+    <AssociationSet Name="IESTADOMOTIVO2" Association="Self.IESTADOMOTIVO2">
+      <End Role="Motivo" EntitySet="Motivo" />
+      <End Role="EstadoMotivo" EntitySet="EstadoMotivo" />
+    </AssociationSet>
+    <AssociationSet Name="IVISITA1" Association="Self.IVISITA1">
+      <End Role="EstadoMotivo" EntitySet="EstadoMotivo" />
+      <End Role="Visita" EntitySet="Visita" />
+    </AssociationSet>
+    <AssociationSet Name="FK_JefeVentasCanal_JefeVentas" Association="Self.FK_JefeVentasCanal_JefeVentas">
+      <End Role="JefeVentas" EntitySet="JefeVentas" />
+      <End Role="JefeVentasCanal" EntitySet="JefeVentasCanal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notificacion_JefeVentas" Association="Self.FK_Notificacion_JefeVentas">
+      <End Role="JefeVentas" EntitySet="JefeVentas" />
+      <End Role="Notificacion" EntitySet="Notificacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_JefeVentas" Association="Self.FK_Usuario_JefeVentas">
+      <End Role="JefeVentas" EntitySet="JefeVentas" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="IPLANSEMANALDETALLE1" Association="Self.IPLANSEMANALDETALLE1">
+      <End Role="ObjetivoVisita" EntitySet="ObjetivoVisita" />
+      <End Role="PlanSemanalDetalle" EntitySet="PlanSemanalDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="IPLANVISITA1" Association="Self.IPLANVISITA1">
+      <End Role="ObjetivoVisita" EntitySet="ObjetivoVisita" />
+      <End Role="PlanVisita" EntitySet="PlanVisita" />
+    </AssociationSet>
+    <AssociationSet Name="IPERIODODET1" Association="Self.IPERIODODET1">
+      <End Role="Periodo" EntitySet="Periodo" />
+      <End Role="PeriodoDet" EntitySet="PeriodoDet" />
+    </AssociationSet>
+    <AssociationSet Name="IPLANSEMANALDETALLE3" Association="Self.IPLANSEMANALDETALLE3">
+      <End Role="PlanSemanal" EntitySet="PlanSemanal" />
+      <End Role="PlanSemanalDetalle" EntitySet="PlanSemanalDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="IVENTALINEA1" Association="Self.IVENTALINEA1">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="VentaLinea" EntitySet="VentaLinea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ubicacion_Sucursal" Association="Self.FK_Ubicacion_Sucursal">
+      <End Role="Sucursal" EntitySet="Sucursal" />
+      <End Role="Ubicacion" EntitySet="Ubicacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZonaSucursal_Sucursal" Association="Self.FK_ZonaSucursal_Sucursal">
+      <End Role="Sucursal" EntitySet="Sucursal" />
+      <End Role="ZonaSucursal" EntitySet="ZonaSucursal" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario_vendedor_id" Association="Self.fk_usuario_vendedor_id">
+      <End Role="Vendedor" EntitySet="Vendedor" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendedorZona_Vendedor" Association="Self.FK_VendedorZona_Vendedor">
+      <End Role="Vendedor" EntitySet="Vendedor" />
+      <End Role="VendedorZona" EntitySet="VendedorZona" />
+    </AssociationSet>
+    <AssociationSet Name="IVISITA3" Association="Self.IVISITA3">
+      <End Role="VendedorCliente" EntitySet="VendedorCliente" />
+      <End Role="Visita" EntitySet="Visita" />
+    </AssociationSet>
+    <AssociationSet Name="IVISITADUAL1" Association="Self.IVISITADUAL1">
+      <End Role="VendedorCliente" EntitySet="VendedorCliente" />
+      <End Role="VisitaDual" EntitySet="VisitaDual" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendedorZona_Zona" Association="Self.FK_VendedorZona_Zona">
+      <End Role="Zona" EntitySet="Zona" />
+      <End Role="VendedorZona" EntitySet="VendedorZona" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ZonaSucursal_Zona" Association="Self.FK_ZonaSucursal_Zona">
+      <End Role="Zona" EntitySet="Zona" />
+      <End Role="ZonaSucursal" EntitySet="ZonaSucursal" />
+    </AssociationSet>
+    <AssociationSet Name="CanalVendedor" Association="Self.CanalVendedor">
+      <End Role="Canal" EntitySet="Canal" />
+      <End Role="Vendedor" EntitySet="Vendedor" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
