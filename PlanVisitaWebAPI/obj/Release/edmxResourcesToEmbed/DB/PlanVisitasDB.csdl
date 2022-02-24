@@ -259,6 +259,13 @@
     <Property Name="Tarea_FechaLastUpdate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Tarea_FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="Task_Id" />
+    </Key>
+    <Property Name="Task_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Task_Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
   <EntityType Name="Ubicacion">
     <Key>
       <PropertyRef Name="Ubicacion_Id" />
@@ -281,6 +288,22 @@
     <Property Name="Usuario_Vendedor_Id" Type="Int32" />
     <NavigationProperty Name="JefeVentas" Relationship="Self.FK_Usuario_JefeVentas" FromRole="Usuario" ToRole="JefeVentas" />
     <NavigationProperty Name="Vendedor" Relationship="Self.fk_usuario_vendedor_id" FromRole="Usuario" ToRole="Vendedor" />
+    <Property Name="Usuario_Rol" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VencimientoProducto">
+    <Key>
+      <PropertyRef Name="Vencimiento_Id" />
+    </Key>
+    <Property Name="Vencimiento_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vencimiento_Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vencimiento_Canal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vencimiento_Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vencimiento_Colaborador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vencimiento_PuntoVentaDireccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vencimiento_Codigo_Barras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vencimiento_Descripcion_Producto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vencimiento_Rango_Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Vencimiento_Cantidad_SKU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
   <EntityType Name="Vendedor">
     <Key>
@@ -544,6 +567,7 @@
     <Property Name="GroupCode" Type="Int16" />
     <Property Name="GroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="V_Clientes_Total">
     <Key>
@@ -621,6 +645,32 @@
     <Property Name="Cantidad" Type="Int32" Nullable="false" />
     <Property Name="Ubicacion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="V_Dual_Visita">
+    <Key>
+      <PropertyRef Name="VisitaDual_Id" />
+      <PropertyRef Name="VisitaDual_Fecha" />
+      <PropertyRef Name="Visitador" />
+      <PropertyRef Name="Cliente" />
+      <PropertyRef Name="Ciudad" />
+      <PropertyRef Name="SucursalId" />
+      <PropertyRef Name="Dirección" />
+      <PropertyRef Name="Cantidad" />
+      <PropertyRef Name="Ubicacion" />
+    </Key>
+    <Property Name="VisitaDual_Id" Type="Guid" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="VisitaDual_Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Visita_Hora_Entrada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_Hora_Salida" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Visitador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SucursalId" Type="Int32" Nullable="false" />
+    <Property Name="Dirección" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="Ubicacion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
   </EntityType>
   <EntityType Name="V_PLAN_SEMANAL">
     <Key>
@@ -837,6 +887,53 @@
     <Property Name="Estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
     <Property Name="U_ClasifClientDPP" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="Empresa" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VFrecuenciaVendedorCliente">
+    <Key>
+      <PropertyRef Name="Sucursal_Id" />
+      <PropertyRef Name="Vendedor_Nombre" />
+      <PropertyRef Name="Vendedor_Id" />
+      <PropertyRef Name="JefeVentas_Id" />
+      <PropertyRef Name="JefeVentas_Nombre" />
+      <PropertyRef Name="Sucursal_Ciudad" />
+      <PropertyRef Name="Cliente_Cod" />
+      <PropertyRef Name="Cliente_RazonSocial" />
+      <PropertyRef Name="Cantidad" />
+    </Key>
+    <Property Name="Sucursal_Id" Type="Int32" Nullable="false" />
+    <Property Name="Frecuencia" Type="Int32" />
+    <Property Name="Vendedor_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Vendedor_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Id" Type="Int32" Nullable="false" />
+    <Property Name="JefeVentas_Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sucursal_Ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Cliente_Cod" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cliente_RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="CantidadVisita" Type="Int32" />
+  </EntityType>
+  <EntityType Name="VVisitasRealizadas">
+    <Key>
+      <PropertyRef Name="Vendedor" />
+      <PropertyRef Name="CodigoVendedor" />
+      <PropertyRef Name="CodigoCliente" />
+      <PropertyRef Name="Observacion" />
+      <PropertyRef Name="UbicacionEntrada" />
+      <PropertyRef Name="UbicacionSalida" />
+    </Key>
+    <Property Name="Vendedor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodigoVendedor" Type="Int32" Nullable="false" />
+    <Property Name="Periodo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_fecha" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Visita_HoraEntrada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Visita_HoraSalida" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Dia" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CodigoCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RazonSocial" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="Observacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UbicacionEntrada" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="UbicacionSalida" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
   </EntityType>
   <Association Name="FK_CanalSucursal_Canal">
     <End Role="Canal" Type="Self.Canal" Multiplicity="1" />
@@ -1169,8 +1266,10 @@
     <EntitySet Name="Producto" EntityType="Self.Producto" />
     <EntitySet Name="Sucursal" EntityType="Self.Sucursal" />
     <EntitySet Name="Tarea" EntityType="Self.Tarea" />
+    <EntitySet Name="Task" EntityType="Self.Task" />
     <EntitySet Name="Ubicacion" EntityType="Self.Ubicacion" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <EntitySet Name="VencimientoProducto" EntityType="Self.VencimientoProducto" />
     <EntitySet Name="Vendedor" EntityType="Self.Vendedor" />
     <EntitySet Name="VendedorCliente" EntityType="Self.VendedorCliente" />
     <EntitySet Name="VendedorClienteSAP" EntityType="Self.VendedorClienteSAP" />
@@ -1191,6 +1290,7 @@
     <EntitySet Name="V_Clientes_Total" EntityType="Self.V_Clientes_Total" />
     <EntitySet Name="V_ClientesVenRep" EntityType="Self.V_ClientesVenRep" />
     <EntitySet Name="V_Detalle_Visita" EntityType="Self.V_Detalle_Visita" />
+    <EntitySet Name="V_Dual_Visita" EntityType="Self.V_Dual_Visita" />
     <EntitySet Name="V_PLAN_SEMANAL" EntityType="Self.V_PLAN_SEMANAL" />
     <EntitySet Name="V_PlanSemCargXDia" EntityType="Self.V_PlanSemCargXDia" />
     <EntitySet Name="V_RUTA_DIA" EntityType="Self.V_RUTA_DIA" />
@@ -1199,6 +1299,8 @@
     <EntitySet Name="V_Visitas_Detalle" EntityType="Self.V_Visitas_Detalle" />
     <EntitySet Name="V_Visitas_Dual" EntityType="Self.V_Visitas_Dual" />
     <EntitySet Name="VClienteSAPHBF" EntityType="Self.VClienteSAPHBF" />
+    <EntitySet Name="VFrecuenciaVendedorCliente" EntityType="Self.VFrecuenciaVendedorCliente" />
+    <EntitySet Name="VVisitasRealizadas" EntityType="Self.VVisitasRealizadas" />
     <AssociationSet Name="FK_CanalSucursal_Canal" Association="Self.FK_CanalSucursal_Canal">
       <End Role="Canal" EntitySet="Canal" />
       <End Role="CanalSucursal" EntitySet="CanalSucursal" />
@@ -1299,5 +1401,6 @@
       <End Role="Canal" EntitySet="Canal" />
       <End Role="Vendedor" EntitySet="Vendedor" />
     </AssociationSet>
+    <FunctionImport Name="sp_Clientes_Hbf" />
   </EntityContainer>
 </Schema>

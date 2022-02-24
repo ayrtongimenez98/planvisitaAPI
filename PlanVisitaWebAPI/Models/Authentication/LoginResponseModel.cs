@@ -13,5 +13,6 @@ namespace PlanVisitaWebAPI.Models.Authentication
         public int Usuario_Id { get; set; }
         public string Email { get; set; }
         public bool Es_Jefe { get; set; }
+        public string Rol { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace PlanVisitaWebAPI.Models.Vendedor
         public string Vendedor_Nombre { get; set; }
         public string Vendedor_Mail { get; set; }
         public string Vendedor_Rol { get; set; }
+        public int JefeVentas_Id { get; set; }
         public int Cantidad_Visitas { get; set; }
     }
 }

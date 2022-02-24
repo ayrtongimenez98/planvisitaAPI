@@ -15,5 +15,6 @@ namespace PlanVisitaWebAPI.Models.Usuario
         public string Usuario { get; set; }
         public Nullable<int> Vendedor_Id { get; set; }
         public bool Es_Jefe { get; set; }
+        public string Rol { get; set; }
     }
 }

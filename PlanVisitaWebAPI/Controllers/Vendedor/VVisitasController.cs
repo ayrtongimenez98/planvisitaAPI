@@ -42,11 +42,11 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     	   CAST(FORMAT(vs.Visita_Hora_Salida, 'hh:mm')AS varchar) AS Visita_Hora_Salida, 
                     	   vs.Vendedor_Id, 
                     	   v.Vendedor_Nombre as Vendedor, 
-                    	   c.cardcode as CodCliente, 
-                    	   c.cardfname as Cliente, 
-                    	   c.city as Ciudad, 
-                    	   c.street as Direccion, 
-                    	   c.Address as Sucursal_Id, 
+                    	   vs.Cliente_Cod as CodCliente, 
+                    	   case when c.cardfname IS null then (select Cliente_RazonSocial from Cliente  where Cliente_Cod  = vs.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else c.cardfname end as Cliente,
+                    	   case when c.city IS NULL then (select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else c.city end as Ciudad, 
+                            case when c.street IS NULL then (select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else c.street end as Direccion, 
+                            cast(vs.Sucursal_Id as varchar) as Sucursal_Id, 
                     	   vs.Visita_Observacion as Observacion, 
                     	   vs.Visita_Ubicacion_Entrada, 
                     	   vs.Visita_Ubicacion_Salida,
@@ -55,7 +55,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                             DATENAME(WEEKDAY, vs.Visita_fecha) AS Dia
                     FROM VisitaSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
-                    inner join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and vs.Sucursal_Id = c.Address
+                    left join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and cast(vs.Sucursal_Id as nvarchar) = c.[Address] 
                     inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
                     inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
 
@@ -64,7 +64,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     marcacionesQuery = marcacionesQuery.Where(x => x.Vendedor_Id == vendedor).ToList();
                 }
 
-                if (Cliente_Cod != null)
+                if (!string.IsNullOrEmpty(Cliente_Cod) && Cliente_Cod != "null")
                 {
                     marcacionesQuery = marcacionesQuery.Where(x => x.CodCliente == Cliente_Cod).ToList();
                 }
@@ -115,8 +115,8 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                    SELECT vs.Visita_Id,  
                     	   FORMAT (vs.Visita_fecha, 'yyyy_MM') as Periodo, 
                     	   vs.Visita_fecha, 
-                           CAST(FORMAT(vs.Visita_Hora_Entrada, 'hh:mm') AS varchar) AS Visita_Hora_Entrada, 
-                    	   CAST(FORMAT(vs.Visita_Hora_Salida, 'hh:mm')AS varchar) AS Visita_Hora_Salida, 
+                           CAST(FORMAT(vs.Visita_Hora_Entrada, 'HH:mm') AS varchar) AS Visita_Hora_Entrada, 
+                    	   CAST(FORMAT(vs.Visita_Hora_Salida, 'HH:mm')AS varchar) AS Visita_Hora_Salida, 
                     	   vs.Vendedor_Id, 
                     	   v.Vendedor_Nombre as Vendedor, 
                     	   c.cardcode as CodCliente, 
@@ -203,14 +203,14 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     Visita_Hora_Salida = value.Visita_Hora_Salida
                 };
                 db.VisitaSAP.Add(newVisita);
-                var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date);
+                var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date && x.PlanSemanal_Estado == "N");
                 foreach (var item in plan)
                 {
                     if(value.Visita_Ubicacion_Salida != null && value.Visita_Ubicacion_Salida != "") {
-                        item.PlanSemanal_Estado = item.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "E" : "A";
+                        item.PlanSemanal_Estado = item.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "S" : "A";
                     } else
                     {
-                        item.PlanSemanal_Estado = item.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "S" : "A";
+                        item.PlanSemanal_Estado = item.PlanSemanal_Horario.Date <= DateTime.Now.Date ? "E" : "A";
                     }
                         
                 }
@@ -273,7 +273,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     visita.Estado_Id = value.Estado_Id;
                     visita.Motivo_Id = value.Motivo_Id;
 
-                    var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date);
+                    var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date && x.PlanSemanal_Estado == "E");
 
 
                     foreach (var item in plan)

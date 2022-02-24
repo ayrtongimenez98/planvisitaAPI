@@ -12,5 +12,6 @@ namespace PlanVisitaWebAPI.Models.Sucursal
         public string Sucursal_Direccion { get; set; }
         public string Sucursal_Nombre { get; set; }
         public string Cliente_Cod { get; set; }
+        public string Cliente_RazonSocial { get; set; }
     }
 }

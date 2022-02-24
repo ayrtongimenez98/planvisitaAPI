@@ -23,5 +23,6 @@ namespace PlanVisitaWebAPI.DB
         public Nullable<short> GroupCode { get; set; }
         public string GroupName { get; set; }
         public string Address2 { get; set; }
+        public string Estado { get; set; }
     }
 }

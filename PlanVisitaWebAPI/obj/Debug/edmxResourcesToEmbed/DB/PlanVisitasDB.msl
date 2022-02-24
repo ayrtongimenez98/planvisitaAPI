@@ -263,6 +263,7 @@
     <EntitySetMapping Name="Usuario">
       <EntityTypeMapping TypeName="PLAN_VISITAModel.Usuario">
         <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Usuario_Rol" ColumnName="Usuario_Rol" />
           <ScalarProperty Name="Usuario_Id" ColumnName="Usuario_Id" />
           <ScalarProperty Name="Usuario_Nombre" ColumnName="Usuario_Nombre" />
           <ScalarProperty Name="Usuario_Pass" ColumnName="Usuario_Pass" />
@@ -502,6 +503,7 @@
     <EntitySetMapping Name="V_Clientes_HBF">
       <EntityTypeMapping TypeName="PLAN_VISITAModel.V_Clientes_HBF">
         <MappingFragment StoreEntitySet="V_Clientes_HBF">
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
           <ScalarProperty Name="Fila" ColumnName="Fila" />
           <ScalarProperty Name="cardcode" ColumnName="cardcode" />
           <ScalarProperty Name="cardfname" ColumnName="cardfname" />
@@ -791,5 +793,6 @@
         <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="sp_Clientes_Hbf" FunctionName="PLAN_VISITAModel.Store.sp_Clientes_Hbf" />
   </EntityContainerMapping>
 </Mapping>

@@ -39,7 +39,9 @@ namespace PlanVisitaWebAPI.Controllers
                                                                                                                      Vendedor_Id = x.Vendedor_Id,
                                                                                                                      Vendedor_Mail = x.Vendedor_Mail,
                                                                                                                      Vendedor_Nombre = x.Vendedor_Nombre,
-                                                                                                                     Vendedor_Rol = x.Vendedor_Rol})
+                                                                                                                     Vendedor_Rol = x.Vendedor_Rol,
+                                                                                                                     JefeVentas_Id = x.JefeVentas_Id
+                    })
                 };
                 var json = JsonConvert.SerializeObject(paginationModel);
                 response = Request.CreateResponse(HttpStatusCode.OK);
@@ -100,6 +102,7 @@ namespace PlanVisitaWebAPI.Controllers
                 nuevoVendedor.Vendedor_FechaLastUpdate = DateTime.Now;
                 nuevoVendedor.JefeVentas_Id = model.JefeVentasId;
                 nuevoVendedor.Vendedor_Mail = model.Email;
+                nuevoVendedor.Vendedor_Rol = model.Rol;
 
                 db.Vendedor.Add(nuevoVendedor);
 
@@ -139,16 +142,16 @@ namespace PlanVisitaWebAPI.Controllers
             else
             {
 
-                var nuevoVendedor = db.Vendedor.FirstOrDefault(x => x.JefeVentas_Id == id);
+                var nuevoVendedor = db.Vendedor.FirstOrDefault(x => x.Vendedor_Id == id);
 
 
-                nuevoVendedor.Vendedor_Id = model.Id;
+                
                 nuevoVendedor.Vendedor_Nombre = model.Nombre;
                 nuevoVendedor.Vendedor_FechaLastUpdate = DateTime.Now;
-                nuevoVendedor.JefeVentas_Id = model.JefeVentasId;
                 nuevoVendedor.Vendedor_Mail = model.Email;
+                nuevoVendedor.Vendedor_Rol = model.Rol;
 
-                db.Vendedor.Add(nuevoVendedor);
+               
 
                 var resultado = db.SaveChanges();
 
@@ -178,7 +181,7 @@ namespace PlanVisitaWebAPI.Controllers
             var validation = new SystemValidationModel();
             validation.Success = false;
             response.StatusCode = HttpStatusCode.BadRequest;
-            validation.Message = "Por política de la empresa, no pueden eliminar clientes.";
+            validation.Message = "Por política de la empresa, no pueden eliminar vendedores.";
             var json = JsonConvert.SerializeObject(validation);
             response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;

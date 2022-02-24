@@ -9,9 +9,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace PlanVisitaWebAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class JefeVentasController : ApiController
     {
         private PLAN_VISITAEntities db = new PLAN_VISITAEntities();
@@ -22,10 +24,10 @@ namespace PlanVisitaWebAPI.Controllers
                 filtro = "";
             var listaJefeVentass = db.JefeVentas.Where(x => x.JefeVentas_Nombre.Contains(filtro) || x.JefeVentas_Id.ToString().Contains(filtro) || x.JefeVentas_Mail.Contains(filtro)).ToList();
 
-            var paginationModel = new PaginationModel<DB.JefeVentas>()
+            var paginationModel = new PaginationModel<JefeVentasResponseModel>()
             {
                 CantidadTotal = listaJefeVentass.Count,
-                Listado = listaJefeVentass.Skip(skip).Take(take)
+                Listado = listaJefeVentass.Skip(skip).Take(take).Select(x => new JefeVentasResponseModel() {Division_Id = x.Division_Id, JefeVentas_Id = x.JefeVentas_Id, JefeVentas_Mail = x.JefeVentas_Mail, JefeVentas_Nombre = x.JefeVentas_Nombre})
             };
             var json = JsonConvert.SerializeObject(paginationModel);
             var response = Request.CreateResponse(HttpStatusCode.OK);
@@ -36,7 +38,7 @@ namespace PlanVisitaWebAPI.Controllers
         // GET api/<controller>/5
         public HttpResponseMessage Get(int id)
         {
-            var JefeVentas = db.JefeVentas.FirstOrDefault(x => x.JefeVentas_Id == id);
+            var JefeVentas = db.JefeVentas.ToList().Select(x => new JefeVentasResponseModel() { Division_Id = x.Division_Id, JefeVentas_Id = x.JefeVentas_Id, JefeVentas_Mail = x.JefeVentas_Mail, JefeVentas_Nombre = x.JefeVentas_Nombre }).FirstOrDefault(x => x.JefeVentas_Id == id);
 
 
             var json = JsonConvert.SerializeObject(JefeVentas);
@@ -115,7 +117,7 @@ namespace PlanVisitaWebAPI.Controllers
                 nuevoJefeVentas.JefeVentas_Mail = model.JefeVentas_Mail;
                 nuevoJefeVentas.JefeVentas_FechaLastUpdate = DateTime.Now;
 
-                db.JefeVentas.Add(nuevoJefeVentas);
+                
 
                 var resultado = db.SaveChanges();
 

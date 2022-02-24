@@ -68,6 +68,7 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
@@ -241,20 +242,24 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Administrador\JefeVentasCanalController.cs" />
+    <Compile Include="Controllers\Administrador\UsuarioController.cs" />
     <Compile Include="Controllers\AuthIONController.cs" />
     <Compile Include="Controllers\JefeVentas\CanalController.cs" />
     <Compile Include="Controllers\JefeVentas\ClienteController.cs" />
     <Compile Include="Controllers\JefeVentas\DivisionController.cs" />
     <Compile Include="Controllers\JefeVentas\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JefeVentas\EstadisticaController.cs" />
     <Compile Include="Controllers\JefeVentas\JefeVentasController.cs" />
     <Compile Include="Controllers\JefeVentas\MarcacionesController.cs" />
+    <Compile Include="Controllers\JefeVentas\MigracionController.cs" />
     <Compile Include="Controllers\JefeVentas\PlanSemanalController.cs" />
     <Compile Include="Controllers\JefeVentas\SucursalController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorSucursalController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorController.cs" />
+    <Compile Include="Controllers\Vendedor\VEstadisticasController.cs" />
     <Compile Include="Controllers\Vendedor\VEstadoVisitaController.cs" />
     <Compile Include="Controllers\Vendedor\VMotivoVisitaController.cs" />
     <Compile Include="Controllers\Vendedor\VObjetivoVisitaController.cs" />
@@ -451,6 +456,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Helpers\MemoryCacher.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Authentication\LoginResponseModel.cs" />
@@ -461,17 +468,22 @@
     <Compile Include="Models\Clientes\ClienteUpdateModel.cs" />
     <Compile Include="Models\Division\DivisionUpdateModel.cs" />
     <Compile Include="Models\Empresa\EmpresaUpdateModel.cs" />
+    <Compile Include="Models\Estadisticas\EstadisticaModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JefeVentasCanal\JefeVentasCanalUpsertModel.cs" />
+    <Compile Include="Models\JefeVentas\JefeVentasResponseModel.cs" />
     <Compile Include="Models\JefeVentas\JefeVentasUpdateModel.cs" />
     <Compile Include="Models\Marcaciones\MarcacionesFiltroModel.cs" />
     <Compile Include="Models\Marcaciones\MarcacionesResponseModel.cs" />
     <Compile Include="Models\Marcaciones\MarcacionesUpdateModel.cs" />
+    <Compile Include="Models\Migracion\MigracionesUpsertModel.cs" />
     <Compile Include="Models\PlanSemanal\PlanSemanalDetalleUpdateModel.cs" />
     <Compile Include="Models\PlanSemanal\PlanSemanalFiltroModel.cs" />
     <Compile Include="Models\PlanSemanal\PlanSemanalResponseModel.cs" />
     <Compile Include="Models\PlanSemanal\PlanSemanalUpdateModel.cs" />
     <Compile Include="Models\Shared\PaginationModel.cs" />
     <Compile Include="Models\Shared\SystemValidationModel.cs" />
+    <Compile Include="Models\Sucursal\ClientesHBFDataSetAttribute.cs" />
     <Compile Include="Models\Sucursal\SucursalResponseListModel.cs" />
     <Compile Include="Models\Sucursal\SucursalResponseModel.cs" />
     <Compile Include="Models\Sucursal\SucursalUpdateModel.cs" />

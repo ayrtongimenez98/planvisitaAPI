@@ -9,6 +9,8 @@ using PlanVisitaWebAPI.Models.Clientes;
 using System;
 using PlanVisitaWebAPI.Models.Shared;
 using System.Web.Http.Cors;
+using PlanVisitaWebAPI.Models.Sucursal;
+using System.Collections.Generic;
 
 namespace PlanVisitaWebAPI.Controllers
 {
@@ -21,7 +23,18 @@ namespace PlanVisitaWebAPI.Controllers
         {
             if (filtro == null)
                 filtro = "";
-            var listaClientes = db.V_Clientes_HBF.Where(x => x.cardcode.Contains(filtro) || x.cardfname.Contains(filtro)).Select(x => new ClienteResponseModel() { Cliente_Cod = x.cardcode, Cliente_RazonSocial = x.cardfname }).Distinct().OrderBy(x => x.Cliente_Cod).ToList();
+            var lista = new List<ClientesHBFDataSetAttribute>();
+            if (MemoryCacher.GetValue("listaClientes") == null)
+            {
+                lista = db.Database.SqlQuery<ClientesHBFDataSetAttribute>("exec sp_Clientes_Hbf; ").ToList<ClientesHBFDataSetAttribute>();
+                MemoryCacher.Add("listaClientes", lista, DateTimeOffset.UtcNow.AddDays(1));
+            }
+            else
+            {
+                lista = (List<ClientesHBFDataSetAttribute>)MemoryCacher.GetValue("listaClientes");
+            }
+            lista = lista.Where(x => x.street != null && x.city != null && x.cardcode != null && x.cardfname != null).Where(x => !x.cardcode.Contains("CLIENTE NUEVO")).ToList();
+            var listaClientes = lista.Where(x => x.cardcode.ToLower().Contains(filtro.ToLower()) || x.cardfname.ToLower().Contains(filtro.ToLower())).Select(x => new ClienteResponseModel() { Cliente_Cod = x.cardcode, Cliente_RazonSocial = x.cardfname }).GroupBy(p => new { p.Cliente_Cod, p.Cliente_RazonSocial}).Select(g => g.First()).OrderBy(x => x.Cliente_Cod).ToList();
             var listaClientesModel = listaClientes;
 
             var paginationModel = new PaginationModel<ClienteResponseModel>() { 

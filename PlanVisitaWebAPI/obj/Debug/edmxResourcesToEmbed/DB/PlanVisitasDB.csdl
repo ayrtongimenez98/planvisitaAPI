@@ -288,6 +288,7 @@
     <Property Name="Usuario_Vendedor_Id" Type="Int32" />
     <NavigationProperty Name="JefeVentas" Relationship="Self.FK_Usuario_JefeVentas" FromRole="Usuario" ToRole="JefeVentas" />
     <NavigationProperty Name="Vendedor" Relationship="Self.fk_usuario_vendedor_id" FromRole="Usuario" ToRole="Vendedor" />
+    <Property Name="Usuario_Rol" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="VencimientoProducto">
     <Key>
@@ -566,6 +567,7 @@
     <Property Name="GroupCode" Type="Int16" />
     <Property Name="GroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="V_Clientes_Total">
     <Key>
@@ -1399,5 +1401,6 @@
       <End Role="Canal" EntitySet="Canal" />
       <End Role="Vendedor" EntitySet="Vendedor" />
     </AssociationSet>
+    <FunctionImport Name="sp_Clientes_Hbf" />
   </EntityContainer>
 </Schema>

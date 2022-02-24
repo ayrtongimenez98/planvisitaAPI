@@ -20,6 +20,7 @@ namespace PlanVisitaWebAPI.DB
         public int JefeVentas_Id { get; set; }
         public string Usuario1 { get; set; }
         public Nullable<int> Usuario_Vendedor_Id { get; set; }
+        public string Usuario_Rol { get; set; }
     
         public virtual JefeVentas JefeVentas { get; set; }
         public virtual Vendedor Vendedor { get; set; }

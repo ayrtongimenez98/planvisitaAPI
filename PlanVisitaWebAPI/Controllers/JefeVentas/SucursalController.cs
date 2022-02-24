@@ -24,20 +24,30 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                 filtro = "";
             if (codCliente == null)
                 codCliente = "";
-            var listaSucursals = new List<V_Clientes_HBF>();
-
+            var listaSucursals = new List<ClientesHBFDataSetAttribute>();
+            var lista = new List<ClientesHBFDataSetAttribute>();
+            if (MemoryCacher.GetValue("listaClientes") == null)
+            {
+                lista = db.Database.SqlQuery<ClientesHBFDataSetAttribute>("exec sp_Clientes_Hbf; ").ToList<ClientesHBFDataSetAttribute>();
+                MemoryCacher.Add("listaClientes", lista, DateTimeOffset.UtcNow.AddDays(1));
+            }
+            else
+            {
+                lista = (List<ClientesHBFDataSetAttribute>)MemoryCacher.GetValue("listaClientes");
+            }
+            lista = lista.Where(x => x.street != null && x.city != null && x.cardcode != null).ToList();
             if (string.IsNullOrEmpty(codCliente))
             {
-                listaSucursals = db.V_Clientes_HBF.Where(x => x.street.Contains(filtro) || x.city.Contains(filtro) || x.cardcode.Contains(filtro)).ToList();
+                listaSucursals = lista.Where(x => x.street.ToString().Contains(filtro) || x.city.ToString().Contains(filtro) || x.cardcode.ToString().Contains(filtro)).ToList();
             } else
             {
-                listaSucursals = db.V_Clientes_HBF.Where(x => (x.street.Contains(filtro) || x.city.Contains(filtro)) && x.cardcode == codCliente).ToList();
+                listaSucursals = lista.Where(x => (x.street.Contains(filtro) || x.city.Contains(filtro)) && x.cardcode == codCliente).ToList();
             }
 
             var paginationModel = new PaginationModel<SucursalResponseListModel>()
             {
                 CantidadTotal = listaSucursals.Count,
-                Listado = listaSucursals.Skip(skip).Take(take).Select(x => new SucursalResponseListModel() { Cliente_Cod = x.cardcode, Sucursal_Ciudad = x.city, Sucursal_Direccion = x.street, Sucursal_Id = Convert.ToInt32(x.Address), Sucursal_Nombre = x.Address2 })
+                Listado = listaSucursals.Skip(skip).Take(take).Select(x => new SucursalResponseListModel() { Cliente_Cod = x.cardcode, Sucursal_Ciudad = x.city, Sucursal_Direccion = x.street, Sucursal_Id = Convert.ToInt32(x.Address), Sucursal_Nombre = x.Address2, Cliente_RazonSocial = x.cardfname })
             };
             var json = JsonConvert.SerializeObject(paginationModel);
             var response = Request.CreateResponse(HttpStatusCode.OK);

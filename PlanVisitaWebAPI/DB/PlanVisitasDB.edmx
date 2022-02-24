@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PLAN_VISITAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PLAN_VISITAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Canal">
           <Key>
             <PropertyRef Name="Canal_Id" />
@@ -38,14 +38,6 @@
           <Property Name="Cliente_FechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="Cliente_FechaLastUpdate" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'PLAN_VISITA.dbo.ClientesPeriodo' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="ClientesPeriodo">
-          <Property Name="Vendedor_Id" Type="int" />
-          <Property Name="Sucursal_Id" Type="int" />
-          <Property Name="Cantidad_Visitas" Type="int" />
-          <Property Name="Periodo" Type="varchar" MaxLength="5" />
-        </EntityType>-->
         <EntityType Name="Division">
           <Key>
             <PropertyRef Name="Division_Id" />
@@ -275,6 +267,7 @@ advertencia 6013: La tabla o vista 'PLAN_VISITA.dbo.ClientesPeriodo' no tiene de
           <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
           <Property Name="Usuario" Type="varchar" MaxLength="50" />
           <Property Name="Usuario_Vendedor_Id" Type="int" />
+          <Property Name="Usuario_Rol" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="VencimientoProducto">
           <Key>
@@ -549,6 +542,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_HBF' no tiene def
           <Property Name="GroupCode" Type="smallint" />
           <Property Name="GroupName" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Estado" Type="varchar" MaxLength="8" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_Total' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -1272,6 +1266,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_Clientes_Hbf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="PLAN_VISITAModelStoreContainer">
           <EntitySet Name="Canal" EntityType="Self.Canal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CanalSucursal" EntityType="Self.CanalSucursal" Schema="dbo" store:Type="Tables" />
@@ -1387,7 +1382,8 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
     [V_Clientes_HBF].[street] AS [street], 
     [V_Clientes_HBF].[GroupCode] AS [GroupCode], 
     [V_Clientes_HBF].[GroupName] AS [GroupName], 
-    [V_Clientes_HBF].[Address2] AS [Address2]
+    [V_Clientes_HBF].[Address2] AS [Address2], 
+    [V_Clientes_HBF].[Estado] AS [Estado]
     FROM [dbo].[V_Clientes_HBF] AS [V_Clientes_HBF]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="V_Clientes_Total" EntityType="Self.V_Clientes_Total" store:Type="Views" store:Schema="dbo">
@@ -1736,8 +1732,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
             <End Role="VisitaDual" EntitySet="VisitaDual" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PLAN_VISITAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -2029,6 +2024,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
           <Property Name="Usuario_Vendedor_Id" Type="Int32" />
           <NavigationProperty Name="JefeVentas" Relationship="Self.FK_Usuario_JefeVentas" FromRole="Usuario" ToRole="JefeVentas" />
           <NavigationProperty Name="Vendedor" Relationship="Self.fk_usuario_vendedor_id" FromRole="Usuario" ToRole="Vendedor" />
+          <Property Name="Usuario_Rol" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="VencimientoProducto">
           <Key>
@@ -2307,6 +2303,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
           <Property Name="GroupCode" Type="Int16" />
           <Property Name="GroupName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="V_Clientes_Total">
           <Key>
@@ -3140,6 +3137,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
             <End Role="Canal" EntitySet="Canal" />
             <End Role="Vendedor" EntitySet="Vendedor" />
           </AssociationSet>
+          <FunctionImport Name="sp_Clientes_Hbf" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -3409,6 +3407,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="PLAN_VISITAModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Usuario_Rol" ColumnName="Usuario_Rol" />
                 <ScalarProperty Name="Usuario_Id" ColumnName="Usuario_Id" />
                 <ScalarProperty Name="Usuario_Nombre" ColumnName="Usuario_Nombre" />
                 <ScalarProperty Name="Usuario_Pass" ColumnName="Usuario_Pass" />
@@ -3648,6 +3647,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
           <EntitySetMapping Name="V_Clientes_HBF">
             <EntityTypeMapping TypeName="PLAN_VISITAModel.V_Clientes_HBF">
               <MappingFragment StoreEntitySet="V_Clientes_HBF">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Fila" ColumnName="Fila" />
                 <ScalarProperty Name="cardcode" ColumnName="cardcode" />
                 <ScalarProperty Name="cardfname" ColumnName="cardfname" />
@@ -3937,6 +3937,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
               <ScalarProperty Name="Vendedor_Id" ColumnName="Vendedor_Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Clientes_Hbf" FunctionName="PLAN_VISITAModel.Store.sp_Clientes_Hbf" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

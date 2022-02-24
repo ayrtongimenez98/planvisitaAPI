@@ -33,14 +33,6 @@
     <Property Name="Cliente_FechaCreacion" Type="datetime" Nullable="false" />
     <Property Name="Cliente_FechaLastUpdate" Type="datetime" Nullable="false" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'PLAN_VISITA.dbo.ClientesPeriodo' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="ClientesPeriodo">
-          <Property Name="Vendedor_Id" Type="int" />
-          <Property Name="Sucursal_Id" Type="int" />
-          <Property Name="Cantidad_Visitas" Type="int" />
-          <Property Name="Periodo" Type="varchar" MaxLength="5" />
-        </EntityType>-->
   <EntityType Name="Division">
     <Key>
       <PropertyRef Name="Division_Id" />
@@ -270,6 +262,7 @@ advertencia 6013: La tabla o vista 'PLAN_VISITA.dbo.ClientesPeriodo' no tiene de
     <Property Name="JefeVentas_Id" Type="int" Nullable="false" />
     <Property Name="Usuario" Type="varchar" MaxLength="50" />
     <Property Name="Usuario_Vendedor_Id" Type="int" />
+    <Property Name="Usuario_Rol" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="VencimientoProducto">
     <Key>
@@ -544,6 +537,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_HBF' no tiene def
     <Property Name="GroupCode" Type="smallint" />
     <Property Name="GroupName" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+    <Property Name="Estado" Type="varchar" MaxLength="8" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.V_Clientes_Total' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -1267,6 +1261,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="sp_Clientes_Hbf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="PLAN_VISITAModelStoreContainer">
     <EntitySet Name="Canal" EntityType="Self.Canal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CanalSucursal" EntityType="Self.CanalSucursal" Schema="dbo" store:Type="Tables" />
@@ -1382,7 +1377,8 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
     [V_Clientes_HBF].[street] AS [street], 
     [V_Clientes_HBF].[GroupCode] AS [GroupCode], 
     [V_Clientes_HBF].[GroupName] AS [GroupName], 
-    [V_Clientes_HBF].[Address2] AS [Address2]
+    [V_Clientes_HBF].[Address2] AS [Address2], 
+    [V_Clientes_HBF].[Estado] AS [Estado]
     FROM [dbo].[V_Clientes_HBF] AS [V_Clientes_HBF]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="V_Clientes_Total" EntityType="Self.V_Clientes_Total" store:Type="Views" store:Schema="dbo">

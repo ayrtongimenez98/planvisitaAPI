@@ -27,36 +27,31 @@ namespace PlanVisitaWebAPI.Controllers
 
 
             var response = new HttpResponseMessage();
-            if (headers.Contains("jefeToken") && headers.GetValues("jefeToken") != null && !string.IsNullOrEmpty(headers.GetValues("jefeToken").First()))
+            string token = headers.GetValues("jefeToken").First();
+            var usuarioid = Convert.ToInt32(token);
+            var jefeVentasId = db.Usuario.First(x => x.Usuario_Id == usuarioid).JefeVentas_Id;
+            var query = "";
+            var usuario = db.Usuario.First(x => x.Usuario_Id == usuarioid);
+            if (usuario.Usuario_Rol == "A")
             {
-                string token = headers.GetValues("jefeToken").First();
-                var jefeVentasId = Convert.ToInt32(token);
-                var canales = db.Database.SqlQuery<CanalResponseModel>("SELECT GroupCode as Canal_Id, GroupName as Descripcion, GroupType as Tipo FROM V_Canales_HBF c inner join JefeVentasCanal j on  c.GroupCode = j.Canal_Id where j.JefeVentas_Id = " + jefeVentasId).ToList<CanalResponseModel>();
-
-                var paginationModel = new PaginationModel<CanalResponseModel>()
-                {
-                    CantidadTotal = canales.Count,
-                    Listado = canales.Skip(skip).Take(take)
-                };
-                var json = JsonConvert.SerializeObject(paginationModel, new JsonSerializerSettings()
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                });
-                response = Request.CreateResponse(HttpStatusCode.OK);
-                response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
+                query = "SELECT GroupCode as Canal_Id, GroupName as Descripcion, GroupType as Tipo FROM V_Canales_HBF c";
             }
-            else
+            else {
+                query = "SELECT GroupCode as Canal_Id, GroupName as Descripcion, GroupType as Tipo FROM V_Canales_HBF c inner join JefeVentasCanal j on  c.GroupCode = j.Canal_Id where j.JefeVentas_Id = " + jefeVentasId;
+            }
+            var canales = db.Database.SqlQuery<CanalResponseModel>(query).ToList<CanalResponseModel>();
+
+            var paginationModel = new PaginationModel<CanalResponseModel>()
             {
-                var validation = new SystemValidationModel()
-                {
-                    Success = false,
-                    Message = "Credenciales incorrectas."
-                };
-                var json = JsonConvert.SerializeObject(validation);
-                response = Request.CreateResponse(HttpStatusCode.BadRequest);
-                response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-            }
+                CantidadTotal = canales.Count,
+                Listado = canales.Skip(skip).Take(take)
+            };
+            var json = JsonConvert.SerializeObject(paginationModel, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;
         }
 

@@ -12,6 +12,8 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PLAN_VISITAEntities : DbContext
     {
@@ -82,5 +84,10 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<VClienteSAPHBF> VClienteSAPHBF { get; set; }
         public virtual DbSet<VFrecuenciaVendedorCliente> VFrecuenciaVendedorCliente { get; set; }
         public virtual DbSet<VVisitasRealizadas> VVisitasRealizadas { get; set; }
+    
+        public virtual int sp_Clientes_Hbf()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Clientes_Hbf");
+        }
     }
 }

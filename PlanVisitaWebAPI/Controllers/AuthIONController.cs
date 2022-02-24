@@ -45,16 +45,18 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                         usuarioLogin.Usuario = user.Usuario1;
                         usuarioLogin.Email = vendedor.Vendedor_Mail;
                         usuarioLogin.Id = user.Usuario_Id.ToString();
+                        usuarioLogin.Rol = user.Usuario_Rol;
                     }
                     else
                     {
                         var jefeVentas = db.JefeVentas.First(x => x.JefeVentas_Id == user.JefeVentas_Id);
                         usuarioLogin.Es_Jefe = true;
-                        usuarioLogin.Nombre = jefeVentas.JefeVentas_Nombre;
-                        usuarioLogin.Usuario_Id = jefeVentas.JefeVentas_Id;
+                        usuarioLogin.Nombre = user.Usuario_Nombre;
+                        usuarioLogin.Usuario_Id = user.Usuario_Id;
                         usuarioLogin.Usuario = user.Usuario1;
                         usuarioLogin.Email = jefeVentas.JefeVentas_Mail;
                         usuarioLogin.Id = user.Usuario_Id.ToString();
+                        usuarioLogin.Rol = user.Usuario_Rol;
                     }
 
                     var json = JsonConvert.SerializeObject(usuarioLogin);
@@ -69,7 +71,7 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                         Message = "Credenciales incorrectas."
                     };
                     var json = JsonConvert.SerializeObject(validation);
-                    response = Request.CreateResponse(HttpStatusCode.NotFound);
+                    response = Request.CreateResponse(HttpStatusCode.OK);
                     response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 }
             }
