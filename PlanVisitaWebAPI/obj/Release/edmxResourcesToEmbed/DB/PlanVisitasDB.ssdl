@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PLAN_VISITAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AccionesCompetencia">
+    <Key>
+      <PropertyRef Name="AccionesCompetencia_Id" />
+    </Key>
+    <Property Name="AccionesCompetencia_Id" Type="int" Nullable="false" />
+    <Property Name="AccionesCompetencia_Division" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Canal" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Descripcion" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Precio" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_PrecioOferta" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Observacion" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="Canal">
     <Key>
       <PropertyRef Name="Canal_Id" />
@@ -1263,6 +1275,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
   </Association>
   <Function Name="sp_Clientes_Hbf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="PLAN_VISITAModelStoreContainer">
+    <EntitySet Name="AccionesCompetencia" EntityType="Self.AccionesCompetencia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Canal" EntityType="Self.Canal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CanalSucursal" EntityType="Self.CanalSucursal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CanalVendedor" EntityType="Self.CanalVendedor" Schema="dbo" store:Type="Tables" />

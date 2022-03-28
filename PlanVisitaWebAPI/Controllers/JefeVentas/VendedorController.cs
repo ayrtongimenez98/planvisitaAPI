@@ -104,7 +104,10 @@ namespace PlanVisitaWebAPI.Controllers
                 nuevoVendedor.Vendedor_Mail = model.Email;
                 nuevoVendedor.Vendedor_Rol = model.Rol;
 
+                
                 db.Vendedor.Add(nuevoVendedor);
+
+                
 
                 var resultado = db.SaveChanges();
 

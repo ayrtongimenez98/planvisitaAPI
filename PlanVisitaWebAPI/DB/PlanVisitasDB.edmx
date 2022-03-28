@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PLAN_VISITAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccionesCompetencia">
+          <Key>
+            <PropertyRef Name="AccionesCompetencia_Id" />
+          </Key>
+          <Property Name="AccionesCompetencia_Id" Type="int" Nullable="false" />
+          <Property Name="AccionesCompetencia_Division" Type="varchar" MaxLength="50" />
+          <Property Name="AccionesCompetencia_Canal" Type="varchar" MaxLength="50" />
+          <Property Name="AccionesCompetencia_Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="AccionesCompetencia_Precio" Type="varchar" MaxLength="50" />
+          <Property Name="AccionesCompetencia_PrecioOferta" Type="varchar" MaxLength="50" />
+          <Property Name="AccionesCompetencia_Observacion" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Canal">
           <Key>
             <PropertyRef Name="Canal_Id" />
@@ -1268,6 +1280,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
         </Association>
         <Function Name="sp_Clientes_Hbf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="PLAN_VISITAModelStoreContainer">
+          <EntitySet Name="AccionesCompetencia" EntityType="Self.AccionesCompetencia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Canal" EntityType="Self.Canal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CanalSucursal" EntityType="Self.CanalSucursal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CanalVendedor" EntityType="Self.CanalVendedor" Schema="dbo" store:Type="Tables" />
@@ -3138,7 +3151,20 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
             <End Role="Vendedor" EntitySet="Vendedor" />
           </AssociationSet>
           <FunctionImport Name="sp_Clientes_Hbf" />
+          <EntitySet Name="AccionesCompetencia" EntityType="PLAN_VISITAModel.AccionesCompetencia" />
         </EntityContainer>
+        <EntityType Name="AccionesCompetencia">
+          <Key>
+            <PropertyRef Name="AccionesCompetencia_Id" />
+          </Key>
+          <Property Name="AccionesCompetencia_Id" Type="Int32" Nullable="false" />
+          <Property Name="AccionesCompetencia_Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccionesCompetencia_Canal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccionesCompetencia_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccionesCompetencia_Precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccionesCompetencia_PrecioOferta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccionesCompetencia_Observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3938,6 +3964,19 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="sp_Clientes_Hbf" FunctionName="PLAN_VISITAModel.Store.sp_Clientes_Hbf" />
+          <EntitySetMapping Name="AccionesCompetencia">
+            <EntityTypeMapping TypeName="PLAN_VISITAModel.AccionesCompetencia">
+              <MappingFragment StoreEntitySet="AccionesCompetencia">
+                <ScalarProperty Name="AccionesCompetencia_Observacion" ColumnName="AccionesCompetencia_Observacion" />
+                <ScalarProperty Name="AccionesCompetencia_PrecioOferta" ColumnName="AccionesCompetencia_PrecioOferta" />
+                <ScalarProperty Name="AccionesCompetencia_Precio" ColumnName="AccionesCompetencia_Precio" />
+                <ScalarProperty Name="AccionesCompetencia_Descripcion" ColumnName="AccionesCompetencia_Descripcion" />
+                <ScalarProperty Name="AccionesCompetencia_Canal" ColumnName="AccionesCompetencia_Canal" />
+                <ScalarProperty Name="AccionesCompetencia_Division" ColumnName="AccionesCompetencia_Division" />
+                <ScalarProperty Name="AccionesCompetencia_Id" ColumnName="AccionesCompetencia_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

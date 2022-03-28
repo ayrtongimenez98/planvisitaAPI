@@ -1402,5 +1402,18 @@
       <End Role="Vendedor" EntitySet="Vendedor" />
     </AssociationSet>
     <FunctionImport Name="sp_Clientes_Hbf" />
+    <EntitySet Name="AccionesCompetencia" EntityType="PLAN_VISITAModel.AccionesCompetencia" />
   </EntityContainer>
+  <EntityType Name="AccionesCompetencia">
+    <Key>
+      <PropertyRef Name="AccionesCompetencia_Id" />
+    </Key>
+    <Property Name="AccionesCompetencia_Id" Type="Int32" Nullable="false" />
+    <Property Name="AccionesCompetencia_Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Canal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_PrecioOferta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

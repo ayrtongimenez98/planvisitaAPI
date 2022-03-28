@@ -84,6 +84,7 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<VClienteSAPHBF> VClienteSAPHBF { get; set; }
         public virtual DbSet<VFrecuenciaVendedorCliente> VFrecuenciaVendedorCliente { get; set; }
         public virtual DbSet<VVisitasRealizadas> VVisitasRealizadas { get; set; }
+        public virtual DbSet<AccionesCompetencia> AccionesCompetencia { get; set; }
     
         public virtual int sp_Clientes_Hbf()
         {

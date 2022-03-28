@@ -12,5 +12,6 @@ namespace PlanVisitaWebAPI.Models.Vendedor
         public int JefeVentasId { get; set; }
         public string Email { get; set; }
         public string Rol { get; set; }
+        public List<int> Canales { get; set; }
     }
 }

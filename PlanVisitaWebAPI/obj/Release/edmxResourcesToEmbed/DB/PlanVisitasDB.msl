@@ -794,5 +794,18 @@
       </EndProperty>
     </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="sp_Clientes_Hbf" FunctionName="PLAN_VISITAModel.Store.sp_Clientes_Hbf" />
+    <EntitySetMapping Name="AccionesCompetencia">
+      <EntityTypeMapping TypeName="PLAN_VISITAModel.AccionesCompetencia">
+        <MappingFragment StoreEntitySet="AccionesCompetencia">
+          <ScalarProperty Name="AccionesCompetencia_Observacion" ColumnName="AccionesCompetencia_Observacion" />
+          <ScalarProperty Name="AccionesCompetencia_PrecioOferta" ColumnName="AccionesCompetencia_PrecioOferta" />
+          <ScalarProperty Name="AccionesCompetencia_Precio" ColumnName="AccionesCompetencia_Precio" />
+          <ScalarProperty Name="AccionesCompetencia_Descripcion" ColumnName="AccionesCompetencia_Descripcion" />
+          <ScalarProperty Name="AccionesCompetencia_Canal" ColumnName="AccionesCompetencia_Canal" />
+          <ScalarProperty Name="AccionesCompetencia_Division" ColumnName="AccionesCompetencia_Division" />
+          <ScalarProperty Name="AccionesCompetencia_Id" ColumnName="AccionesCompetencia_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
