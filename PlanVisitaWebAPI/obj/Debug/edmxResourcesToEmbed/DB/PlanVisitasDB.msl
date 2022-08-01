@@ -273,22 +273,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="VencimientoProducto">
-      <EntityTypeMapping TypeName="PLAN_VISITAModel.VencimientoProducto">
-        <MappingFragment StoreEntitySet="VencimientoProducto">
-          <ScalarProperty Name="Vencimiento_Id" ColumnName="Vencimiento_Id" />
-          <ScalarProperty Name="Vencimiento_Division" ColumnName="Vencimiento_Division" />
-          <ScalarProperty Name="Vencimiento_Canal" ColumnName="Vencimiento_Canal" />
-          <ScalarProperty Name="Vencimiento_Cargo" ColumnName="Vencimiento_Cargo" />
-          <ScalarProperty Name="Vencimiento_Colaborador" ColumnName="Vencimiento_Colaborador" />
-          <ScalarProperty Name="Vencimiento_PuntoVentaDireccion" ColumnName="Vencimiento_PuntoVentaDireccion" />
-          <ScalarProperty Name="Vencimiento_Codigo_Barras" ColumnName="Vencimiento_Codigo_Barras" />
-          <ScalarProperty Name="Vencimiento_Descripcion_Producto" ColumnName="Vencimiento_Descripcion_Producto" />
-          <ScalarProperty Name="Vencimiento_Rango_Fecha" ColumnName="Vencimiento_Rango_Fecha" />
-          <ScalarProperty Name="Vencimiento_Cantidad_SKU" ColumnName="Vencimiento_Cantidad_SKU" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Vendedor">
       <EntityTypeMapping TypeName="PLAN_VISITAModel.Vendedor">
         <MappingFragment StoreEntitySet="Vendedor">
@@ -794,5 +778,46 @@
       </EndProperty>
     </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="sp_Clientes_Hbf" FunctionName="PLAN_VISITAModel.Store.sp_Clientes_Hbf" />
+    <EntitySetMapping Name="AccionesCompetencia">
+      <EntityTypeMapping TypeName="PLAN_VISITAModel.AccionesCompetencia">
+        <MappingFragment StoreEntitySet="AccionesCompetencia">
+          <ScalarProperty Name="AccionesCompetencia_FechaCreacion" ColumnName="AccionesCompetencia_FechaCreacion" />
+          <ScalarProperty Name="AccionesCompetencia_PuntoVentaDireccion" ColumnName="AccionesCompetencia_PuntoVentaDireccion" />
+          <ScalarProperty Name="AccionesCompetencia_Colaborador" ColumnName="AccionesCompetencia_Colaborador" />
+          <ScalarProperty Name="AccionesCompetencia_Observacion" ColumnName="AccionesCompetencia_Observacion" />
+          <ScalarProperty Name="AccionesCompetencia_PrecioOferta" ColumnName="AccionesCompetencia_PrecioOferta" />
+          <ScalarProperty Name="AccionesCompetencia_Precio" ColumnName="AccionesCompetencia_Precio" />
+          <ScalarProperty Name="AccionesCompetencia_Descripcion" ColumnName="AccionesCompetencia_Descripcion" />
+          <ScalarProperty Name="AccionesCompetencia_Canal" ColumnName="AccionesCompetencia_Canal" />
+          <ScalarProperty Name="AccionesCompetencia_Division" ColumnName="AccionesCompetencia_Division" />
+          <ScalarProperty Name="AccionesCompetencia_Id" ColumnName="AccionesCompetencia_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VencimientoProducto">
+      <EntityTypeMapping TypeName="PLAN_VISITAModel.VencimientoProducto">
+        <MappingFragment StoreEntitySet="VencimientoProducto">
+          <ScalarProperty Name="Vencimiento_FechaCreacion" ColumnName="Vencimiento_FechaCreacion" />
+          <ScalarProperty Name="Vencimiento_PuntoVentaDireccion" ColumnName="Vencimiento_PuntoVentaDireccion" />
+          <ScalarProperty Name="Vencimiento_Colaborador" ColumnName="Vencimiento_Colaborador" />
+          <ScalarProperty Name="Vencimiento_Cargo" ColumnName="Vencimiento_Cargo" />
+          <ScalarProperty Name="Vencimiento_Canal" ColumnName="Vencimiento_Canal" />
+          <ScalarProperty Name="Vencimiento_Division" ColumnName="Vencimiento_Division" />
+          <ScalarProperty Name="Vencimiento_Id" ColumnName="Vencimiento_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VencimientoProductoDetalle">
+      <EntityTypeMapping TypeName="PLAN_VISITAModel.VencimientoProductoDetalle">
+        <MappingFragment StoreEntitySet="VencimientoProductoDetalle">
+          <ScalarProperty Name="VencimientoProductoDetalle_Cantidad_SKU" ColumnName="VencimientoProductoDetalle_Cantidad_SKU" />
+          <ScalarProperty Name="VencimientoProductoDetalle_Rango_Fecha" ColumnName="VencimientoProductoDetalle_Rango_Fecha" />
+          <ScalarProperty Name="VencimientoProductoDetalle_Descripcion_Producto" ColumnName="VencimientoProductoDetalle_Descripcion_Producto" />
+          <ScalarProperty Name="VencimientoProductoDetalle_Codigo_Barras" ColumnName="VencimientoProductoDetalle_Codigo_Barras" />
+          <ScalarProperty Name="VencimientoProducto_Id" ColumnName="VencimientoProducto_Id" />
+          <ScalarProperty Name="VencimientoProductoDetalle_Id" ColumnName="VencimientoProductoDetalle_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

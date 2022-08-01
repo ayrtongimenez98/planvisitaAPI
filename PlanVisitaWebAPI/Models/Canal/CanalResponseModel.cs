@@ -7,7 +7,7 @@ namespace PlanVisitaWebAPI.Models.Canal
 {
     public class CanalResponseModel
     {
-        public Int16 Canal_Id { get; set; }
+        public int Canal_Id { get; set; }
         public string Descripcion { get; set; }
         public string Tipo { get; set; }
     }

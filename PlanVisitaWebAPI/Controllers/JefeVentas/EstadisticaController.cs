@@ -28,16 +28,17 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
             foreach (var item in listaVendedores)
             {
                 var asignados = db.Database.SqlQuery<SucursalVendedorResponseModel>(@"select Cast(vc.Sucursal_Id as varchar) as Sucursal_Id, 
-case when h.city IS NULL then(select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod = vc.Cliente_Cod and s.Sucursal_Id = vc.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else h.city end as Sucursal_Ciudad, 
-case when h.street IS NULL then(select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod= vc.Cliente_Cod and s.Sucursal_Id = vc.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else h.street end as Sucursal_Direccion, 
-h.Address2 as Sucursal_Local, 
-h.GroupCode as Canal_Id,
-vc.Cliente_Cod as Cliente_Cod, 
-case when h.cardfname IS null then(select c.Cliente_RazonSocial from Cliente c where c.Cliente_Cod = vc.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else h.cardfname end as Cliente_RazonSocial, 
+s.Sucursal_Ciudad as Sucursal_Ciudad,
+s.Sucursal_Direccion as Sucursal_Direccion,
+NULL as Sucursal_Local,
+NULL as Canal_Id,
+vc.Cliente_Cod as Cliente_Cod,
+c.Cliente_RazonSocial as Cliente_RazonSocial,
 vc.Cantidad_Visitas as Cantidad_Visitas
 from VendedorClienteSAP vc
-left join V_Clientes_HBF h on vc.Cliente_Cod COLLATE Modern_Spanish_CI_AS = h.cardcode
-and vc.Sucursal_Id = h.Address where vc.Vendedor_Id = " + item.Vendedor_Id).ToList<SucursalVendedorResponseModel>();
+join Sucursal s on vc.Sucursal_Id = s.Sucursal_Id and s.Cliente_Cod = vc.Cliente_Cod
+join Cliente c on c.Cliente_Cod = vc.Cliente_Cod
+where vc.Vendedor_Id= " + item.Vendedor_Id).ToList<SucursalVendedorResponseModel>();
                 var diasHabiles = Helpers.Helpers.BusinessDaysUntil(fechaDesde, fechaHasta);
                 var objetivo = db.PlanSemanalSAP.Where(x => x.Vendedor_Id == item.Vendedor_Id).ToList().Where(x => x.PlanSemanal_Horario.Date >= fechaDesde.Date && x.PlanSemanal_Horario <= fechaHasta.Date).ToList();
                 var realizado = db.VisitaSAP.Where(x => x.Vendedor_Id == item.Vendedor_Id).ToList().Where(x => x.Visita_fecha.Date >= fechaDesde.Date && x.Visita_fecha.Date <= fechaHasta.Date).ToList();
@@ -102,9 +103,9 @@ and vc.Sucursal_Id = h.Address where vc.Vendedor_Id = " + item.Vendedor_Id).ToLi
                     	   vs.Vendedor_Id, 
                     	   v.Vendedor_Nombre as Vendedor, 
                     	   vs.Cliente_Cod as CodCliente, 
-                    	   case when c.cardfname IS null then (select Cliente_RazonSocial from Cliente  where Cliente_Cod  = vs.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else c.cardfname end as Cliente,
-                    	   case when c.city IS NULL then (select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else c.city end as Ciudad, 
-                            case when c.street IS NULL then (select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else c.street end as Direccion, 
+                    	   c.Cliente_RazonSocial as Cliente,
+                    	   s.Sucursal_Ciudad as Ciudad, 
+                            s.Sucursal_Direccion as Direccion, 
                             cast(vs.Sucursal_Id as varchar) as Sucursal_Id, 
                     	   vs.Visita_Observacion as Observacion, 
                     	   vs.Visita_Ubicacion_Entrada, 
@@ -114,7 +115,8 @@ and vc.Sucursal_Id = h.Address where vc.Vendedor_Id = " + item.Vendedor_Id).ToLi
                             DATENAME(WEEKDAY, vs.Visita_fecha) AS Dia
                     FROM VisitaSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
-                    left join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and cast(vs.Sucursal_Id as nvarchar) = c.[Address] 
+                    inner join Sucursal s on vs.Sucursal_Id  = s.Sucursal_Id and vs.Cliente_Cod = s.Cliente_Cod
+					inner join Cliente c on vs.Cliente_Cod = s.Cliente_Cod
                     inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
                     inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
 

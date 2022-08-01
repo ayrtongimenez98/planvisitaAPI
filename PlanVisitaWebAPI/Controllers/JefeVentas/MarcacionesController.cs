@@ -43,9 +43,9 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                     	   vs.Vendedor_Id, 
                     	   v.Vendedor_Nombre as Vendedor, 
                     	   vs.Cliente_Cod as CodCliente, 
-                    	   case when c.cardfname IS null then (select Cliente_RazonSocial from Cliente  where Cliente_Cod  = vs.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else c.cardfname end as Cliente,
-                    	   case when c.city IS NULL then (select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else c.city end as Ciudad, 
-                            case when c.street IS NULL then (select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else c.street end as Direccion, 
+                    	   c.Cliente_RazonSocial as Cliente,
+                    	   s.Sucursal_Ciudad as Ciudad, 
+                            s.Sucursal_Direccion as Direccion, 
                             cast(vs.Sucursal_Id as varchar) as Sucursal_Id, 
                     	   vs.Visita_Observacion as Observacion, 
                     	   vs.Visita_Ubicacion_Entrada, 
@@ -55,7 +55,8 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                             DATENAME(WEEKDAY, vs.Visita_fecha) AS Dia
                     FROM VisitaSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
-                    left join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and cast(vs.Sucursal_Id as nvarchar) = c.[Address] 
+                    inner join Sucursal s on vs.Sucursal_Id  = s.Sucursal_Id and vs.Cliente_Cod = s.Cliente_Cod
+					inner join Cliente c on vs.Cliente_Cod = s.Cliente_Cod
                     inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
                     inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
 
@@ -120,9 +121,9 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                     	   vs.Vendedor_Id, 
                     	   v.Vendedor_Nombre as Vendedor, 
                     	   vs.Cliente_Cod as CodCliente, 
-                    	   case when c.cardfname IS null then (select Cliente_RazonSocial from Cliente  where Cliente_Cod  = vs.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else c.cardfname end as Cliente,
-                    	   case when c.city IS NULL then (select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else c.city end as Ciudad, 
-                            case when c.street IS NULL then (select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else c.street end as Direccion, 
+                    	   c.Cliente_RazonSocial as Cliente,
+                    	   s.Sucursal_Ciudad as Ciudad, 
+                            s.Sucursal_Direccion as Direccion, 
                             cast(vs.Sucursal_Id as varchar) as Sucursal_Id, 
                     	   vs.Visita_Observacion as Observacion, 
                     	   vs.Visita_Ubicacion_Entrada, 
@@ -132,7 +133,8 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                             DATENAME(WEEKDAY, vs.Visita_fecha) AS Dia
                     FROM VisitaSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
-                    left join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and cast(vs.Sucursal_Id as nvarchar) = c.[Address] 
+                    inner join Sucursal s on vs.Sucursal_Id  = s.Sucursal_Id and vs.Cliente_Cod = s.Cliente_Cod
+					inner join Cliente c on vs.Cliente_Cod = s.Cliente_Cod
                     inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
                     inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
 

@@ -52,7 +52,6 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<Task> Task { get; set; }
         public virtual DbSet<Ubicacion> Ubicacion { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
-        public virtual DbSet<VencimientoProducto> VencimientoProducto { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
         public virtual DbSet<VendedorCliente> VendedorCliente { get; set; }
         public virtual DbSet<VendedorClienteSAP> VendedorClienteSAP { get; set; }
@@ -85,6 +84,8 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<VFrecuenciaVendedorCliente> VFrecuenciaVendedorCliente { get; set; }
         public virtual DbSet<VVisitasRealizadas> VVisitasRealizadas { get; set; }
         public virtual DbSet<AccionesCompetencia> AccionesCompetencia { get; set; }
+        public virtual DbSet<VencimientoProducto> VencimientoProducto { get; set; }
+        public virtual DbSet<VencimientoProductoDetalle> VencimientoProductoDetalle { get; set; }
     
         public virtual int sp_Clientes_Hbf()
         {

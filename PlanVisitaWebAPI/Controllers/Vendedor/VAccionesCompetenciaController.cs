@@ -127,6 +127,8 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     AccionesCompetencia_Precio = model.AccionesCompetencia_Precio,
                     AccionesCompetencia_PrecioOferta = model.AccionesCompetencia_PrecioOferta,
                     AccionesCompetencia_Colaborador = nombreV.Vendedor_Nombre,
+                    AccionesCompetencia_PuntoVentaDireccion = model.AccionesCompetencia_PuntoVentaDireccion,
+                    AccionesCompetencia_FechaCreacion = DateTime.Now
                 };
                 db.AccionesCompetencia.Add(newVisita);
 

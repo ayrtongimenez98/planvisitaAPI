@@ -46,17 +46,19 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                 string token = headers.GetValues("userToken").First();
                 var vendedor = Convert.ToInt32(token);
                 var sucursales = db.Database.SqlQuery<SucursalVendedorResponseModel>(@"select Cast(vc.Sucursal_Id as varchar) as Sucursal_Id, 
-case when h.city IS NULL then(select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod = vc.Cliente_Cod and s.Sucursal_Id = vc.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else h.city end as Sucursal_Ciudad, 
-case when h.street IS NULL then(select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod= vc.Cliente_Cod and s.Sucursal_Id = vc.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else h.street end as Sucursal_Direccion, 
-h.Address2 as Sucursal_Local, 
-h.GroupCode as Canal_Id,
+h.Sucursal_Ciudad, 
+h.Sucursal_Direccion, 
+NULL as Sucursal_Local, 
+NULL as Canal_Id,
 vc.Cliente_Cod as Cliente_Cod, 
-case when h.cardfname IS null then(select c.Cliente_RazonSocial from Cliente c where c.Cliente_Cod = vc.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else h.cardfname end as Cliente_RazonSocial, 
+c.Cliente_RazonSocial, 
 vc.Cantidad_Visitas as Cantidad_Visitas
 from VendedorClienteSAP vc
-left join V_Clientes_HBF h on vc.Cliente_Cod COLLATE Modern_Spanish_CI_AS = h.cardcode
-and vc.Sucursal_Id = h.Address where vc.Vendedor_Id = "  + vendedor).ToList<SucursalVendedorResponseModel>();
+join Sucursal h on vc.Sucursal_Id = h.Sucursal_Id and vc.Cliente_Cod = h.Cliente_Cod
+join Cliente c on h.Cliente_Cod = c.Cliente_Cod
+ where vc.Vendedor_Id =" + vendedor).ToList<SucursalVendedorResponseModel>();
 
+                sucursales = Utilities.CompararSeparar(sucursales);
 
                 var cantidad = sucursales.Count;
                 var sucursalesModels = sucursales.Skip(skip).Take(take).ToList();

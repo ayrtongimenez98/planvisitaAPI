@@ -14,15 +14,21 @@ namespace PlanVisitaWebAPI.DB
     
     public partial class VencimientoProducto
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public VencimientoProducto()
+        {
+            this.VencimientoProductoDetalle = new HashSet<VencimientoProductoDetalle>();
+        }
+    
         public int Vencimiento_Id { get; set; }
         public string Vencimiento_Division { get; set; }
         public string Vencimiento_Canal { get; set; }
         public string Vencimiento_Cargo { get; set; }
         public string Vencimiento_Colaborador { get; set; }
         public string Vencimiento_PuntoVentaDireccion { get; set; }
-        public string Vencimiento_Codigo_Barras { get; set; }
-        public string Vencimiento_Descripcion_Producto { get; set; }
-        public System.DateTime Vencimiento_Rango_Fecha { get; set; }
-        public string Vencimiento_Cantidad_SKU { get; set; }
+        public Nullable<System.DateTime> Vencimiento_FechaCreacion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VencimientoProductoDetalle> VencimientoProductoDetalle { get; set; }
     }
 }

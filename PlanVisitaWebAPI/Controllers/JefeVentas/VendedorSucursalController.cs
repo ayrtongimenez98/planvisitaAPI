@@ -53,7 +53,18 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                     var lista = new List<ClientesHBFDataSetAttribute>();
                     if (MemoryCacher.GetValue("listaClientes") == null)
                     {
-                        lista = db.Database.SqlQuery<ClientesHBFDataSetAttribute>("exec sp_Clientes_Hbf; ").ToList<ClientesHBFDataSetAttribute>();
+                        lista = db.Database.SqlQuery<ClientesHBFDataSetAttribute>(@"select s.Cliente_Cod as cardcode,
+c.Cliente_RazonSocial as cardfname,
+Convert(varchar, s.Sucursal_Id) as [Address],
+s.Sucursal_Ciudad as city,
+s.Sucursal_Direccion as street,
+0 as GroupCode,
+'' as GroupName,
+'' as Address2,
+'Activo' as Estado
+from Sucursal s
+inner
+join Cliente c on c.Cliente_Cod = s.Cliente_Cod").ToList<ClientesHBFDataSetAttribute>();
                         MemoryCacher.Add("listaClientes", lista, DateTimeOffset.UtcNow.AddDays(1));
                     }
                     else
@@ -64,36 +75,41 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
 
                     if (asignado) {
                         sucursales = db.Database.SqlQuery<SucursalVendedorResponseModel>(@"select Cast(vc.Sucursal_Id as varchar) as Sucursal_Id, 
-case when h.city IS NULL then(select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod = vc.Cliente_Cod and s.Sucursal_Id = vc.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else h.city end as Sucursal_Ciudad, 
-case when h.street IS NULL then(select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod= vc.Cliente_Cod and s.Sucursal_Id = vc.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else h.street end as Sucursal_Direccion, 
-h.Address2 as Sucursal_Local, 
-h.GroupCode as Canal_Id,
+h.Sucursal_Ciudad, 
+h.Sucursal_Direccion, 
+NULL as Sucursal_Local, 
+NULL as Canal_Id,
 vc.Cliente_Cod as Cliente_Cod, 
-case when h.cardfname IS null then(select c.Cliente_RazonSocial from Cliente c where c.Cliente_Cod = vc.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else h.cardfname end as Cliente_RazonSocial, 
+c.Cliente_RazonSocial, 
 vc.Cantidad_Visitas as Cantidad_Visitas
 from VendedorClienteSAP vc
-left join V_Clientes_HBF h on vc.Cliente_Cod COLLATE Modern_Spanish_CI_AS = h.cardcode
-and vc.Sucursal_Id = h.Address where vc.Vendedor_Id = " + vendedor).ToList<SucursalVendedorResponseModel>();
+join Sucursal h on vc.Sucursal_Id = h.Sucursal_Id and vc.Cliente_Cod = h.Cliente_Cod
+join Cliente c on h.Cliente_Cod = c.Cliente_Cod
+ where vc.Vendedor_Id =" + vendedor).ToList<SucursalVendedorResponseModel>();
                         sucursales = sucursales.Where(x => !string.IsNullOrEmpty(x.Cliente_RazonSocial)).Where(x => x.Cliente_RazonSocial.ToLower().Contains(filtro.ToLower()) || x.Cliente_Cod.Contains(filtro)).ToList();
                     } else
                     {
                         var asignados = db.Database.SqlQuery<SucursalVendedorResponseModel>(@"select Cast(vc.Sucursal_Id as varchar) as Sucursal_Id, 
-case when h.city IS NULL then(select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod = vc.Cliente_Cod and s.Sucursal_Id = vc.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else h.city end as Sucursal_Ciudad, 
-case when h.street IS NULL then(select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod= vc.Cliente_Cod and s.Sucursal_Id = vc.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else h.street end as Sucursal_Direccion, 
-h.Address2 as Sucursal_Local, 
-h.GroupCode as Canal_Id,
+h.Sucursal_Ciudad, 
+h.Sucursal_Direccion, 
+NULL as Sucursal_Local, 
+NULL as Canal_Id,
 vc.Cliente_Cod as Cliente_Cod, 
-case when h.cardfname IS null then(select c.Cliente_RazonSocial from Cliente c where c.Cliente_Cod = vc.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else h.cardfname end as Cliente_RazonSocial, 
+c.Cliente_RazonSocial, 
 vc.Cantidad_Visitas as Cantidad_Visitas
 from VendedorClienteSAP vc
-left join V_Clientes_HBF h on vc.Cliente_Cod COLLATE Modern_Spanish_CI_AS = h.cardcode
-and vc.Sucursal_Id = h.Address where vc.Vendedor_Id = " + vendedor).ToList<SucursalVendedorResponseModel>().Select(x => x.Cliente_Cod+x.Sucursal_Id);
-                        sucursales = lista.Where(x => !x.cardcode.Contains("CLIENTE NUEVO")).Where(x => !asignados.Contains(x.cardcode+x.Address)).Select(x => new SucursalVendedorResponseModel() { Cliente_Cod = x.cardcode, Cliente_RazonSocial = x.cardfname, Sucursal_Ciudad = x.city, Sucursal_Direccion = x.street, Sucursal_Id = x.Address }).ToList();
+join Sucursal h on vc.Sucursal_Id = h.Sucursal_Id and vc.Cliente_Cod = h.Cliente_Cod
+join Cliente c on h.Cliente_Cod = c.Cliente_Cod
+ where vc.Vendedor_Id =" + vendedor).ToList<SucursalVendedorResponseModel>();
+                        var asignadosText = asignados.Select(x => x.Cliente_Cod + x.Sucursal_Id);
+                        sucursales = lista.Where(x => !x.cardcode.Contains("CLIENTE NUEVO")).Where(x => !asignadosText.Contains(x.cardcode+x.Address)).Select(x => new SucursalVendedorResponseModel() { Cliente_Cod = x.cardcode, Cliente_RazonSocial = x.cardfname, Sucursal_Ciudad = x.city, Sucursal_Direccion = x.street, Sucursal_Id = x.Address }).ToList();
                         sucursales = sucursales.Where(x => !string.IsNullOrEmpty(x.Cliente_RazonSocial)).Where(x => x.Cliente_RazonSocial.ToLower().Contains(filtro.ToLower()) || x.Cliente_Cod.Contains(filtro)).ToList();
+                        
                     }
                     
                     var cantidad = sucursales.Count;
-                    var sucursalesModels = sucursales.Skip(skip).Take(take);
+                    var sucursalesModels = sucursales.Skip(skip).Take(take).ToList();
+                    sucursalesModels = Utilities.CompararSeparar(sucursalesModels);
                     var paginationModel = new PaginationModel<SucursalVendedorResponseModel>()
                     {
                         CantidadTotal = cantidad,

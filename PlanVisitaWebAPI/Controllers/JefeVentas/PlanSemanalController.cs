@@ -35,21 +35,22 @@ namespace PlanVisitaWebAPI.Controllers
                 var PlanSemanalList = new List<PlanSemanalResponseModel>();
                 var paginationModel = new PaginationModel<PlanSemanalResponseModel>();
                 var PlanSemanalQuery = db.Database.SqlQuery<PlanSemanalResponseModel>(@"
-                   SELECT vs.PlanSemanal_Id,  
+                   						   SELECT vs.PlanSemanal_Id,  
                     	   FORMAT (vs.PlanSemanal_Horario, 'yyyy_MM') as Periodo, 
                     	   vs.PlanSemanal_Horario,
                            CAST(FORMAT(vs.PlanSemanal_Horario, 'hh:mm') AS varchar) AS PlanSemanal_Hora_Entrada, 
                     	   vs.Vendedor_Id, 
                     	   v.Vendedor_Nombre as Vendedor, 
-                    	   c.cardcode as CodCliente,
-                    	   case when c.cardfname IS null then (select Cliente_RazonSocial from Cliente  where Cliente_Cod  = vs.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else c.cardfname end as Cliente,
-                    	   case when c.city IS NULL then (select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else c.city end as Ciudad, 
-                            case when c.street IS NULL then (select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else c.street end as Direccion, 
+                    	   c.Cliente_Cod as CodCliente,
+                    	   c.Cliente_RazonSocial as Cliente,
+                    	   s.Sucursal_Ciudad as Ciudad, 
+                            s.Sucursal_Direccion as Direccion, 
                             cast(vs.Sucursal_Id as varchar) as Sucursal_Id, 
                     	   vs.PlanSemanal_Estado
                     FROM PlanSemanalSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
-                    left join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and cast(vs.Sucursal_Id as nvarchar) = c.Address
+                    inner join Sucursal s on vs.Cliente_Cod = s.Cliente_Cod and vs.Sucursal_Id = s.Sucursal_Id
+					inner join Cliente c on vs.Cliente_Cod = s.Cliente_Cod
                  ").ToList<PlanSemanalResponseModel>();
 
                 if (Vendedor_Id != 0)
@@ -104,21 +105,22 @@ namespace PlanVisitaWebAPI.Controllers
                 string token = headers.GetValues("jefeToken").First();
                 var jefeVentasId = Convert.ToInt32(token);
                 var PlanSemanalQuery = db.Database.SqlQuery<PlanSemanalResponseModel>(@"
-                   SELECT vs.PlanSemanal_Id,  
+                   						   SELECT vs.PlanSemanal_Id,  
                     	   FORMAT (vs.PlanSemanal_Horario, 'yyyy_MM') as Periodo, 
                     	   vs.PlanSemanal_Horario,
                            CAST(FORMAT(vs.PlanSemanal_Horario, 'hh:mm') AS varchar) AS PlanSemanal_Hora_Entrada, 
                     	   vs.Vendedor_Id, 
                     	   v.Vendedor_Nombre as Vendedor, 
-                    	   c.cardcode as CodCliente,
-                    	   case when c.cardfname IS null then (select Cliente_RazonSocial from Cliente  where Cliente_Cod  = vs.Cliente_Cod) COLLATE Modern_Spanish_CI_AS else c.cardfname end as Cliente,
-                    	   case when c.city IS NULL then (select s.Sucursal_Ciudad from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS else c.city end as Ciudad, 
-                            case when c.street IS NULL then (select s.Sucursal_Direccion from Sucursal s where s.Cliente_Cod=vs.Cliente_Cod and s.Sucursal_Id = vs.Sucursal_Id) COLLATE Modern_Spanish_CI_AS  else c.street end as Direccion, 
+                    	   c.Cliente_Cod as CodCliente,
+                    	   c.Cliente_RazonSocial as Cliente,
+                    	   s.Sucursal_Ciudad as Ciudad, 
+                            s.Sucursal_Direccion as Direccion, 
                             cast(vs.Sucursal_Id as varchar) as Sucursal_Id, 
                     	   vs.PlanSemanal_Estado
                     FROM PlanSemanalSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
-                    left join V_Clientes_HBF c on vs.Cliente_Cod COLLATE Modern_Spanish_CI_AS = c.cardcode and cast(vs.Sucursal_Id as nvarchar) = c.Address
+                    inner join Sucursal s on vs.Cliente_Cod = s.Cliente_Cod and vs.Sucursal_Id = s.Sucursal_Id
+					inner join Cliente c on vs.Cliente_Cod = s.Cliente_Cod
                  ").ToList<PlanSemanalResponseModel>();
 
                 var marcacion = PlanSemanalQuery.FirstOrDefault(x => x.PlanSemanal_Id == id);

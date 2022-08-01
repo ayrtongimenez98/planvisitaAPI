@@ -370,6 +370,9 @@
     <Compile Include="DB\VencimientoProducto.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\VencimientoProductoDetalle.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Vendedor.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
@@ -462,6 +465,7 @@
     </Compile>
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Helpers\MemoryCacher.cs" />
+    <Compile Include="Models\Utilities.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Authentication\LoginResponseModel.cs" />
@@ -493,6 +497,8 @@
     <Compile Include="Models\Sucursal\SucursalUpdateModel.cs" />
     <Compile Include="Models\Usuario\UsuarioResponseModel.cs" />
     <Compile Include="Models\Usuario\UsuarioUpdateModel.cs" />
+    <Compile Include="Models\VencimientoProducto\VencimientoProductoDetalleModel.cs" />
+    <Compile Include="Models\VencimientoProducto\VencimientoProductoModel.cs" />
     <Compile Include="Models\Vencimiento\VencimientoUpsertModel.cs" />
     <Compile Include="Models\VendedorSucursal\VendedorSucursalUpdateModel.cs" />
     <Compile Include="Models\Vendedor\VendedorResponseModel.cs" />

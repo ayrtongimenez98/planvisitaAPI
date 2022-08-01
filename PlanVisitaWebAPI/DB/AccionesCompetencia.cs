@@ -22,5 +22,7 @@ namespace PlanVisitaWebAPI.DB
         public string AccionesCompetencia_PrecioOferta { get; set; }
         public string AccionesCompetencia_Observacion { get; set; }
         public string AccionesCompetencia_Colaborador { get; set; }
+        public string AccionesCompetencia_PuntoVentaDireccion { get; set; }
+        public Nullable<System.DateTime> AccionesCompetencia_FechaCreacion { get; set; }
     }
 }

@@ -290,21 +290,6 @@
     <NavigationProperty Name="Vendedor" Relationship="Self.fk_usuario_vendedor_id" FromRole="Usuario" ToRole="Vendedor" />
     <Property Name="Usuario_Rol" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
-  <EntityType Name="VencimientoProducto">
-    <Key>
-      <PropertyRef Name="Vencimiento_Id" />
-    </Key>
-    <Property Name="Vencimiento_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Vencimiento_Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Vencimiento_Canal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Vencimiento_Cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Vencimiento_Colaborador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Vencimiento_PuntoVentaDireccion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Vencimiento_Codigo_Barras" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Vencimiento_Descripcion_Producto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Vencimiento_Rango_Fecha" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Vencimiento_Cantidad_SKU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-  </EntityType>
   <EntityType Name="Vendedor">
     <Key>
       <PropertyRef Name="Vendedor_Id" />
@@ -1269,7 +1254,6 @@
     <EntitySet Name="Task" EntityType="Self.Task" />
     <EntitySet Name="Ubicacion" EntityType="Self.Ubicacion" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-    <EntitySet Name="VencimientoProducto" EntityType="Self.VencimientoProducto" />
     <EntitySet Name="Vendedor" EntityType="Self.Vendedor" />
     <EntitySet Name="VendedorCliente" EntityType="Self.VendedorCliente" />
     <EntitySet Name="VendedorClienteSAP" EntityType="Self.VendedorClienteSAP" />
@@ -1402,5 +1386,65 @@
       <End Role="Vendedor" EntitySet="Vendedor" />
     </AssociationSet>
     <FunctionImport Name="sp_Clientes_Hbf" />
+    <EntitySet Name="AccionesCompetencia" EntityType="PLAN_VISITAModel.AccionesCompetencia" />
+    <EntitySet Name="VencimientoProducto" EntityType="PLAN_VISITAModel.VencimientoProducto" />
+    <EntitySet Name="VencimientoProductoDetalle" EntityType="PLAN_VISITAModel.VencimientoProductoDetalle" />
+    <AssociationSet Name="FK_VencimientoProductoDetalle_VencimientoProducto" Association="PLAN_VISITAModel.FK_VencimientoProductoDetalle_VencimientoProducto">
+      <End Role="VencimientoProducto" EntitySet="VencimientoProducto" />
+      <End Role="VencimientoProductoDetalle" EntitySet="VencimientoProductoDetalle" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="AccionesCompetencia">
+    <Key>
+      <PropertyRef Name="AccionesCompetencia_Id" />
+    </Key>
+    <Property Name="AccionesCompetencia_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AccionesCompetencia_Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Canal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Precio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_PrecioOferta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_Colaborador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_PuntoVentaDireccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AccionesCompetencia_FechaCreacion" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="VencimientoProducto">
+    <Key>
+      <PropertyRef Name="Vencimiento_Id" />
+    </Key>
+    <Property Name="Vencimiento_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Vencimiento_Division" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Vencimiento_Canal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Vencimiento_Cargo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Vencimiento_Colaborador" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Vencimiento_PuntoVentaDireccion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="VencimientoProductoDetalle" Relationship="PLAN_VISITAModel.FK_VencimientoProductoDetalle_VencimientoProducto" FromRole="VencimientoProducto" ToRole="VencimientoProductoDetalle" />
+    <Property Name="Vencimiento_FechaCreacion" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="VencimientoProductoDetalle">
+    <Key>
+      <PropertyRef Name="VencimientoProductoDetalle_Id" />
+      <PropertyRef Name="VencimientoProducto_Id" />
+    </Key>
+    <Property Name="VencimientoProductoDetalle_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VencimientoProducto_Id" Type="Int32" Nullable="false" />
+    <Property Name="VencimientoProductoDetalle_Codigo_Barras" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="VencimientoProductoDetalle_Descripcion_Producto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="VencimientoProductoDetalle_Rango_Fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="VencimientoProductoDetalle_Cantidad_SKU" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="VencimientoProducto" Relationship="PLAN_VISITAModel.FK_VencimientoProductoDetalle_VencimientoProducto" FromRole="VencimientoProductoDetalle" ToRole="VencimientoProducto" />
+  </EntityType>
+  <Association Name="FK_VencimientoProductoDetalle_VencimientoProducto">
+    <End Type="PLAN_VISITAModel.VencimientoProducto" Role="VencimientoProducto" Multiplicity="1" />
+    <End Type="PLAN_VISITAModel.VencimientoProductoDetalle" Role="VencimientoProductoDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VencimientoProducto">
+        <PropertyRef Name="Vencimiento_Id" />
+      </Principal>
+      <Dependent Role="VencimientoProductoDetalle">
+        <PropertyRef Name="VencimientoProducto_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

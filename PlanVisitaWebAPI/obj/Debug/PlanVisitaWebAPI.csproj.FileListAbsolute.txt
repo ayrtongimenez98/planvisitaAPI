@@ -473,8 +473,8 @@ C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\bin\es\Microsoft.
 C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\bin\es\System.Web.Http.Owin.resources.dll
-C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.AssemblyReference.cache
 C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.CoreCompileInputs.cache
 C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.CopyComplete
 C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.dll
 C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.pdb
+C:\Users\admin\Documents\GitHub\planvisitaAPI\PlanVisitaWebAPI\obj\Debug\PlanVisitaWebAPI.csproj.AssemblyReference.cache

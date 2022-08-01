@@ -1,5 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="PLAN_VISITAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AccionesCompetencia">
+    <Key>
+      <PropertyRef Name="AccionesCompetencia_Id" />
+    </Key>
+    <Property Name="AccionesCompetencia_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccionesCompetencia_Division" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Canal" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Descripcion" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Precio" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_PrecioOferta" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Observacion" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_Colaborador" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_PuntoVentaDireccion" Type="varchar" MaxLength="50" />
+    <Property Name="AccionesCompetencia_FechaCreacion" Type="datetime" />
+  </EntityType>
   <EntityType Name="Canal">
     <Key>
       <PropertyRef Name="Canal_Id" />
@@ -274,10 +289,19 @@
     <Property Name="Vencimiento_Cargo" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Vencimiento_Colaborador" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Vencimiento_PuntoVentaDireccion" Type="varchar" MaxLength="250" Nullable="false" />
-    <Property Name="Vencimiento_Codigo_Barras" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Vencimiento_Descripcion_Producto" Type="varchar" MaxLength="150" Nullable="false" />
-    <Property Name="Vencimiento_Rango_Fecha" Type="date" Nullable="false" />
-    <Property Name="Vencimiento_Cantidad_SKU" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Vencimiento_FechaCreacion" Type="datetime" />
+  </EntityType>
+  <EntityType Name="VencimientoProductoDetalle">
+    <Key>
+      <PropertyRef Name="VencimientoProductoDetalle_Id" />
+      <PropertyRef Name="VencimientoProducto_Id" />
+    </Key>
+    <Property Name="VencimientoProductoDetalle_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VencimientoProducto_Id" Type="int" Nullable="false" />
+    <Property Name="VencimientoProductoDetalle_Codigo_Barras" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VencimientoProductoDetalle_Descripcion_Producto" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="VencimientoProductoDetalle_Rango_Fecha" Type="date" Nullable="false" />
+    <Property Name="VencimientoProductoDetalle_Cantidad_SKU" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Vendedor">
     <Key>
@@ -1041,6 +1065,18 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_VencimientoProductoDetalle_VencimientoProducto">
+    <End Role="VencimientoProducto" Type="Self.VencimientoProducto" Multiplicity="1" />
+    <End Role="VencimientoProductoDetalle" Type="Self.VencimientoProductoDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VencimientoProducto">
+        <PropertyRef Name="Vencimiento_Id" />
+      </Principal>
+      <Dependent Role="VencimientoProductoDetalle">
+        <PropertyRef Name="VencimientoProducto_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_VendedorZona_Vendedor">
     <End Role="Vendedor" Type="Self.Vendedor" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -1263,6 +1299,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
   </Association>
   <Function Name="sp_Clientes_Hbf" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="PLAN_VISITAModelStoreContainer">
+    <EntitySet Name="AccionesCompetencia" EntityType="Self.AccionesCompetencia" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Canal" EntityType="Self.Canal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CanalSucursal" EntityType="Self.CanalSucursal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CanalVendedor" EntityType="Self.CanalVendedor" Schema="dbo" store:Type="Tables" />
@@ -1290,6 +1327,7 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
     <EntitySet Name="Ubicacion" EntityType="Self.Ubicacion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VencimientoProducto" EntityType="Self.VencimientoProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VencimientoProductoDetalle" EntityType="Self.VencimientoProductoDetalle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vendedor" EntityType="Self.Vendedor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VendedorCliente" EntityType="Self.VendedorCliente" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VendedorClienteSAP" EntityType="Self.VendedorClienteSAP" Schema="dbo" store:Type="Tables" />
@@ -1657,6 +1695,10 @@ advertencia 6002: La tabla o vista 'PLAN_VISITA.dbo.VVisitasRealizadas' no tiene
     <AssociationSet Name="fk_usuario_vendedor_id" Association="Self.fk_usuario_vendedor_id">
       <End Role="Vendedor" EntitySet="Vendedor" />
       <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VencimientoProductoDetalle_VencimientoProducto" Association="Self.FK_VencimientoProductoDetalle_VencimientoProducto">
+      <End Role="VencimientoProducto" EntitySet="VencimientoProducto" />
+      <End Role="VencimientoProductoDetalle" EntitySet="VencimientoProductoDetalle" />
     </AssociationSet>
     <AssociationSet Name="FK_VendedorZona_Vendedor" Association="Self.FK_VendedorZona_Vendedor">
       <End Role="Vendedor" EntitySet="Vendedor" />

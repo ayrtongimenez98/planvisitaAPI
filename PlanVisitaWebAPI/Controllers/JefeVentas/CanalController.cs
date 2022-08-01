@@ -30,16 +30,17 @@ namespace PlanVisitaWebAPI.Controllers
             string token = headers.GetValues("jefeToken").First();
             var usuarioid = Convert.ToInt32(token);
             var jefeVentasId = db.Usuario.First(x => x.Usuario_Id == usuarioid).JefeVentas_Id;
-            var query = "";
             var usuario = db.Usuario.First(x => x.Usuario_Id == usuarioid);
+            var canales = new List<CanalResponseModel>();
             if (usuario.Usuario_Rol == "A")
             {
-                query = "SELECT GroupCode as Canal_Id, GroupName as Descripcion, GroupType as Tipo FROM V_Canales_HBF c";
+                canales = db.Canal.ToList().Select(x => new CanalResponseModel() { Canal_Id = x.Canal_Id, Descripcion = x.Descripcion, Tipo = ""}).ToList();
             }
             else {
-                query = "SELECT GroupCode as Canal_Id, GroupName as Descripcion, GroupType as Tipo FROM V_Canales_HBF c inner join JefeVentasCanal j on  c.GroupCode = j.Canal_Id where j.JefeVentas_Id = " + jefeVentasId;
+                var listaCanalesId = db.JefeVentasCanal.ToList().Select(x => x.Canal_Id);
+                canales = db.Canal.ToList().Where(x => listaCanalesId.Contains(x.Canal_Id)).Select(x => new CanalResponseModel() { Canal_Id = x.Canal_Id, Descripcion = x.Descripcion, Tipo = "" }).ToList();
             }
-            var canales = db.Database.SqlQuery<CanalResponseModel>(query).ToList<CanalResponseModel>();
+            
 
             var paginationModel = new PaginationModel<CanalResponseModel>()
             {

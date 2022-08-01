@@ -28,7 +28,17 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
             var lista = new List<ClientesHBFDataSetAttribute>();
             if (MemoryCacher.GetValue("listaClientes") == null)
             {
-                lista = db.Database.SqlQuery<ClientesHBFDataSetAttribute>("exec sp_Clientes_Hbf; ").ToList<ClientesHBFDataSetAttribute>();
+                lista = db.Database.SqlQuery<ClientesHBFDataSetAttribute>(@"select s.Cliente_Cod as cardcode,
+c.Cliente_RazonSocial as cardfname,
+Convert(varchar,s.Sucursal_Id) as [Address],
+s.Sucursal_Ciudad as city,
+s.Sucursal_Direccion as street,
+0 as GroupCode,
+'' as GroupName,
+'' as Address2,
+'Activo' as Estado
+from Sucursal s
+inner join Cliente c on c.Cliente_Cod = s.Cliente_Cod").ToList<ClientesHBFDataSetAttribute>();
                 MemoryCacher.Add("listaClientes", lista, DateTimeOffset.UtcNow.AddDays(1));
             }
             else
@@ -58,13 +68,13 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
         // GET api/<controller>/5
         public HttpResponseMessage Get(int id)
         {
-            var Sucursal = db.V_Clientes_HBF.FirstOrDefault(x => x.Address == id.ToString());
+            var Sucursal = db.Sucursal.FirstOrDefault(x => x.Sucursal_Id == id);
             var sucursalModel = new SucursalResponseListModel() { 
-                Cliente_Cod = Sucursal.cardcode, 
-                Sucursal_Ciudad = Sucursal.city, 
-                Sucursal_Direccion = Sucursal.street, 
-                Sucursal_Id = Convert.ToInt32(Sucursal.Address),
-                Sucursal_Nombre = Sucursal.Address2
+                Cliente_Cod = Sucursal.Cliente_Cod, 
+                Sucursal_Ciudad = Sucursal.Sucursal_Ciudad, 
+                Sucursal_Direccion = Sucursal.Sucursal_Direccion, 
+                Sucursal_Id = Convert.ToInt32(Sucursal.Sucursal_Id),
+                Sucursal_Nombre = Sucursal.Sucursal_Ciudad
             };
 
 

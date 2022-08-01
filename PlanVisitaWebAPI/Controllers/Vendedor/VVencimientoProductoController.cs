@@ -3,6 +3,7 @@ using PlanVisitaWebAPI.DB;
 using PlanVisitaWebAPI.Models;
 using PlanVisitaWebAPI.Models.Shared;
 using PlanVisitaWebAPI.Models.Vencimiento;
+using PlanVisitaWebAPI.Models.VencimientoProducto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,28 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                 var vendedor = Convert.ToInt32(token);
                 var nombreV = db.Vendedor.FirstOrDefault(x => x.Vendedor_Id == vendedor);
 
-                var listaDivisions = db.VencimientoProducto.Where(x => x.Vencimiento_Colaborador == nombreV.Vendedor_Nombre && x.Vencimiento_Descripcion_Producto.Contains(filtro)).ToList();
-
-                var paginationModel = new PaginationModel<VencimientoProducto>()
+                var listaDivisions = db.VencimientoProducto.Where(x => x.Vencimiento_Colaborador == nombreV.Vendedor_Nombre).ToList();
+                var listaModelos = listaDivisions.Select(x => new VencimientoProductoModel()
                 {
-                    CantidadTotal = listaDivisions.Count,
-                    Listado = listaDivisions.Skip(skip).Take(take)
+                    Vencimiento_Canal = x.Vencimiento_Canal,
+                    Vencimiento_Cargo = x.Vencimiento_Cargo,
+                    Vencimiento_Colaborador = x.Vencimiento_Colaborador,
+                    Vencimiento_Division = x.Vencimiento_Division,
+                    Vencimiento_PuntoVentaDireccion = x.Vencimiento_PuntoVentaDireccion,
+                    Vencimiento_Id = x.Vencimiento_Id,
+                    Vencimiento_FechaCreacion = x.Vencimiento_FechaCreacion,
+                    Vencimiento_Detalle = x.VencimientoProductoDetalle.Select(y => new VencimientoProductoDetalleModel() { VencimientoProductoDetalle_Cantidad_SKU = y.VencimientoProductoDetalle_Cantidad_SKU,
+                                                                                                                            VencimientoProductoDetalle_Codigo_Barras = y.VencimientoProductoDetalle_Codigo_Barras,
+                                                                                                                            VencimientoProductoDetalle_Descripcion_Producto = y.VencimientoProductoDetalle_Descripcion_Producto,
+                                                                                                                            VencimientoProductoDetalle_Id = y.VencimientoProductoDetalle_Id,
+                                                                                                                            VencimientoProductoDetalle_Rango_Fecha = y.VencimientoProductoDetalle_Rango_Fecha,
+                                                                                                                            VencimientoProducto_Id = y.VencimientoProducto_Id}).ToList()
+                }).ToList();
+
+                var paginationModel = new PaginationModel<VencimientoProductoModel>()
+                {
+                    CantidadTotal = listaModelos.Count,
+                    Listado = listaModelos.Skip(skip).Take(take)
                 };
 
                 var json = JsonConvert.SerializeObject(paginationModel);
@@ -126,10 +143,11 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     Vencimiento_Cargo= model.Vencimiento_Cargo,
                     Vencimiento_Colaborador= nombreV.Vendedor_Nombre,
                     Vencimiento_PuntoVentaDireccion= model.Vencimiento_PuntoVentaDireccion,
-                    Vencimiento_Codigo_Barras= model.Vencimiento_Codigo_Barras,
-                    Vencimiento_Descripcion_Producto= model.Vencimiento_Descripcion_Producto,
-                    Vencimiento_Rango_Fecha= model.Vencimiento_Rango_Fecha,
-                    Vencimiento_Cantidad_SKU= model.Vencimiento_Cantidad_SKU
+                    Vencimiento_FechaCreacion = DateTime.Now,
+                    VencimientoProductoDetalle = model.Vencimiento_Detalle.Select(x => new VencimientoProductoDetalle() { VencimientoProductoDetalle_Cantidad_SKU = x.VencimientoProductoDetalle_Cantidad_SKU, 
+                                                                                                                          VencimientoProductoDetalle_Codigo_Barras = x.VencimientoProductoDetalle_Codigo_Barras,
+                                                                                                                           VencimientoProductoDetalle_Descripcion_Producto = x.VencimientoProductoDetalle_Descripcion_Producto,
+                                                                                                                          VencimientoProductoDetalle_Rango_Fecha = x.VencimientoProductoDetalle_Rango_Fecha}).ToList()
                 };
                 db.VencimientoProducto.Add(newVisita);
 

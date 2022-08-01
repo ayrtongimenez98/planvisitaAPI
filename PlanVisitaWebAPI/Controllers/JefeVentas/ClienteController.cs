@@ -23,18 +23,18 @@ namespace PlanVisitaWebAPI.Controllers
         {
             if (filtro == null)
                 filtro = "";
-            var lista = new List<ClientesHBFDataSetAttribute>();
+            var lista = new List<ClienteResponseModel>();
             if (MemoryCacher.GetValue("listaClientes") == null)
             {
-                lista = db.Database.SqlQuery<ClientesHBFDataSetAttribute>("exec sp_Clientes_Hbf; ").ToList<ClientesHBFDataSetAttribute>();
+                lista = db.Cliente.Select(x => new ClienteResponseModel() { Cliente_Cod = x.Cliente_Cod, Cliente_RazonSocial = x.Cliente_RazonSocial}).ToList();
                 MemoryCacher.Add("listaClientes", lista, DateTimeOffset.UtcNow.AddDays(1));
             }
             else
             {
-                lista = (List<ClientesHBFDataSetAttribute>)MemoryCacher.GetValue("listaClientes");
+                lista = (List<ClienteResponseModel>)MemoryCacher.GetValue("listaClientes");
             }
-            lista = lista.Where(x => x.street != null && x.city != null && x.cardcode != null && x.cardfname != null).Where(x => !x.cardcode.Contains("CLIENTE NUEVO")).ToList();
-            var listaClientes = lista.Where(x => x.cardcode.ToLower().Contains(filtro.ToLower()) || x.cardfname.ToLower().Contains(filtro.ToLower())).Select(x => new ClienteResponseModel() { Cliente_Cod = x.cardcode, Cliente_RazonSocial = x.cardfname }).GroupBy(p => new { p.Cliente_Cod, p.Cliente_RazonSocial}).Select(g => g.First()).OrderBy(x => x.Cliente_Cod).ToList();
+            lista = lista.Where(x => !x.Cliente_RazonSocial.Contains("CLIENTE NUEVO")).ToList();
+            var listaClientes = lista.Where(x => x.Cliente_Cod.ToLower().Contains(filtro.ToLower()) || x.Cliente_RazonSocial.ToLower().Contains(filtro.ToLower())).ToList();
             var listaClientesModel = listaClientes;
 
             var paginationModel = new PaginationModel<ClienteResponseModel>() { 
@@ -51,13 +51,9 @@ namespace PlanVisitaWebAPI.Controllers
         public HttpResponseMessage Get(string id)
         {
            
-            var cliente = db.V_Clientes_HBF.FirstOrDefault(x => x.cardcode == id);
-            var clienteModel = new ClienteResponseModel() {
-                Cliente_RazonSocial = cliente.cardfname,
-                Cliente_Cod = cliente.cardcode
-            };
+            var cliente = db.Cliente.FirstOrDefault(x => x.Cliente_Cod == id);
 
-            var json = JsonConvert.SerializeObject(clienteModel);
+            var json = JsonConvert.SerializeObject(cliente);
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
             return response;

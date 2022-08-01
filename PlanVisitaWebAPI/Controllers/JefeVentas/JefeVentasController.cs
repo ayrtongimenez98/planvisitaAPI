@@ -74,6 +74,21 @@ namespace PlanVisitaWebAPI.Controllers
 
                 var resultado = db.SaveChanges();
 
+                if (resultado > 0)
+                {
+                    var ultimoId = db.JefeVentas.ToList().OrderByDescending(x => x.JefeVentas_Id).First();
+                    foreach (var item in model.CanalesId)
+                    {
+                        var jefeCanal = new JefeVentasCanal();
+                        jefeCanal.JefeVentas_Id = ultimoId.JefeVentas_Id;
+                        jefeCanal.Canal_Id = item;
+
+                        db.JefeVentasCanal.Add(jefeCanal);
+                    }
+                }
+
+                
+
 
                 validation.Success = resultado > 0;
                 if (resultado > 0)
@@ -117,7 +132,19 @@ namespace PlanVisitaWebAPI.Controllers
                 nuevoJefeVentas.JefeVentas_Mail = model.JefeVentas_Mail;
                 nuevoJefeVentas.JefeVentas_FechaLastUpdate = DateTime.Now;
 
-                
+                if (model.CanalesId.Any())
+                {
+                    var jefesCanales = db.JefeVentasCanal.Where(x => x.JefeVentas_Id == id).ToList();
+                    db.JefeVentasCanal.RemoveRange(jefesCanales);
+                    foreach (var item in model.CanalesId)
+                    {
+                        var jefeCanal = new JefeVentasCanal();
+                        jefeCanal.JefeVentas_Id = id;
+                        jefeCanal.Canal_Id = item;
+
+                        db.JefeVentasCanal.Add(jefeCanal);
+                    }
+                }
 
                 var resultado = db.SaveChanges();
 
