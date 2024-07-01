@@ -185,11 +185,16 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
             {
                 string token = headers.GetValues("userToken").First();
                 var vendedor = Convert.ToInt32(token);
-                if (value.Visita_Ubicacion_Salida == null)
-                    value.Visita_Ubicacion_Salida = "";
-                if (value.Visita_Hora_Salida == null)
-                    value.Visita_Hora_Salida = DateTime.Now;
-
+                var visitas = db.VisitaSAP.Where(x => x.Visita_Ubicacion_Salida == null && x.Visita_Hora_Salida == null);
+                if(visitas.Any())
+                {
+                    validation.Success = false;
+                    validation.Message = "Debe cerrar la visita actual para abrir la siguiente.";
+                    var json = JsonConvert.SerializeObject(validation);
+                    response = Request.CreateResponse(HttpStatusCode.NotFound);
+                    response.Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                    return response;
+                }
                 var newVisita = new VisitaSAP()
                 {
                     Cliente_Cod = value.Cliente_Cod,
