@@ -12,8 +12,6 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class PLAN_VISITAEntities : DbContext
     {
@@ -27,6 +25,7 @@ namespace PlanVisitaWebAPI.DB
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AccionesCompetencia> AccionesCompetencia { get; set; }
         public virtual DbSet<Canal> Canal { get; set; }
         public virtual DbSet<CanalSucursal> CanalSucursal { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
@@ -36,6 +35,8 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<EstadoMotivo> EstadoMotivo { get; set; }
         public virtual DbSet<JefeVentas> JefeVentas { get; set; }
         public virtual DbSet<JefeVentasCanal> JefeVentasCanal { get; set; }
+        public virtual DbSet<Marcas> Marcas { get; set; }
+        public virtual DbSet<Mobiliario> Mobiliario { get; set; }
         public virtual DbSet<Motivo> Motivo { get; set; }
         public virtual DbSet<Notificacion> Notificacion { get; set; }
         public virtual DbSet<ObjetivoVisita> ObjetivoVisita { get; set; }
@@ -47,11 +48,16 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<PlanSemanalSAP> PlanSemanalSAP { get; set; }
         public virtual DbSet<PlanVisita> PlanVisita { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
+        public virtual DbSet<Puntera> Puntera { get; set; }
+        public virtual DbSet<SubMarca> SubMarca { get; set; }
         public virtual DbSet<Sucursal> Sucursal { get; set; }
         public virtual DbSet<Tarea> Tarea { get; set; }
         public virtual DbSet<Task> Task { get; set; }
+        public virtual DbSet<TipoMueble> TipoMueble { get; set; }
         public virtual DbSet<Ubicacion> Ubicacion { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<VencimientoProducto> VencimientoProducto { get; set; }
+        public virtual DbSet<VencimientoProductoDetalle> VencimientoProductoDetalle { get; set; }
         public virtual DbSet<Vendedor> Vendedor { get; set; }
         public virtual DbSet<VendedorCliente> VendedorCliente { get; set; }
         public virtual DbSet<VendedorClienteSAP> VendedorClienteSAP { get; set; }
@@ -63,33 +69,5 @@ namespace PlanVisitaWebAPI.DB
         public virtual DbSet<VisitaSAP> VisitaSAP { get; set; }
         public virtual DbSet<Zona> Zona { get; set; }
         public virtual DbSet<ZonaSucursal> ZonaSucursal { get; set; }
-        public virtual DbSet<Detalle_Visita> Detalle_Visita { get; set; }
-        public virtual DbSet<V_Canales_HBF> V_Canales_HBF { get; set; }
-        public virtual DbSet<V_CARTERA_ACTUAL> V_CARTERA_ACTUAL { get; set; }
-        public virtual DbSet<V_Cartera_Clientes> V_Cartera_Clientes { get; set; }
-        public virtual DbSet<V_CLIENTE_SUCURSAL> V_CLIENTE_SUCURSAL { get; set; }
-        public virtual DbSet<V_Clientes_HBF> V_Clientes_HBF { get; set; }
-        public virtual DbSet<V_Clientes_Total> V_Clientes_Total { get; set; }
-        public virtual DbSet<V_ClientesVenRep> V_ClientesVenRep { get; set; }
-        public virtual DbSet<V_Detalle_Visita> V_Detalle_Visita { get; set; }
-        public virtual DbSet<V_Dual_Visita> V_Dual_Visita { get; set; }
-        public virtual DbSet<V_PLAN_SEMANAL> V_PLAN_SEMANAL { get; set; }
-        public virtual DbSet<V_PlanSemCargXDia> V_PlanSemCargXDia { get; set; }
-        public virtual DbSet<V_RUTA_DIA> V_RUTA_DIA { get; set; }
-        public virtual DbSet<V_RUTA_DIA_NUEVO> V_RUTA_DIA_NUEVO { get; set; }
-        public virtual DbSet<V_VDetallePlanSVendedores> V_VDetallePlanSVendedores { get; set; }
-        public virtual DbSet<V_Visitas_Detalle> V_Visitas_Detalle { get; set; }
-        public virtual DbSet<V_Visitas_Dual> V_Visitas_Dual { get; set; }
-        public virtual DbSet<VClienteSAPHBF> VClienteSAPHBF { get; set; }
-        public virtual DbSet<VFrecuenciaVendedorCliente> VFrecuenciaVendedorCliente { get; set; }
-        public virtual DbSet<VVisitasRealizadas> VVisitasRealizadas { get; set; }
-        public virtual DbSet<AccionesCompetencia> AccionesCompetencia { get; set; }
-        public virtual DbSet<VencimientoProducto> VencimientoProducto { get; set; }
-        public virtual DbSet<VencimientoProductoDetalle> VencimientoProductoDetalle { get; set; }
-    
-        public virtual int sp_Clientes_Hbf()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Clientes_Hbf");
-        }
     }
 }

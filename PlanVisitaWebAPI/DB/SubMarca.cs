@@ -12,28 +12,20 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class SubMarca
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public SubMarca()
         {
-            this.Mobiliario = new HashSet<Mobiliario>();
             this.Puntera = new HashSet<Puntera>();
         }
     
-        public int Usuario_Id { get; set; }
-        public string Usuario_Nombre { get; set; }
-        public string Usuario_Pass { get; set; }
-        public int JefeVentas_Id { get; set; }
-        public string Usuario1 { get; set; }
-        public Nullable<int> Usuario_Vendedor_Id { get; set; }
-        public string Usuario_Rol { get; set; }
+        public int SubMarca_Id { get; set; }
+        public int Marca_Id { get; set; }
+        public string SubMarca_Nombre { get; set; }
     
-        public virtual JefeVentas JefeVentas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Mobiliario> Mobiliario { get; set; }
+        public virtual Marcas Marcas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Puntera> Puntera { get; set; }
-        public virtual Vendedor Vendedor { get; set; }
     }
 }

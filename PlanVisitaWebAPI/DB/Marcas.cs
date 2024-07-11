@@ -12,28 +12,27 @@ namespace PlanVisitaWebAPI.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class Marcas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public Marcas()
         {
             this.Mobiliario = new HashSet<Mobiliario>();
             this.Puntera = new HashSet<Puntera>();
+            this.SubMarca = new HashSet<SubMarca>();
+            this.TipoMueble = new HashSet<TipoMueble>();
         }
     
-        public int Usuario_Id { get; set; }
-        public string Usuario_Nombre { get; set; }
-        public string Usuario_Pass { get; set; }
-        public int JefeVentas_Id { get; set; }
-        public string Usuario1 { get; set; }
-        public Nullable<int> Usuario_Vendedor_Id { get; set; }
-        public string Usuario_Rol { get; set; }
+        public int Marca_Id { get; set; }
+        public string Marca_Nombre { get; set; }
     
-        public virtual JefeVentas JefeVentas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Mobiliario> Mobiliario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Puntera> Puntera { get; set; }
-        public virtual Vendedor Vendedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubMarca> SubMarca { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TipoMueble> TipoMueble { get; set; }
     }
 }

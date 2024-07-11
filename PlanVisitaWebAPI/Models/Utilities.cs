@@ -15,11 +15,8 @@ namespace PlanVisitaWebAPI.Models
         public static List<SucursalVendedorResponseModel> CompararSeparar(List<SucursalVendedorResponseModel> listaActual) {
             var list = new List<SucursalVendedorResponseModel>();
             var pivot = new SucursalVendedorResponseModel();
-            string path = "C:\\Users\\admin\\Desktop\\log.txt";
-            StreamWriter sw = new StreamWriter(path);
-            //Write a line of text
             
-            //Close the file
+
             
             foreach (var sucursalVendedor in listaActual) {
                 pivot = sucursalVendedor;
@@ -40,13 +37,11 @@ namespace PlanVisitaWebAPI.Models
                                 list.Add(pivot);
                             } else
                             {
-                                sw.WriteLine($"Direccion: {pivot.Sucursal_Direccion}. Id: {pivot.Sucursal_Id}. Cod: {pivot.Cliente_Cod}");
                             }
                         }
                     }
                 }
             }
-            sw.Close();
             return list;
         }
 

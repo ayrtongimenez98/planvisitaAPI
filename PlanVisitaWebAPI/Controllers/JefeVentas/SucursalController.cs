@@ -26,7 +26,7 @@ namespace PlanVisitaWebAPI.Controllers.JefeVentas
                 codCliente = "";
             var listaSucursals = new List<ClientesHBFDataSetAttribute>();
             var lista = new List<ClientesHBFDataSetAttribute>();
-            if (MemoryCacher.GetValue("listaClientes") == null)
+            if (MemoryCacher.GetValue("listaSucursales") == null)
             {
                 lista = db.Database.SqlQuery<ClientesHBFDataSetAttribute>(@"select s.Cliente_Cod as cardcode,
 c.Cliente_RazonSocial as cardfname,
@@ -39,11 +39,11 @@ s.Sucursal_Direccion as street,
 'Activo' as Estado
 from Sucursal s
 inner join Cliente c on c.Cliente_Cod = s.Cliente_Cod").ToList<ClientesHBFDataSetAttribute>();
-                MemoryCacher.Add("listaClientes", lista, DateTimeOffset.UtcNow.AddDays(1));
+                MemoryCacher.Add("listaSucursales", lista, DateTimeOffset.UtcNow.AddDays(1));
             }
             else
             {
-                lista = (List<ClientesHBFDataSetAttribute>)MemoryCacher.GetValue("listaClientes");
+                lista = (List<ClientesHBFDataSetAttribute>)MemoryCacher.GetValue("listaSucursales");
             }
             lista = lista.Where(x => x.street != null && x.city != null && x.cardcode != null).ToList();
             if (string.IsNullOrEmpty(codCliente))

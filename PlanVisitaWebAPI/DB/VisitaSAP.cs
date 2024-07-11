@@ -25,6 +25,6 @@ namespace PlanVisitaWebAPI.DB
         public string Visita_Ubicacion_Entrada { get; set; }
         public string Visita_Ubicacion_Salida { get; set; }
         public System.DateTime Visita_Hora_Entrada { get; set; }
-        public System.DateTime Visita_Hora_Salida { get; set; }
+        public Nullable<System.DateTime> Visita_Hora_Salida { get; set; }
     }
 }

@@ -185,7 +185,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
             {
                 string token = headers.GetValues("userToken").First();
                 var vendedor = Convert.ToInt32(token);
-                var visitas = db.VisitaSAP.Where(x => x.Visita_Ubicacion_Salida == null && x.Visita_Hora_Salida == null);
+                var visitas = db.VisitaSAP.Where(x => string.IsNullOrEmpty(x.Visita_Ubicacion_Salida) && x.Visita_Hora_Salida == null);
                 if(visitas.Any())
                 {
                     validation.Success = false;
@@ -206,8 +206,8 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     Visita_fecha = value.Visita_fecha,
                     Visita_Hora_Entrada = value.Visita_Hora_Entrada,
                     Visita_Ubicacion_Entrada = value.Visita_Ubicacion_Entrada,
-                    Visita_Ubicacion_Salida = value.Visita_Ubicacion_Salida,
-                    Visita_Hora_Salida = value.Visita_Hora_Salida
+                    Visita_Ubicacion_Salida = "",
+                    Visita_Hora_Salida = null
                 };
                 db.VisitaSAP.Add(newVisita);
                 var plan = db.PlanSemanalSAP.ToList().Where(x => x.Vendedor_Id == vendedor && x.Sucursal_Id == value.Sucursal_Id && x.Cliente_Cod == value.Cliente_Cod && x.PlanSemanal_Horario.Date == DateTime.Now.Date && x.PlanSemanal_Estado == "N");

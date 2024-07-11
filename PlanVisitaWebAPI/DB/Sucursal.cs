@@ -28,6 +28,7 @@ namespace PlanVisitaWebAPI.DB
         public System.DateTime Sucursal_FechaCreacion { get; set; }
         public System.DateTime Sucursal_FechaLastUpdate { get; set; }
         public string Cliente_Cod { get; set; }
+        public Nullable<int> AddressSapId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CanalSucursal> CanalSucursal { get; set; }

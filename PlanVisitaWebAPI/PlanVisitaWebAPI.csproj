@@ -55,6 +55,9 @@
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -150,6 +153,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -212,6 +218,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -253,18 +260,23 @@
     <Compile Include="Controllers\JefeVentas\EstadisticaController.cs" />
     <Compile Include="Controllers\JefeVentas\JefeVentasController.cs" />
     <Compile Include="Controllers\JefeVentas\MarcacionesController.cs" />
+    <Compile Include="Controllers\JefeVentas\MarcaController.cs" />
     <Compile Include="Controllers\JefeVentas\MigracionController.cs" />
     <Compile Include="Controllers\JefeVentas\PlanSemanalController.cs" />
+    <Compile Include="Controllers\JefeVentas\SubMarcaController.cs" />
     <Compile Include="Controllers\JefeVentas\SucursalController.cs" />
+    <Compile Include="Controllers\JefeVentas\TipoMuebleController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorSucursalController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\JefeVentas\VendedorController.cs" />
     <Compile Include="Controllers\Vendedor\VAccionesCompetenciaController.cs" />
     <Compile Include="Controllers\Vendedor\VEstadisticasController.cs" />
     <Compile Include="Controllers\Vendedor\VEstadoVisitaController.cs" />
+    <Compile Include="Controllers\Vendedor\VMobiliarioController.cs" />
     <Compile Include="Controllers\Vendedor\VMotivoVisitaController.cs" />
     <Compile Include="Controllers\Vendedor\VObjetivoVisitaController.cs" />
     <Compile Include="Controllers\Vendedor\VPlanSemanalController.cs" />
+    <Compile Include="Controllers\Vendedor\VPunteraController.cs" />
     <Compile Include="Controllers\Vendedor\VSucursalesAsignadosController.cs" />
     <Compile Include="Controllers\Vendedor\VVencimientoProductoController.cs" />
     <Compile Include="Controllers\Vendedor\VVisitasController.cs" />
@@ -278,9 +290,6 @@
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Cliente.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\Detalle_Visita.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Division.cs">
@@ -299,6 +308,12 @@
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\JefeVentasCanal.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Marcas.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Mobiliario.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Motivo.cs">
@@ -349,6 +364,12 @@
     <Compile Include="DB\Producto.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\Puntera.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\SubMarca.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Sucursal.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
@@ -358,13 +379,13 @@
     <Compile Include="DB\Task.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DB\TipoMueble.cs">
+      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="DB\Ubicacion.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Usuario.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\VClienteSAPHBF.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VencimientoProducto.cs">
@@ -391,9 +412,6 @@
     <Compile Include="DB\VentaLinea.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DB\VFrecuenciaVendedorCliente.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="DB\Visita.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
@@ -401,57 +419,6 @@
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\VisitaSAP.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\VVisitasRealizadas.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Canales_HBF.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_CARTERA_ACTUAL.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Cartera_Clientes.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_ClientesVenRep.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Clientes_HBF.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Clientes_Total.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_CLIENTE_SUCURSAL.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Detalle_Visita.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Dual_Visita.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_PlanSemCargXDia.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_PLAN_SEMANAL.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_RUTA_DIA.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_RUTA_DIA_NUEVO.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_VDetallePlanSVendedores.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Visitas_Detalle.cs">
-      <DependentUpon>PlanVisitasDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DB\V_Visitas_Dual.cs">
       <DependentUpon>PlanVisitasDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DB\Zona.cs">
@@ -465,6 +432,13 @@
     </Compile>
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Helpers\MemoryCacher.cs" />
+    <Compile Include="Models\Marca\MarcaModel.cs" />
+    <Compile Include="Models\Mobiliario\MobiliarioModel.cs" />
+    <Compile Include="Models\Mobiliario\MobiliarioUpsertModel.cs" />
+    <Compile Include="Models\Puntera\PunteraModel.cs" />
+    <Compile Include="Models\Puntera\PunteraUpsertModel.cs" />
+    <Compile Include="Models\SubMarca\SubMarcaModel.cs" />
+    <Compile Include="Models\TipoMueble\TipoMuebleModel.cs" />
     <Compile Include="Models\Utilities.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -527,6 +501,9 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Log.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -583,9 +560,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Marca\" />
     <Folder Include="Views\PlanSemanal\" />
+    <Folder Include="Views\SubMarca\" />
     <Folder Include="Views\Sucursal\" />
+    <Folder Include="Views\TipoMueble\" />
     <Folder Include="Views\VAccionesCompetencia\" />
+    <Folder Include="Views\VMobiliario\" />
+    <Folder Include="Views\VPuntera\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
