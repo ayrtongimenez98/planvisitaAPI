@@ -34,7 +34,10 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
 
                 var marcacionesList = new List<MarcacionesResponseModel>();
                 var paginationModel = new PaginationModel<MarcacionesResponseModel>();
-                var marcacionesQuery = db.Database.SqlQuery<MarcacionesResponseModel>(@"
+                var marcacionesQuery = new List<MarcacionesResponseModel>();
+                try
+                {
+                    marcacionesQuery = db.Database.SqlQuery<MarcacionesResponseModel>(@"
                    SELECT vs.Visita_Id,  
                     	   FORMAT (vs.Visita_fecha, 'yyyy_MM') as Periodo, 
                     	   vs.Visita_fecha, 
@@ -56,9 +59,12 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     FROM VisitaSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
                     inner join Sucursal s on vs.Sucursal_Id  = s.Sucursal_Id and vs.Cliente_Cod = s.Cliente_Cod
-					inner join Cliente c on vs.Cliente_Cod = s.Cliente_Cod
-                    inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
-                    inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
+					inner join Cliente c on vs.Cliente_Cod = c.Cliente_Cod").ToList<MarcacionesResponseModel>();
+                }
+                catch (Exception ex)
+                {
+
+                }
 
                 if (vendedor != 0)
                 {
@@ -185,7 +191,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
             {
                 string token = headers.GetValues("userToken").First();
                 var vendedor = Convert.ToInt32(token);
-                var visitas = db.VisitaSAP.Where(x => string.IsNullOrEmpty(x.Visita_Ubicacion_Salida) && x.Visita_Hora_Salida == null);
+                var visitas = db.VisitaSAP.Where(x => x.Vendedor_Id == vendedor && string.IsNullOrEmpty(x.Visita_Ubicacion_Salida) && x.Visita_Hora_Salida == null);
                 if(visitas.Any())
                 {
                     validation.Success = false;

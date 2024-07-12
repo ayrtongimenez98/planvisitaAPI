@@ -116,7 +116,7 @@ where vc.Vendedor_Id= " + item.Vendedor_Id).ToList<SucursalVendedorResponseModel
                     FROM VisitaSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
                     inner join Sucursal s on vs.Sucursal_Id  = s.Sucursal_Id and vs.Cliente_Cod = s.Cliente_Cod
-					inner join Cliente c on vs.Cliente_Cod = s.Cliente_Cod
+					inner join Cliente c on vs.Cliente_Cod = c.Cliente_Cod
                     inner join Motivo m on m.Motivo_Id = vs.Motivo_Id
                     inner join Estado e on vs.Estado_Id = e.Estado_Id").ToList<MarcacionesResponseModel>();
 

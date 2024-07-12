@@ -49,7 +49,7 @@ namespace PlanVisitaWebAPI.Controllers.Vendedor
                     FROM PlanSemanalSAP vs 
                     inner join Vendedor v on vs.Vendedor_Id = v.Vendedor_Id
                     inner join Sucursal s on vs.Cliente_Cod = s.Cliente_Cod and vs.Sucursal_Id = s.Sucursal_Id
-					inner join Cliente c on vs.Cliente_Cod = s.Cliente_Cod
+					inner join Cliente c on vs.Cliente_Cod = c.Cliente_Cod
                  ").ToList<PlanSemanalResponseModel>();
 
                 if (vendedorId != 0)
