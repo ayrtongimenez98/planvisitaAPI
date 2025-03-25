@@ -88,7 +88,9 @@ namespace PlanVisitaWebAPI.Controllers
                 {
                     response.StatusCode = HttpStatusCode.OK;
                     validation.Message = "Creado con éxito";
-                
+                    MemoryCacher.Delete("listaClientesNormal");
+
+
                 } else
                 {
                     response.StatusCode = HttpStatusCode.BadRequest;

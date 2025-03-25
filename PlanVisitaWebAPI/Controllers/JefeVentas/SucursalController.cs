@@ -115,7 +115,7 @@ inner join Cliente c on c.Cliente_Cod = s.Cliente_Cod").ToList<ClientesHBFDataSe
                 {
                     response.StatusCode = HttpStatusCode.OK;
                     validation.Message = "Creado con éxito";
-
+                    MemoryCacher.Delete("listaSucursales");
                 }
                 else
                 {
